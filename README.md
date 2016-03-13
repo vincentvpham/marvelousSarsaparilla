@@ -62,3 +62,16 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 
 ##Tests
   > Some_testing_instructions
+
+## Running React Native Emulator
+To run your app on iOS:
+   cd /paktClient/Pakt
+   react-native run-ios
+   - or -
+   Open /paktClient/Pakt/ios/Pakt.xcodeproj in Xcode
+   Hit the Run button
+
+To run your app on Android:
+   Have an Android emulator running (quickest way to get started), or a device connected
+   cd /paktClient/Pakt
+   react-native run-android
