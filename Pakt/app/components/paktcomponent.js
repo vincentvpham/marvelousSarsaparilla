@@ -7,8 +7,6 @@ import React, {
   TouchableOpacity
 } from 'react-native';
 
-var PaktView = require('./paktcomponent');
-
 const styles = StyleSheet.create({
   button: {
     width: 100,
@@ -21,7 +19,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class Counter extends Component {
+export default class PaktView extends Component {
   constructor(props) {
     super(props);
   }
@@ -30,12 +28,9 @@ export default class Counter extends Component {
     const { counter, increment, decrement } = this.props;
 
     return (
-      <Navigator
-        initialRoute={{name: 'My First Scene', index: 0}}
-        renderScene = {(route, navigator) => 
-          <PaktView />
-        }
-      />
+      <Text>Hello</Text>
     );
   }
 }
+
+module.exports = PaktView;
