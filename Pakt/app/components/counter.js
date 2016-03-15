@@ -8,6 +8,7 @@ import React, {
 } from 'react-native';
 
 var PaktView = require('./paktcomponent');
+var PaktListView = require('./paktListView');
 
 const styles = StyleSheet.create({
   button: {
@@ -33,7 +34,7 @@ export default class Counter extends Component {
       <Navigator
         initialRoute={{name: 'My First Scene', index: 0}}
         renderScene = {(route, navigator) => 
-          <PaktView />
+          <PaktListView />
         }
       />
     );
