@@ -16,7 +16,7 @@ var MOCKED_DATA = [
 ];
 
 // Class
-export default class PaktListView extends Component {
+class PaktListView extends Component {
   constructor(props) {
     super(props);
     this.state = {
