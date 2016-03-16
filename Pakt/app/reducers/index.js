@@ -1,5 +1,12 @@
-import counter from './counter';
+import { combineReducers } from 'redux';
+import todos from './todos';
+import visibilityFilter from './visibilityFilter';
+import routes from './routes';
 
-export {
-  counter
-};
+const todoApp = combineReducers({
+  todos,
+  visibilityFilter,
+  routes,
+});
+
+export default todoApp;
