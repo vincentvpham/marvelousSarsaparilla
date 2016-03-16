@@ -75,3 +75,6 @@ To run your app on Android:
    Have an Android emulator running (quickest way to get started), or a device connected
    cd /paktClient/Pakt
    react-native run-android
+
+## Camera - Install Docs
+https://github.com/lwansbrough/react-native-camera
