@@ -9,11 +9,11 @@ import React, {
 } from 'react-native';
 
 // Mocked Data
-var MOCKED_DATA = [
-  {title: 'Gym', description: 'Go to gym three times a week', posters: {thumbnail: ''}},
-  {title: 'Dance', description: 'Dance 2 times a week', posters: {thumbnail: ''}},
-  {title: 'Go out :)', description: 'Stay out past midnight tonight', posters: {thumbnail: ''}},
-];
+// var MOCKED_DATA = [
+//   {title: 'Gym', description: 'Go to gym three times a week', posters: {thumbnail: ''}},
+//   {title: 'Dance', description: 'Dance 2 times a week', posters: {thumbnail: ''}},
+//   {title: 'Go out :)', description: 'Stay out past midnight tonight', posters: {thumbnail: ''}},
+// ];
 
 // Class
 class PaktListView extends Component {
@@ -32,9 +32,22 @@ class PaktListView extends Component {
   }
 
   fetchData() {
-    this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(MOCKED_DATA),
-      loaded: true,
+    fetch('http://127.0.0.1:3000/api/pakts/', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => response.text())
+    .then((responseText) => {
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(JSON.parse(responseText)),
+        loaded: true,
+      });
+    })
+    .catch((error) => {
+      console.warn(error);
     });
   }
 

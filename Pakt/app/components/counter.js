@@ -3,8 +3,8 @@ import React, {
   Navigator,
 } from 'react-native';
 
-// var PaktListView = require('./paktListView');
-var CameraView = require('./cameraView');
+var PaktListView = require('./paktListView');
+// var CameraView = require('./cameraView');
 
 export default class Pakt extends Component {
 
@@ -13,8 +13,8 @@ export default class Pakt extends Component {
       <Navigator
         initialRoute={{ name: 'My First Scene', index: 0 }}
         renderScene = {(route, navigator) =>
-          <CameraView />
-          // <PaktListView />
+          // <CameraView />
+          <PaktListView />
         }
       />
     );
