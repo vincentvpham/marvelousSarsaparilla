@@ -18,7 +18,7 @@ import {Scene, Router, TabBar, Modal, Schema, Actions} from 'react-native-router
 const scenes = Actions.create(
         <Scene  key="root">
             <Scene type="replace" key="login" initial={true} component={Login} title="Login"/>
-            <Scene key="creater" type="replace" component={Create} title="Create"/>
+            <Scene key="creator" type="replace" component={Create} title="Create"/>
             <Scene key="paktList" type="replace" component={PaktList} title="PaktList"/>
             {/*<Scene key="camera" type="replace" component={Camera} title="Camera"/>*/}
         </Scene>
