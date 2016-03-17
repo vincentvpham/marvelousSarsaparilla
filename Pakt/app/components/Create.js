@@ -16,14 +16,14 @@ const styles = StyleSheet.create({
   },
 });
 
-class Pakts extends React.Component {
+class Creater extends React.Component {
     render(){
         return (
             <View >
-                <Text style= {styles.centerText} >Paaaakts!</Text>
+                <Text style= {styles.centerText} >Create a paaakt!</Text>
             </View>
         );
     }
 }
 
-module.exports = Pakts;
+module.exports = Creater;

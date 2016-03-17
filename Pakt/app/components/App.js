@@ -10,7 +10,7 @@ import React, {
 } from 'react-native';
 import SwitchRoute from '../containers/SwitchRoute';
 import Login from './Login';
-import Pakts from './Pakts';
+import Create from './Create';
 import {Scene, Router, TabBar, Modal, Schema, Actions} from 'react-native-router-flux'
 
 var styles = StyleSheet.create({
@@ -22,8 +22,9 @@ var styles = StyleSheet.create({
 const scenes = Actions.create(
         <Scene  key="root">
             <Scene type="replace" key="login" initial={true} component={Login} title="Login"/>
-            <Scene key="pakts" type="replace" component={Pakts} title="Pakts"/>
-            {/* <Scene key="camera" component={Camera} title="Camera"/>*/}
+            <Scene key="creater" type="replace" component={Create} title="Create"/>
+            {/*<Scene key="camera" type="replace" component={Camera} title="Camera"/>*/}
+            {/*<Scene key="pakts" type="replace" component={Pakts} title="Pakts"/>*/}
         </Scene>
 );
 
