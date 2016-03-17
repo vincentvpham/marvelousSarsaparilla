@@ -8,17 +8,29 @@ import React, {
   View,
   PropTypes,
 } from 'react-native';
+import {Actions} from 'react-native-router-flux'
 
-const NavBar = ({ onNavPress }) => (
-  <View>
-    <Text onPress={() => onNavPress('Pakts')}>Pakts</Text>
-    <Text onPress={() => onNavPress('Camera')}>Camera</Text>
-    <Text onPress={() => onNavPress('Create')}>Create</Text>
+const styles = StyleSheet.create({
+  navBar: {
+    backgroundColor: 'lightgray',
+    flex: 1,
+    flexDirection:'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  navItem: {
+    flex: 1,
+    textAlign: 'center'
+  }
+});
+
+const NavBar = ({ onNavPress }) => ( 
+  <View style= {styles.navBar}>    
+    <Text style= {styles.navItem} onPress={() => onNavPress('creator')}>Create A Pakt</Text>
+    <Text style= {styles.navItem} onPress={() => onNavPress('login')}> Login </Text>
+    <Text style= {styles.navItem} onPress={() => onNavPress('paktList')}> PaktList </Text>
+    {/*<Text style= {styles.navItem} onPress={() => onNavPress('camera')}> Camera </Text> */}
   </View>
 );
-
-NavBar.propTypes = {
-  onPress: PropTypes.func.isRequired,
-};
 
 export default NavBar;

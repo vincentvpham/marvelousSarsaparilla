@@ -1,12 +1,12 @@
-const todo = (state, action) => {
+const pakt = (state, action) => {
   switch (action.type) {
-    case 'ADD_TODO':
+    case 'ADD_PAKT':
       return {
         id: action.id,
         text: action.text,
         completed: false
       }
-    case 'TOGGLE_TODO':
+    case 'TOGGLE_PAKT':
       if (state.id !== action.id) {
         return state
       }
@@ -19,20 +19,20 @@ const todo = (state, action) => {
   }
 }
 
-const todos = (state = [], action) => {
+const pakts = (state = [], action) => {
   switch (action.type) {
-    case 'ADD_TODO':
+    case 'ADD_PAKT':
       return [
         ...state,
-        todo(undefined, action)
+        pakt(undefined, action)
       ]
-    case 'TOGGLE_TODO':
+    case 'TOGGLE_PAKT':
       return state.map(t =>
-        todo(t, action)
+        pakt(t, action)
       )
     default:
       return state
   }
 }
 
-export default todos
+export default pakts

@@ -16,14 +16,14 @@ const styles = StyleSheet.create({
   },
 });
 
-class Login extends React.Component {
+class Creator extends React.Component {
   render(){
     return (
       <View >
-        <Text style= {styles.centerText} >Login page</Text>               
+        <Text style = {styles.centerText} >Create a paaakt!</Text>
       </View>
     );
   }
 }
 
-module.exports = Login;
+module.exports = Creator;

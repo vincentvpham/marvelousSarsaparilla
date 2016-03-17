@@ -1,12 +1,8 @@
 import { combineReducers } from 'redux';
-import todos from './todos';
-import visibilityFilter from './visibilityFilter';
-import routes from './routes';
+import pakts from './pakts';
 
-const todoApp = combineReducers({
-  todos,
-  visibilityFilter,
-  routes,
+const paktApp = combineReducers({
+  pakts,
 });
 
-export default todoApp;
+export default paktApp;

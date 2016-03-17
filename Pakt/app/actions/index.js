@@ -20,10 +20,3 @@ export const toggleTodo = (id) => {
     id,
   };
 };
-
-export const changeRoute = (name) => {
-  return {
-    type: 'CHANGE_ROUTE',
-    name,
-  };
-};

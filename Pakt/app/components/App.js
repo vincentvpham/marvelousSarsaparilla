@@ -8,22 +8,28 @@ import React, {
   View,
   PropTypes,
 } from 'react-native';
-import NavBar from './NavBar';
 import SwitchRoute from '../containers/SwitchRoute';
-import { Router, routerReducer, Route, Container, Animations, Schema } from 'react-native-redux-router';
-import Login from '../components/Login';
-import Pakts from '../components/Pakts';
-import Camera from '../components/Camera';
+import Login from './Login';
+import Creator from './Creator';
+import PaktList from './PaktList';
+
+import {Scene, Router, TabBar, Modal, Schema, Actions} from 'react-native-router-flux'
+
+const scenes = Actions.create(
+  <Scene  key="root">
+    <Scene type="replace" key="login" initial={true} component={Login} title="Login"/>
+    <Scene key="creator" type="replace" component={Creator} title="Create"/>
+    <Scene key="paktList" type="replace" component={PaktList} title="PaktList"/>
+    {/*<Scene key="camera" type="replace" component={Camera} title="Camera"/>*/}
+  </Scene>
+);
 
 const App = () => (
-  <View>{/*
-    <Router>
-      <Route name="login" component={Login} initial={true} title="Login"/>
-      {/*<Route name="pakts" component={Pakts} title="Pakts"/>
-      <Route name="camera" component={Camera} title="Camera"/>
-    </Router>*/}
-    <SwitchRoute /> 
-
+  <View style={{flex: 1}}>
+    <Router style={{flex: .4}} scenes={scenes}/>
+    <View style={{flex: .1}}>
+      <SwitchRoute/> 
+    </View>
   </View>
 )
 
