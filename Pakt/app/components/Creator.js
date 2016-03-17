@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class Creater extends React.Component {
+class Creator extends React.Component {
     render(){
         return (
             <View >
@@ -26,4 +26,4 @@ class Creater extends React.Component {
     }
 }
 
-module.exports = Creater;
+module.exports = Creator;

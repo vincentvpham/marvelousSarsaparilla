@@ -17,14 +17,13 @@ const styles = StyleSheet.create({
 });
 
 class Login extends React.Component {
-    render(){
-        return (
-            <View >
-                <Text style= {styles.centerText} >Login page</Text>               
-            </View>
-        );
-    }
+  render(){
+    return (
+      <View >
+          <Text style= {styles.centerText} >Login page</Text>               
+      </View>
+    );
+  }
 }
-
 
 module.exports = Login;
