@@ -11,20 +11,16 @@ import React, {
 import SwitchRoute from '../containers/SwitchRoute';
 import Login from './Login';
 import Create from './Create';
-import {Scene, Router, TabBar, Modal, Schema, Actions} from 'react-native-router-flux'
+import PaktList from './PaktList';
 
-var styles = StyleSheet.create({
-  navbar: {
-    marginTop: 40,
-  }
-});
+import {Scene, Router, TabBar, Modal, Schema, Actions} from 'react-native-router-flux'
 
 const scenes = Actions.create(
         <Scene  key="root">
             <Scene type="replace" key="login" initial={true} component={Login} title="Login"/>
             <Scene key="creater" type="replace" component={Create} title="Create"/>
+            <Scene key="paktList" type="replace" component={PaktList} title="PaktList"/>
             {/*<Scene key="camera" type="replace" component={Camera} title="Camera"/>*/}
-            {/*<Scene key="pakts" type="replace" component={Pakts} title="Pakts"/>*/}
         </Scene>
 );
 
@@ -32,7 +28,7 @@ const App = () => (
   <View style={{flex: 1}}>
     <Router style={{flex: .4}} scenes={scenes}/>
     <View style={{flex: .1}}>
-      <SwitchRoute style= {styles.navItem}/> 
+      <SwitchRoute/> 
     </View>
   </View>
 )

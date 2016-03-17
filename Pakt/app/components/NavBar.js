@@ -29,9 +29,8 @@ const NavBar = ({ onNavPress }) => (
   <View style= {styles.navBar}>    
     <Text style= {styles.navItem} onPress={Actions.creater}>Create A Pakt</Text>
     <Text style= {styles.navItem} onPress={Actions.login}> Login </Text>
-    {/*<Text style= {styles.navItem} onPress={Actions.camera}> Camera </Text>
-    <Text style= {styles.navItem} onPress={Actions.paktList}> PaktList </Text>*/}
-
+    <Text style= {styles.navItem} onPress={Actions.paktList}> PaktList </Text>
+    {/*<Text style= {styles.navItem} onPress={Actions.camera}> Camera </Text>*/}
   </View>
 );
 

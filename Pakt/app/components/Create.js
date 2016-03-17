@@ -20,7 +20,7 @@ class Creater extends React.Component {
     render(){
         return (
             <View >
-                <Text style= {styles.centerText} >Create a paaakt!</Text>
+                <Text style = {styles.centerText} >Create a paaakt!</Text>
             </View>
         );
     }

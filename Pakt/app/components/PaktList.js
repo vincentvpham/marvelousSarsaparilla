@@ -9,21 +9,17 @@ import React, {
   PropTypes,
 } from 'react-native';
 
-const Pakt = ({ onClick, completed, text }) => (
-  <li
-    onClick={onClick}
-    style={{
-      textDecoration: completed ? 'line-through' : 'none'
-    }}
-  >
+const styles = StyleSheet.create({
+  centerText: {
+    marginTop: 200,
+  },
+});
+
+const PaktList = ({ onClick, completed, text }) => (
+  <View style = {styles.centerText}>
+        <Text> this is the pakt list</Text>
     {text}
-  </li>
+  </View>
 )
 
-Pakt.propTypes = {
-  onClick: PropTypes.func.isRequired,
-  completed: PropTypes.bool.isRequired,
-  text: PropTypes.string.isRequired
-}
-
-export default Pakt
+export default PaktList
