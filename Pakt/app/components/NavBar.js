@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
   navItem: {
     flex: 1,
     textAlign: 'center'
-
   }
 });
 

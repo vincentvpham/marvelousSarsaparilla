@@ -20,7 +20,7 @@ class Login extends React.Component {
   render(){
     return (
       <View >
-          <Text style= {styles.centerText} >Login page</Text>               
+        <Text style= {styles.centerText} >Login page</Text>               
       </View>
     );
   }
