@@ -17,8 +17,7 @@ const styles = StyleSheet.create({
 
 const PaktList = ({ onClick, completed, text }) => (
   <View style = {styles.centerText}>
-        <Text> this is the pakt list</Text>
-    {text}
+    <Text> this is the pakt list</Text>
   </View>
 )
 

@@ -17,13 +17,13 @@ const styles = StyleSheet.create({
 });
 
 class Creator extends React.Component {
-    render(){
-        return (
-            <View >
-                <Text style = {styles.centerText} >Create a paaakt!</Text>
-            </View>
-        );
-    }
+  render(){
+    return (
+      <View >
+        <Text style = {styles.centerText} >Create a paaakt!</Text>
+      </View>
+    );
+  }
 }
 
 module.exports = Creator;

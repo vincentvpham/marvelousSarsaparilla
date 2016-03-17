@@ -16,12 +16,12 @@ import PaktList from './PaktList';
 import {Scene, Router, TabBar, Modal, Schema, Actions} from 'react-native-router-flux'
 
 const scenes = Actions.create(
-        <Scene  key="root">
-            <Scene type="replace" key="login" initial={true} component={Login} title="Login"/>
-            <Scene key="creator" type="replace" component={Creator} title="Create"/>
-            <Scene key="paktList" type="replace" component={PaktList} title="PaktList"/>
-            {/*<Scene key="camera" type="replace" component={Camera} title="Camera"/>*/}
-        </Scene>
+  <Scene  key="root">
+    <Scene type="replace" key="login" initial={true} component={Login} title="Login"/>
+    <Scene key="creator" type="replace" component={Creator} title="Create"/>
+    <Scene key="paktList" type="replace" component={PaktList} title="PaktList"/>
+    {/*<Scene key="camera" type="replace" component={Camera} title="Camera"/>*/}
+  </Scene>
 );
 
 const App = () => (
