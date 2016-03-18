@@ -25,22 +25,8 @@ function fetchPakts() {
   };
 }
 
-// function shouldFetchPakts(state, reddit) {
-//   const posts = state.postsByReddit[reddit]
-//   if (!posts) {
-//     return true
-//   }
-//   if (posts.isFetching) {
-//     return false
-//   }
-//   return posts.didInvalidate
-// }
-
 export function fetchPaktsIfNeeded() { 
   return (dispatch, getState) => {
-    // if (shouldFetchPakts(getState(), reddit)) {
-    if (true) {
       return dispatch(fetchPakts());
-    }
   };
 }
