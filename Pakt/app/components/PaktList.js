@@ -9,16 +9,70 @@ import React, {
   PropTypes,
 } from 'react-native';
 
+import PaktListItem from './PaktListItem';
+
 const styles = StyleSheet.create({
-  centerText: {
-    marginTop: 200,
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+  listView: {
+    flex: 1,
+    paddingTop: 65,
+    backgroundColor: '#F5FCFF',
   },
 });
 
-const PaktList = ({ onClick, completed, text }) => (
-  <View style = {styles.centerText}>
-    <Text> this is the pakt list</Text>
-  </View>
-)
+class PaktList extends Component {
+  constructor(props) {
+    super(props);
+  }
 
-export default PaktList
+  componentDidMount() {
+    this.props.listThePakts();
+  }
+
+  renderPakt(pakt) {
+    return (
+      <PaktListItem pakt={pakt} />
+    );
+  }
+
+  renderPaktsView() {
+    const { pakts } = this.props;
+    let dataSource = new ListView.DataSource({
+      rowHasChanged: (row1, row2) => row1 !== row2,
+    });
+    dataSource = dataSource.cloneWithRows(pakts);
+
+    return (
+      <View>
+        <ListView
+          dataSource={dataSource}
+          renderRow={this.renderPakt}
+          style={styles.listView} />
+      </View>
+    );
+  }
+
+  renderLoadingView() {
+    return (
+      <View style={styles.container}>
+        <Text>
+          Loading Pakts...
+        </Text>
+      </View>
+    );
+  }
+
+  render() {
+    const { isFetching } = this.props;
+    return (isFetching) ? this.renderLoadingView() : this.renderPaktsView();
+  }
+
+}
+
+export default PaktList;
