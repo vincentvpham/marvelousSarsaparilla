@@ -15,10 +15,18 @@ const styles = StyleSheet.create({
   },
 });
 
-const PaktList = ({ onClick, completed, text }) => (
-  <View style = {styles.centerText}>
-    <Text> this is the pakt list</Text>
-  </View>
-)
+class PaktList extends Component {
+  componentDidMount() {
+    this.props.listThePakts();
+  }
 
-export default PaktList
+  render() {
+    return (
+      <View style = {styles.centerText}>
+        <Text> this is the pakt list</Text>
+      </View>
+    );
+  }
+}
+
+export default PaktList;

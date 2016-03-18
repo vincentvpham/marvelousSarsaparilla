@@ -1,38 +1,23 @@
-const pakt = (state, action) => {
-  switch (action.type) {
-    case 'ADD_PAKT':
-      return {
-        id: action.id,
-        text: action.text,
-        completed: false
-      }
-    case 'TOGGLE_PAKT':
-      if (state.id !== action.id) {
-        return state
-      }
+import { REQUEST_PAKTS, RECEIVE_PAKTS } from '../actions';
 
+function pakts(state = {
+  isFetching: false,
+  items: [],
+}, action) {
+  switch (action.type) {
+    case REQUEST_PAKTS:
       return Object.assign({}, state, {
-        completed: !state.completed
-      })
+        isFetching: true,
+      });
+    case RECEIVE_PAKTS:
+      return Object.assign({}, state, {
+        isFetching: false,
+        items: action.pakts,
+        lastUpdated: action.receivedAt,
+      });
     default:
-      return state
+      return state;
   }
 }
 
-const pakts = (state = [], action) => {
-  switch (action.type) {
-    case 'ADD_PAKT':
-      return [
-        ...state,
-        pakt(undefined, action)
-      ]
-    case 'TOGGLE_PAKT':
-      return state.map(t =>
-        pakt(t, action)
-      )
-    default:
-      return state
-  }
-}
-
-export default pakts
+export default pakts;
