@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   rightContainer: {
     flex: 1,
   },
-  title: {
+  name: {
     fontSize: 20,
     marginBottom: 8,
     textAlign: 'center',
@@ -38,7 +38,7 @@ const PaktListItem = ({ pakt }) => {
   return (
     <View style={styles.container}>
       <View style={styles.rightContainer}>
-        <Text style={styles.title}>{pakt.title}</Text>
+        <Text style={styles.name}>{pakt.name}</Text>
         <Text style={styles.description}>{pakt.description}</Text>
       </View>
     </View>
