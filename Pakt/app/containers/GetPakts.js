@@ -2,6 +2,15 @@ import { connect } from 'react-redux';
 import { fetchPaktsIfNeeded } from '../actions'
 import PaktList from '../components/PaktList';
 
+const mapStateToProps = (state) => {
+  console.log('state', state);
+  return {
+    pakts: state.pakts.items,
+    isFetching: state.pakts.isFetching,
+  };
+};
+
+
 const mapDispatchToProps = (dispatch) => {
   return {
     onNavPress: (name) => {
@@ -16,7 +25,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const GetPakts = connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(PaktList);
 
