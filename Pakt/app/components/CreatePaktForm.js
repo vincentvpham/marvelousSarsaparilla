@@ -54,9 +54,8 @@ class CreatePaktForm extends React.Component {
     }
   }
 
-  render() {
+  render(){
     return (
-<<<<<<< 8e6eeba4d1493dd54858a0d0b72b9bb609a901ba
       <View style={styles.container}>
         <Text>Name:</Text>
         <TextInput
@@ -79,15 +78,6 @@ class CreatePaktForm extends React.Component {
            <Text onPress={()=>this.setState({isRepeating: false})}>NO</Text> 
            {(this.state.isRepeating === null) ? null :  <PaktDateForm  getInput= {this.getInput.bind(this)} isRepeating= {this.state.isRepeating}/>}
            <TouchableHighlight style={styles.button} onPress={this.getInput.bind(this, 'submit')} ><Text>Submit</Text></TouchableHighlight>
-=======
-      <View >
-        <Text style = {styles.centerText} >Create a paaakt!</Text>
-        <TextInput
-           style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-           onChangeText={(text) => this.setState({text})}
-           value={3}
-         />
->>>>>>> Add basic text input
       </View>
     );
   }
