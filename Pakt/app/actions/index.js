@@ -19,7 +19,7 @@ function receivePakts(json) {
 function fetchPakts() {
   return dispatch => {
     dispatch(requestPakts());
-    return fetch('http://127.0.0.1:3000/api/pakts/')
+    return fetch('http://127.0.0.1:3000/api/pakts/1')
       .then(response => response.json())
       .then(json => dispatch(receivePakts(json)));
   };
