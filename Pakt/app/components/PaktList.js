@@ -35,14 +35,8 @@ class PaktList extends Component {
     this.props.listThePakts();
   }
 
-  renderPakt(pakt) {
-    return (
-      <PaktListItem pakt={pakt} />
-    );
-  }
-
   renderPaktsView() {
-    const { pakts } = this.props;
+    const { pakts, onPaktClick } = this.props;
     let dataSource = new ListView.DataSource({
       rowHasChanged: (row1, row2) => row1 !== row2,
     });
@@ -52,7 +46,7 @@ class PaktList extends Component {
       <View>
         <ListView
           dataSource={dataSource}
-          renderRow={this.renderPakt}
+          renderRow={(rowData) => <PaktListItem pakt={rowData} onPaktClick={onPaktClick} />}
           style={styles.listView} />
       </View>
     );

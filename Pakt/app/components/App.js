@@ -13,6 +13,7 @@ import Login from './Login';
 import Creator from './Creator';
 import GetPakts from '../containers/GetPakts';
 import Camera from '../components/Camera';
+import IndividualPakt from '../containers/GetCurrentPakt';
 
 import { Scene, Router, TabBar, Modal, Schema, Actions } from 'react-native-router-flux';
 
@@ -22,6 +23,7 @@ const scenes = Actions.create(
     <Scene key="creator" type="replace" component={Creator} title="Create" />
     <Scene key="paktList" type="replace" component={GetPakts} title="PaktList" />
     <Scene key="camera" type="replace" component={Camera} title="Camera" />
+    <Scene key="individualPakt" type="replace" component={IndividualPakt} title="Individual Pakt" />
   </Scene>
 );
 

@@ -1,11 +1,12 @@
 import fetch from 'isomorphic-fetch';
 export const REQUEST_PAKTS = 'REQUEST_PAKTS';
 export const RECEIVE_PAKTS = 'RECEIVE_PAKTS';
+export const SET_CURRENT_PAKT = 'SET_CURRENT_PAKT';
 
 function requestPakts() {
   return {
     type: REQUEST_PAKTS,
-  }
+  };
 }
 
 function receivePakts(json) {
@@ -13,7 +14,7 @@ function receivePakts(json) {
     type: RECEIVE_PAKTS,
     pakts: json,
     receivedAt: Date.now(),
-  }
+  };
 }
 
 function fetchPakts() {
@@ -27,6 +28,13 @@ function fetchPakts() {
 
 export function fetchPaktsIfNeeded() { 
   return (dispatch, getState) => {
-      return dispatch(fetchPakts());
+    return dispatch(fetchPakts());
+  };
+}
+
+export function setCurrentPakt(id) {
+  return {
+    type: SET_CURRENT_PAKT,
+    currentPaktId: id,
   };
 }

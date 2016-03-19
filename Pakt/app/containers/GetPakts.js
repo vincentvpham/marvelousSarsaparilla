@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { fetchPaktsIfNeeded } from '../actions'
+import { setCurrentPakt, fetchPaktsIfNeeded } from '../actions';
 import PaktList from '../components/PaktList';
 
 const mapStateToProps = (state) => {
@@ -13,6 +13,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     listThePakts: () => {
       dispatch(fetchPaktsIfNeeded());
+    },
+    onPaktClick: (paktId) => {
+      dispatch(setCurrentPakt(paktId));
     },
   };
 };
