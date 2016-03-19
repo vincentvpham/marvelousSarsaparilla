@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { setCurrentPakt, fetchPaktsIfNeeded } from '../actions';
 import PaktList from '../components/PaktList';
+import {Actions} from 'react-native-router-flux'
 
 const mapStateToProps = (state) => {
   return {
@@ -16,6 +17,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     onPaktClick: (paktId) => {
       dispatch(setCurrentPakt(paktId));
+      Actions.individualPakt();
     },
   };
 };
