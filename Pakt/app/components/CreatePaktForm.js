@@ -54,14 +54,14 @@ class CreatePaktForm extends React.Component {
     }
   }
 
-  render(){
+  render() {
     return (
       <View style={styles.container}>
         <Text>Name:</Text>
         <TextInput
           style={styles.TextInput}
           onChange={this.getInput.bind(this, 'name')}
-         />
+        />
          <Text>Description:</Text>
          <TextInput
             style={styles.TextInput}
