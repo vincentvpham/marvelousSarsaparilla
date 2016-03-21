@@ -39,8 +39,6 @@ export function submitPakt(pakt) {
       },
       body: JSON.stringify(pakt),
     });
-  };
-}
 
 export function fetchPaktsIfNeeded() { 
   return (dispatch, getState) => {
