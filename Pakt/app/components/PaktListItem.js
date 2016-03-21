@@ -38,7 +38,7 @@ const PaktListItem = ({ pakt, onPaktClick }) => {
   return (
     <View style={styles.container}>
       <View style={styles.rightContainer}>
-        <Text onPress={() => onPaktClick(pakt.id)} style={styles.name}>{pakt.name}</Text>
+        <Text onPress={() => onPaktClick(pakt)} style={styles.name}>{pakt.name}</Text>
         <Text style={styles.description}>{pakt.description}</Text>
       </View>
     </View>

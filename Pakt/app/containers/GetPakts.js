@@ -15,8 +15,8 @@ const mapDispatchToProps = (dispatch) => {
     listThePakts: () => {
       dispatch(fetchPaktsIfNeeded());
     },
-    onPaktClick: (paktId) => {
-      dispatch(setCurrentPakt(paktId));
+    onPaktClick: (currentPakt) => {
+      dispatch(setCurrentPakt(currentPakt));
       Actions.individualPakt();
     },
   };

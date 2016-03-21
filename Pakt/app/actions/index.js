@@ -32,9 +32,9 @@ export function fetchPaktsIfNeeded() {
   };
 }
 
-export function setCurrentPakt(id) {
+export function setCurrentPakt(pakt) {
   return {
     type: SET_CURRENT_PAKT,
-    currentPaktId: id,
+    currentPakt: pakt,
   };
 }

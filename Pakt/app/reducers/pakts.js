@@ -18,12 +18,8 @@ function pakts(state = {
         lastUpdated: action.receivedAt,
       });
     case SET_CURRENT_PAKT:
-      const currentPakt = _.find(state.items, function(pakt) {
-        return pakt.id === action.currentPaktId;
-      });
-
       return Object.assign({}, state, {
-        currentPakt: currentPakt,
+        currentPakt: action.currentPakt,
       });
     default:
       return state;
