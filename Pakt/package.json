@@ -16,6 +16,7 @@
     "react-native": "0.22.0-rc",
     "react-native-camera": "git+https://github.com/lwansbrough/react-native-camera.git",
     "react-native-cli": "^0.1.10",
+    "react-native-facebook-login": "^1.0.3",
     "react-native-router-flux": "^3.0.9",
     "react-redux": "4.4.0",
     "redux": "3.3.1",

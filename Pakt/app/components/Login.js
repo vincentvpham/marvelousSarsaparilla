@@ -9,7 +9,8 @@ import React, {
   PropTypes,
 } from 'react-native';
 import {Actions} from 'react-native-router-flux'
- 
+var FBLogin = require('react-native-facebook-login');
+
 const styles = StyleSheet.create({
   centerText: {
     marginTop: 200,
@@ -20,7 +21,7 @@ class Login extends React.Component {
   render(){
     return (
       <View >
-        <Text style= {styles.centerText} >Login page</Text>               
+        <FBLogin style= {styles.centerText} />               
       </View>
     );
   }
