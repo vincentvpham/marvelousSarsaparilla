@@ -16,7 +16,7 @@ import GetCurrentPakt from '../containers/GetCurrentPakt';
 import { connect } from 'react-redux';
 import { Scene, Router, TabBar, Modal, Schema, Actions, Switch } from 'react-native-router-flux';
 
-
+//tabs for bottom navBar
 class TabIcon extends React.Component {
     render(){
         return (
@@ -25,6 +25,7 @@ class TabIcon extends React.Component {
     }
 }
 
+//function determines if user is logged in, if not, returns the 'login' id 
 const mapStateToProps = (state) => {
   return {
     selector: () => {
@@ -51,7 +52,6 @@ const scenes = Actions.create(
       <Scene key="createPakt" component={CreatePakt} title="Create Pakt" icon={TabIcon}/>
       <Scene key="camera" component={Camera} title="Camera" icon={TabIcon} />
       <Scene key="logout" component={LoginUser} title="Logout" icon={TabIcon} />
-
     </Scene>
   </Scene>
 );
