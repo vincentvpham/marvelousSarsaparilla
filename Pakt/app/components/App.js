@@ -31,9 +31,9 @@ const mapStateToProps = (state) => {
     selector: () => {
       console.log(state, 'we have a user??');
       if (!state.users.currentUser) {
-        return 'login';
-      } else {
         return 'tabbar';
+      } else {
+        return 'login';
       }
     },
   };
