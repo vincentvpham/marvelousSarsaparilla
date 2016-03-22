@@ -5,14 +5,13 @@ Building some cool stuff (NBAS)
 ## Table of Contents
 
 1. [Team](#team)
-2. [Usage](#Usage)
+2. [Development](#development)
 3. [Requirements](#requirements)
-4. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
     2. [File Hierarchy](#hierarchy)
-5. [Contributing](#contributing)
-6. [Documentation](#Documentation)
-7. [Tests](#Tests)
+4. [Contributing](#contributing)
+5. [Documentation](#documentation)
+6. [Running React Native Emulator](#running-react-native-emulator)
 
 ## Team
 
@@ -20,61 +19,87 @@ Building some cool stuff (NBAS)
   - __Scrum Master__: Vincent Pham
   - __Development Team Members__: Deniz Mekik, Robert Boggs, Taylor Chamberlain, Vincent Pham
 
-## Usage
-
-> Some_usage_instructions
-
-## Requirements
-
-  - Some_requirement
-  - Some_requirement
-  - Some_requirement
-
 ## Development
 
 ### Installing Dependencies
 
 From within the root directory:
 ```sh
-sudo npm install -g bower
 npm install
-bower install
 ```
+
+## Requirements
+
+  - Xcode
 
 ### File Hierarchy
 
 ```js
 ROOT
- |__SERVER__
- |
- |
- |
- |__CLIENT__
-
+ |__(Pakt)CLIENT__
+     |
+     |__ANDROID__
+     |   |- ... etc ...
+     |
+     |__APP__
+     |   |__ACTIONS__
+     |   |   |- index.js
+     |   |
+     |   |__COMPONENTS__
+     |   |   |- App.js
+     |   |   |- Camera.js
+     |   |   |- IndividualPakt.js
+     |   |   |- Link.js
+     |   |   |- Login.js
+     |   |   |- NavBar.js
+     |   |   |- PaktList.js
+     |   |   |- PaktListItem.js
+     |   |
+     |   |__CONTAINERS__
+     |   |   |- FilterLink.js
+     |   |   |- GetCurrentPakt.js
+     |   |   |- GetPakts.js
+     |   |   |- SwitchRoute.js
+     |   |   
+     |   |__REDUCERS__
+     |   |   |- index.js
+     |   |   |- pakts.js
+     |   |   |- visibilityFilter.js
+     |   |   
+     |   |__TEST__
+     |   |   |- ... etc ...
+     |   |
+     |   |__UTILS__
+     |       |- env.example.js
+     |       |- s3_policy.js
+     |
+     |__IOS__
+         |- ... etc ...
 ```
 
 ## Contributing
-
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 
 ##Documentation
-[Google Doc]
+[Google Doc](https://docs.google.com/document/d/1dVcplVjLmCKfeFGQ8nND-BS1UNxMItkWBqRBZwvbvWs/edit?usp=sharing)
 
 ##Tests
   > Some_testing_instructions
 
-## Running React Native Emulator
+##Running React Native Emulator
 To run your app on iOS:
-   cd /paktClient/Pakt
-   react-native run-ios
-   - or -
-   Open /paktClient/Pakt/ios/Pakt.xcodeproj in Xcode
-   Hit the Run button
+  ```sh
+  cd /paktClient/Pakt
+  react-native run-ios
+  ```
+  OR
+  * Open /paktClient/Pakt/ios/Pakt.xcodeproj in Xcode
+  * Hit the Run button
 
 To run your app on Android:
-   Have an Android emulator running (quickest way to get started), or a device connected
-   cd /paktClient/Pakt
-   react-native run-android
-
-## Camera - Install Docs
-https://github.com/lwansbrough/react-native-camera
+  * Have an Android emulator running (quickest way to get started), or a device connected
+  
+  ```sh
+  cd /paktClient/Pakt
+  react-native run-android
+  ```
