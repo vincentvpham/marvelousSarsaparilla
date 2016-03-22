@@ -8,7 +8,6 @@ import React, {
   View,
   PropTypes,
 } from 'react-native';
-import SwitchRoute from '../containers/SwitchRoute';
 import LoginUser from '../containers/LoginUser';
 import CreatePakt from '../containers/CreatePakt';
 import GetPakts from '../containers/GetPakts';
@@ -32,7 +31,7 @@ const mapStateToProps = (state) => {
       console.log(state, 'the state upon page render, do we have a user logged in?');
       //if no user is present on the state, we'll route to the login page
       // for some reason , even though I am logged in, the state does not show so, problem with just taylor's emulator?
-      //commenting out if for now, just showing other pages
+      //commenting out for now, just showing our other pages
       // if (!state.users.currentUser) {
       //   return 'login';
       // } else {
@@ -45,7 +44,6 @@ const mapStateToProps = (state) => {
 const App = () => (
   <View style={{ flex: 1 }}>
     <Router scenes={scenes}/>
-    <SwitchRoute/>
   </View>
 );
 
@@ -55,9 +53,7 @@ const scenes = Actions.create(
     <Scene key="tabbar" tabs={true} default='createPakt'>
       <Scene key="createPakt" component={CreatePakt} title="Create Pakt" icon={TabIcon}/>
       <Scene key="camera" component={Camera} title="Camera" icon={TabIcon} />
-      {/*<Scene key="getPakts" component={GetPakts} title="Pakts" icon={TabIcon} />
-        causing unhandled promise rejection error, unsure why?
-       */}
+      <Scene key="getPakts" component={GetPakts} title="Pakts" icon={TabIcon} />
     </Scene>
   </Scene>
 );
