@@ -28,15 +28,11 @@ class TabIcon extends React.Component {
 const mapStateToProps = (state) => {
   return {
     selector: () => {
-      console.log(state, 'the state upon page render, do we have a user logged in?');
-      //if no user is present on the state, we'll route to the login page
-      // for some reason , even though I am logged in, the state does not show so, problem with just taylor's emulator?
-      //commenting out for now, just showing our other pages
-      // if (!state.users.currentUser) {
-      //   return 'login';
-      // } else {
+      if (!state.users.currentUser) {
+        return 'login';
+      } else {
         return 'tabbar';
-      // }
+      }
     },
   };
 };
@@ -48,12 +44,14 @@ const App = () => (
 );
 
 const scenes = Actions.create(
-  <Scene key="root"  component={connect(mapStateToProps, null)(Switch)} tabs={true}>
+  <Scene key="root"  component={connect(mapStateToProps, null)(Switch)} tabs={true} >
     <Scene key="login"  title="Login"  component={LoginUser}></Scene>
-    <Scene key="tabbar" tabs={true} default='createPakt'>
+    <Scene key="tabbar" tabs={true} default='getPakts'>
+      <Scene key="getPakts" component={GetPakts} title="Pakts" icon={TabIcon} />
       <Scene key="createPakt" component={CreatePakt} title="Create Pakt" icon={TabIcon}/>
       <Scene key="camera" component={Camera} title="Camera" icon={TabIcon} />
-      <Scene key="getPakts" component={GetPakts} title="Pakts" icon={TabIcon} />
+      <Scene key="logout" component={LoginUser} title="Logout" icon={TabIcon} />
+
     </Scene>
   </Scene>
 );
