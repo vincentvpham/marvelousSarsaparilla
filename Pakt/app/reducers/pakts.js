@@ -1,32 +1,12 @@
 import { REQUEST_PAKTS, RECEIVE_PAKTS, SET_CURRENT_PAKT } from '../actions';
 var _ = require('lodash');
 
-
-function pakt(state, action) {
-  switch (action.type) {
-    case 'ADD_PAKT':
-      return {
-        id: action.id,
-        text: action.text,
-        completed: false,
-      };
-    default:
-      return state;
-  }
-}
-
-
 function pakts(state = {
   isFetching: false,
   items: [],
   currentPakt: undefined,
 }, action) {
   switch (action.type) {
-    case 'ADD_PAKT':
-      return [
-        ...state,
-        pakt(undefined, action),
-      ];
     case REQUEST_PAKTS:
       return Object.assign({}, state, {
         isFetching: true,
