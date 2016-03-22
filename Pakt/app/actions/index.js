@@ -3,6 +3,7 @@ export const REQUEST_PAKTS = 'REQUEST_PAKTS';
 export const RECEIVE_PAKTS = 'RECEIVE_PAKTS';
 export const SET_CURRENT_PAKT = 'SET_CURRENT_PAKT';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
+export const LOGOUT_CURRENT_USER = 'LOGOUT_CURRENT_USER';
 
 function requestPakts() {
   return {
@@ -31,6 +32,12 @@ function setCurrentUser(user) {
   return {
     type: SET_CURRENT_USER,
     currentUser: user,
+  };
+}
+
+function logoutCurrentUser() {
+  return {
+    type: LOGOUT_CURRENT_USER,
   };
 }
 
@@ -65,6 +72,12 @@ export function setCurrentPakt(pakt) {
   return {
     type: SET_CURRENT_PAKT,
     currentPakt: pakt,
+  };
+}
+
+export function logoutUser() {
+  return (dispatch) => {
+    dispatch(logoutCurrentUser());
   };
 }
 
