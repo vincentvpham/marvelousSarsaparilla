@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
 
 class Login extends React.Component {
   render(){
-    const { loginFbUser } = this.props;
+    const { loginFbUser, logoutFbUser } = this.props;
     var _this = this;
     return (
       <View >
@@ -34,6 +34,7 @@ class Login extends React.Component {
             _this.setState({ user: data.credentials });
           }}
           onLogout={function () {
+            logoutFbUser();
             console.log('Logged out.');
             _this.setState({ user: null });
           }}

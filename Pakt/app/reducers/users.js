@@ -1,4 +1,4 @@
-import { SET_CURRENT_USER } from '../actions';
+import { SET_CURRENT_USER, LOGOUT_CURRENT_USER } from '../actions';
 
 function pakts(state = {
   currentUser: undefined,
@@ -7,6 +7,10 @@ function pakts(state = {
     case SET_CURRENT_USER:
       return Object.assign({}, state, {
         currentUser: action.currentUser,
+      });
+    case LOGOUT_CURRENT_USER:
+      return Object.assign({}, state, {
+        currentUser: undefined,
       });
     default:
       return state;
