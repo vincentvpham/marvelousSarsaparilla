@@ -27,19 +27,6 @@ function fetchPakts() {
   };
 }
 
-export function fetchPaktsIfNeeded() { 
-  return (dispatch, getState) => {
-    return dispatch(fetchPakts());
-  };
-}
-
-export function setCurrentPakt(pakt) {
-  return {
-    type: SET_CURRENT_PAKT,
-    currentPakt: pakt,
-  };
-}
-
 function setCurrentUser(user) {
   return {
     type: SET_CURRENT_USER,
@@ -55,6 +42,31 @@ function getFbInfo(userCredentials) {
   };
 }
 
+export function fetchPaktsIfNeeded() { 
+  return (dispatch, getState) => {
+    return dispatch(fetchPakts());
+  };
+}
+
+export function submitPakt(pakt) {
+  return dispatch => {
+    return fetch("http://127.0.0.1:3000/api/pakt", {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(pakt),
+    });
+  };
+}
+
+export function setCurrentPakt(pakt) {
+  return {
+    type: SET_CURRENT_PAKT,
+    currentPakt: pakt,
+  };
+}
 
 export function loginNewUser(userCredentials) {
   return (dispatch, getState) => {

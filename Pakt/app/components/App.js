@@ -10,7 +10,7 @@ import React, {
 } from 'react-native';
 import SwitchRoute from '../containers/SwitchRoute';
 import LoginUser from '../containers/LoginUser';
-import Creator from './Creator';
+import CreatePakt from '../containers/CreatePakt';
 import GetPakts from '../containers/GetPakts';
 import Camera from '../components/Camera';
 import GetCurrentPakt from '../containers/GetCurrentPakt';
@@ -20,7 +20,7 @@ import { Scene, Router, TabBar, Modal, Schema, Actions } from 'react-native-rout
 const scenes = Actions.create(
   <Scene key="root">
     <Scene type="replace" key="login" initial={true} component={LoginUser} title="Login" />
-    <Scene key="creator" type="replace" component={Creator} title="Create" />
+    <Scene key="createPakt" type="replace" component={CreatePakt} title="CreatePakt"/>
     <Scene key="paktList" type="replace" component={GetPakts} title="PaktList" />
     <Scene key="camera" type="replace" component={Camera} title="Camera" />
     <Scene key="individualPakt" component={GetCurrentPakt} title="Individual Pakt" />

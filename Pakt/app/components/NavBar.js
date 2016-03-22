@@ -29,8 +29,8 @@ const NavBar = ({ onNavPress }) => (
     <Text style= {styles.navItem} onPress={() => onNavPress('login')}> Login </Text>
     <Text style= {styles.navItem} onPress={() => onNavPress('paktList')}> PaktList </Text>
     <Text style= {styles.navItem} onPress={() => onNavPress('camera')}> Camera </Text>
-    <Text style= {styles.navItem} onPress={() => onNavPress('creator')}>Create A Pakt</Text>
     <Text style= {styles.navItem} onPress={() => onNavPress('individualPakt')}>Individual Pakt</Text>
+    <Text style= {styles.navItem} onPress={() => onNavPress('createPakt')}>Create A Pakt</Text>
   </View>
 );
 
