@@ -31,11 +31,11 @@ class TabIcon extends React.Component {
 const mapStateToProps = (state) => {
   return {
     selector: () => {
-      if (!state.users.currentUser) {
-        return 'login';
-      } else {
+      // if (!state.users.currentUser) {
+      //   return 'login';
+      // } else {
         return 'tabbar';
-      }
+      // }
     },
   };
 };
