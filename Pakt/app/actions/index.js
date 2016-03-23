@@ -78,7 +78,7 @@ export function submitPakt(pakt) {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(pakt),
+      body: JSON.stringify({ data: { pakt: pakt } }),
     });
   };
 }
