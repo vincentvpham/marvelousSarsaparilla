@@ -48,7 +48,10 @@ const scenes = Actions.create(
   <Scene key="root"  component={connect(mapStateToProps, null)(Switch)} tabs={true} >
     <Scene key="login"  title="Login"  component={LoginUser}></Scene>
     <Scene key="tabbar" tabs={true} default='getPakts'>
-      <Scene key="getPakts" component={GetPakts} title="Pakts" icon={TabIcon} />
+      <Scene key="pakts" title="Pakts" icon={TabIcon} >
+        <Scene key="getPakts" component={GetPakts} title="GetPakts"/>
+        <Scene key="individualPakt" component={ GetCurrentPakt } title="IndividualPakt"/>
+      </Scene>
       <Scene key="createPakt" component={CreatePakt} title="Create Pakt" icon={TabIcon}/>
       <Scene key="camera" component={Camera} title="Camera" icon={TabIcon} />
       <Scene key="logout" component={LoginUser} title="Logout" icon={TabIcon} />
