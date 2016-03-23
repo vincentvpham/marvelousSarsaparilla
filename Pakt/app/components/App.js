@@ -8,32 +8,52 @@ import React, {
   View,
   PropTypes,
 } from 'react-native';
-import SwitchRoute from '../containers/SwitchRoute';
 import LoginUser from '../containers/LoginUser';
 import CreatePakt from '../containers/CreatePakt';
 import GetPakts from '../containers/GetPakts';
 import Camera from '../components/Camera';
 import GetCurrentPakt from '../containers/GetCurrentPakt';
+import { connect } from 'react-redux';
+import { Scene, Router, TabBar, Modal, Schema, Actions, Switch } from 'react-native-router-flux';
 
-import { Scene, Router, TabBar, Modal, Schema, Actions } from 'react-native-router-flux';
+//tabs for bottom navBar
+class TabIcon extends React.Component {
+    render(){
+        return (
+            <Text style={{color: this.props.selected ? 'blue' :'black'}}>{this.props.title}</Text>
+        );
+    }
+}
 
-const scenes = Actions.create(
-  <Scene key="root">
-    <Scene type="replace" key="login" initial={true} component={LoginUser} title="Login" />
-    <Scene key="createPakt" type="replace" component={CreatePakt} title="CreatePakt"/>
-    <Scene key="paktList" type="replace" component={GetPakts} title="PaktList" />
-    <Scene key="camera" type="replace" component={Camera} title="Camera" />
-    <Scene key="individualPakt" component={GetCurrentPakt} title="Individual Pakt" />
-  </Scene>
-);
+//function determines if user is logged in, if not, returns the 'login' id 
+const mapStateToProps = (state) => {
+  return {
+    selector: () => {
+      if (!state.users.currentUser) {
+        return 'login';
+      } else {
+        return 'tabbar';
+      }
+    },
+  };
+};
 
 const App = () => (
   <View style={{ flex: 1 }}>
-    <Router style={{ flex: 0.4 }} scenes={scenes} />
-    <View style={{ flex: 0.1 }}>
-      <SwitchRoute />
-    </View>
+    <Router scenes={scenes}/>
   </View>
+);
+
+const scenes = Actions.create(
+  <Scene key="root"  component={connect(mapStateToProps, null)(Switch)} tabs={true} >
+    <Scene key="login"  title="Login"  component={LoginUser}></Scene>
+    <Scene key="tabbar" tabs={true} default='getPakts'>
+      <Scene key="getPakts" component={GetPakts} title="Pakts" icon={TabIcon} />
+      <Scene key="createPakt" component={CreatePakt} title="Create Pakt" icon={TabIcon}/>
+      <Scene key="camera" component={Camera} title="Camera" icon={TabIcon} />
+      <Scene key="logout" component={LoginUser} title="Logout" icon={TabIcon} />
+    </Scene>
+  </Scene>
 );
 
 export default App;
