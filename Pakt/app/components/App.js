@@ -50,7 +50,7 @@ const scenes = Actions.create(
     <Scene key="tabbar" tabs={true} default='getPakts'>
       <Scene key="pakts" title="Pakts" icon={TabIcon} >
         <Scene key="getPakts" component={GetPakts} title="GetPakts"/>
-        <Scene key="individualPakt" component={ GetCurrentPakt } title="IndividualPakt"/>
+        <Scene key="individualPakt" component={GetCurrentPakt} title="IndividualPakt"/>
       </Scene>
       <Scene key="createPakt" component={CreatePakt} title="Create Pakt" icon={TabIcon}/>
       <Scene key="camera" component={Camera} title="Camera" icon={TabIcon} />
