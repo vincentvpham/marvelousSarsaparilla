@@ -3,7 +3,9 @@ export const REQUEST_PAKTS = 'REQUEST_PAKTS';
 export const RECEIVE_PAKTS = 'RECEIVE_PAKTS';
 export const SET_CURRENT_PAKT = 'SET_CURRENT_PAKT';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
+export const ACCEPT_PAKT = 'ACCEPT_PAKT';
 export const LOGOUT_CURRENT_USER = 'LOGOUT_CURRENT_USER';
+import { Actions } from 'react-native-router-flux';
 
 function requestPakts() {
   return {
@@ -97,5 +99,38 @@ export function logoutUser() {
 export function loginNewUser(userCredentials) {
   return (dispatch, getState) => {
     return dispatch(getFbInfo(userCredentials));
+  };
+}
+
+function acceptPakt(id) {
+  return {
+    type: ACCEPT_PAKT,
+    id,
+  };
+}
+
+// /api/pakt/accept/:userId/:paktId
+export function respondToPaktInvite(accepted, currentUserId) {
+  console.log('Accepted', accepted);
+  return dispatch => {
+    return fetch('http://127.0.0.1:3000/api/pakt/accept/1/1', {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(accepted),
+    })
+    .then(() => {
+      // If decline invite
+      if (!accepted.accepted) {
+        // Reroute to list of Pakts
+        Actions.paktList();
+      // Else accept invite
+      } else {
+        // Update state
+        dispatch(acceptPakt(currentUserId));
+      }
+    });
   };
 }

@@ -7,6 +7,8 @@ import React, {
   Text,
   View,
   PropTypes,
+  TouchableHighlight,
+  Alert,
 } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -20,14 +22,28 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
-  }
+  },
 });
 
-const IndividualPakt = ({ currentPakt }) => (
+const IndividualPakt = ({ currentPakt, respondtoInvite, accepted, currentUserId }) => (
   <View style={styles.container}>
     <View style={styles.textContainer}>
       <Text>{currentPakt.name}</Text>
       <Text>{currentPakt.description}</Text>
+      {(accepted) ? null :
+        <View>
+          <TouchableHighlight onPress={() => respondtoInvite(true, currentUserId)}><Text>Accept</Text></TouchableHighlight>
+          <TouchableHighlight onPress={() => Alert.alert(
+            'Are you sure you want to decline this Pakt',
+            null,
+            [
+              { text: 'Cancel' },
+              { text: 'OK', onPress: () => respondtoInvite(false) },
+            ]
+          )
+          }><Text>Decline</Text></TouchableHighlight>
+        </View>
+        }
     </View>
   </View>
 );
