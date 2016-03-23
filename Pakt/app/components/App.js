@@ -5,6 +5,7 @@ import Camera from '../components/Camera';
 import GetCurrentPakt from '../containers/GetCurrentPakt';
 import { connect } from 'react-redux';
 import { Scene, Router, TabBar, Modal, Schema, Actions, Switch } from 'react-native-router-flux';
+import SendPicture from '../containers/SendPicture';
 
 import React, {
   AppRegistry,
