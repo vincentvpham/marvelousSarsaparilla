@@ -32,13 +32,13 @@ const IndividualPakt = ({ currentPakt, respondtoInvite, accepted, currentUserId 
       <Text>{currentPakt.description}</Text>
       {(accepted) ? null :
         <View>
-          <TouchableHighlight onPress={() => respondtoInvite(true, currentUserId)}><Text>Accept</Text></TouchableHighlight>
+          <TouchableHighlight onPress={() => respondtoInvite(true, currentUserId, currentPakt.id)}><Text>Accept</Text></TouchableHighlight>
           <TouchableHighlight onPress={() => Alert.alert(
             'Are you sure you want to decline this Pakt',
             null,
             [
               { text: 'Cancel' },
-              { text: 'OK', onPress: () => respondtoInvite(false) },
+              { text: 'OK', onPress: () => respondtoInvite(false, currentUserId, currentPakt.id) },
             ]
           )
           }><Text>Decline</Text></TouchableHighlight>

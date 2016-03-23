@@ -21,10 +21,10 @@ function receivePakts(json) {
   };
 }
 
-function fetchPakts() {
+function fetchPakts(currentUserId) {
   return dispatch => {
     dispatch(requestPakts());
-    return fetch('http://127.0.0.1:3000/api/pakts/1')
+    return fetch(`http://127.0.0.1:3000/api/pakts/${currentUserId}`)
       .then(response => response.json())
       .then(json => dispatch(receivePakts(json)));
   };
@@ -64,15 +64,15 @@ function getFbInfo(userCredentials) {
   };
 }
 
-export function fetchPaktsIfNeeded() { 
+export function fetchPaktsIfNeeded(currentUserId) {
   return (dispatch, getState) => {
-    return dispatch(fetchPakts());
+    return dispatch(fetchPakts(currentUserId));
   };
 }
 
 export function submitPakt(pakt) {
   return dispatch => {
-    return fetch("http://127.0.0.1:3000/api/pakt", {
+    return fetch('http://127.0.0.1:3000/api/pakt', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -110,26 +110,25 @@ function acceptPakt(id) {
 }
 
 // /api/pakt/accept/:userId/:paktId
-export function respondToPaktInvite(accepted, currentUserId) {
-  console.log('Accepted', accepted);
+export function respondToPaktInvite(accepted, currentUserId, currentPaktId) {
+  const url = `http://127.0.0.1:3000/api/pakt/accept/${currentUserId}/${currentPaktId}`;
   return dispatch => {
-    return fetch('http://127.0.0.1:3000/api/pakt/accept/1/1', {
+    return fetch(url, {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(accepted),
+      body: JSON.stringify({ accepted }),
     })
     .then(() => {
-      // If decline invite
-      if (!accepted.accepted) {
+      if (!accepted) {
         // Reroute to list of Pakts
-        Actions.paktList();
+        Actions.getPakts();
       // Else accept invite
       } else {
         // Update state
-        dispatch(acceptPakt(currentUserId));
+        return dispatch(acceptPakt(currentUserId));
       }
     });
   };

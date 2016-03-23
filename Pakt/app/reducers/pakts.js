@@ -1,10 +1,10 @@
 import { REQUEST_PAKTS, RECEIVE_PAKTS, SET_CURRENT_PAKT, ACCEPT_PAKT } from '../actions';
 var _ = require('lodash');
 
-function p_u(state, action) {
+function paktUser(state, action) {
   switch (action.type) {
     case ACCEPT_PAKT:
-      if (state.id !== action.id) {
+      if (state.UserId !== action.id) {
         return state;
       }
       return Object.assign({}, state, {
@@ -19,8 +19,8 @@ function pakt(state, action) {
   switch (action.type) {
     case ACCEPT_PAKT:
       return Object.assign({}, state, {
-        Pakt_Users: state.map(user =>
-          p_u(user, action)
+        Pakt_Users: state.Pakt_Users.map(user =>
+          paktUser(user, action)
         ),
       });
     default:
@@ -54,8 +54,12 @@ function pakts(state = {
       });
     case ACCEPT_PAKT:
       return Object.assign({}, state, {
-        items: state.items.map(i =>
-          pakt(i, action)
+        items: state.items.map((item, index) => {
+          if (index === state.currentPaktIndex) {
+            return pakt(item, action);
+          }
+          return item;
+        }
         ),
         currentPakt: pakt(state.currentPakt, action),
       });
