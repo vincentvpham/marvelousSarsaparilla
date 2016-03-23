@@ -32,3 +32,6 @@ local.properties
 #
 node_modules/
 npm-debug.log
+
+# AWS S3 Credentials
+env.js

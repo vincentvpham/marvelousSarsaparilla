@@ -10,14 +10,18 @@
     "step2": "cd node_modules; find . -name .babelrc | grep -v packager | xargs rm"
   },
   "dependencies": {
+    "buffer": "^4.5.0",
+    "crypto-js": "^3.1.6",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.6.1",
+    "node-xml2json": "^1.0.0",
     "react": "0.14.7",
     "react-native": "0.22.0-rc",
     "react-native-camera": "git+https://github.com/lwansbrough/react-native-camera.git",
     "react-native-cli": "^0.1.10",
     "react-native-facebook-login": "^1.0.3",
     "react-native-router-flux": "^3.0.9",
+    "react-native-uploader": "0.0.9",
     "react-redux": "4.4.0",
     "redux": "3.3.1",
     "redux-logger": "^2.6.1",
