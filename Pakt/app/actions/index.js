@@ -46,7 +46,6 @@ function getFbInfo(userCredentials) {
     return fetch(`https://graph.facebook.com/v2.3/${userCredentials.userId}?fields=name,picture,friends,email&access_token=${userCredentials.token}`)
       .then(response => response.json())
       .then(json => {
-        console.log("@#@#@#@#@#@#@#", json);
         return fetch('http://127.0.0.1:3000/api/users/login', {
           method: 'POST',
           headers: {
@@ -58,7 +57,6 @@ function getFbInfo(userCredentials) {
       })
       .then(response => response.json())
       .then(json => {
-        console.log("I'm here", json);
         dispatch(setCurrentUser(json));
       });
   };
