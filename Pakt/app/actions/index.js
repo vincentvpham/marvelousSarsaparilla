@@ -71,7 +71,6 @@ export function fetchPaktsIfNeeded(currentUserId) {
 }
 
 export function submitPakt(pakt) {
-
   return (dispatch, getState) => {
     const state = getState();
     //use id of one to test with fake user data
@@ -79,7 +78,7 @@ export function submitPakt(pakt) {
     if (state.users.currentUser) {
       userId = state.users.currentUser.id;
     }
-    return fetch('http://127.0.0.1:3000/api/pakt/'' + userId, {
+    return fetch('http://127.0.0.1:3000/api/pakt/' + userId, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -138,6 +137,8 @@ export function respondToPaktInvite(accepted, currentUserId, currentPaktId) {
         return dispatch(acceptPakt(currentUserId));
       }
     });
+  }
+}
 
 export function fetchFriends() {
   return (dispatch, getState) => {
