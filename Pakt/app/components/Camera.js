@@ -41,10 +41,10 @@ class Camera extends Component {
     this.state = { visible: false, transparent: true, animated: true };
   }
 
-  takePicture() {
+  takePicture(paktId) {
     this.camera.capture()
     .then((picture) => {
-      this.props.sendPictureToS3(picture);
+      this.props.sendPictureToS3(picture, paktId, this.props.user.users.currentUser.id);
     })
     .catch(err => console.error(err));
   }
@@ -53,8 +53,6 @@ class Camera extends Component {
     this.setState({visible: visible});
     console.log(this.props);
   }
-
-
 
   render() {
 
@@ -93,7 +91,7 @@ class Camera extends Component {
               </Text>
               <ListView
                 dataSource={dataSource}
-                renderRow={(rowData) => <PaktListItem pakt={rowData} onPaktClick={this.takePicture.bind(this)}/>}
+                renderRow={(rowData) => <PaktListItem pakt={rowData} onPaktClick={this.takePicture.bind(this, rowData.id)}/>}
                 style={styles.listView} />
             </View>
           </View>

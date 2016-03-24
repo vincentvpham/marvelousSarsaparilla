@@ -6,6 +6,7 @@ import { Actions } from 'react-native-router-flux';
 // dependencies for uploading to S3
 const s3Policy = require('../utils/s3_policy');
 const env = require('../utils/env');
+var crypto = require('crypto-js');
 
 const mapStateToProps = (state) => {
   return {
@@ -16,7 +17,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    sendPictureToS3: (picture) => {
+    sendPictureToS3: (picture, paktId, userId) => {
 
       // prep to send picture to S3
       // S3 configuration to create S3 policy
@@ -26,7 +27,7 @@ const mapDispatchToProps = (dispatch) => {
         key: env.accessKeyId,
         secret: env.secretAccessKey,
         type: 'image/',
-        path: 'pakt-id/user-id/',
+        path: `${paktId}/${userId}`,
         acl: 'public-read-write',
         expires: new Date(Date.now() + 30000), // expires in 30 seconds
         length: 10485760, // 10M as maximal size
@@ -35,9 +36,13 @@ const mapDispatchToProps = (dispatch) => {
       // create amazon S3 policy with s3Config
       const policy = s3Policy(s3Config);
 
+      const fileNameHash = crypto
+        .SHA1(picture, env.accessKeyId)
+        .toString();
+
       const file = [{
         name: 'file',
-        filename: picture,
+        filename: fileNameHash,
         filepath: picture,
         filetype: 'image/jpg',
       }];
@@ -46,7 +51,7 @@ const mapDispatchToProps = (dispatch) => {
         url: `https://${s3Config.bucket}.s3.amazonaws.com/`,
         files: file,
         params: {
-          key: 'pakt-id/user-id/${filename}',
+          key: `${paktId}/${userId}/${file[0].filename}`,
           acl: s3Config.acl,
           'X-Amz-Signature': policy.signature,
           'x-amz-credential': policy.credential,
