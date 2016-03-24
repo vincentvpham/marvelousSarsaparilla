@@ -55,7 +55,7 @@ const scenes = Actions.create(
         <Scene key="individualPakt" component={GetCurrentPakt} title="IndividualPakt"/>
       </Scene>
       <Scene key="createPakt" component={CreatePakt} title="Create Pakt" icon={TabIcon}/>
-      <Scene key="camera" component={Camera} title="Camera" icon={TabIcon} />
+      <Scene key="camera" component={Camera, SendPicture} title="Camera" icon={TabIcon} />
       <Scene key="logout" component={LoginUser} title="Logout" icon={TabIcon} />
     </Scene>
   </Scene>

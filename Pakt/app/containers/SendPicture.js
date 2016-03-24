@@ -9,6 +9,8 @@ const env = require('../utils/env');
 
 const mapStateToProps = (state) => {
   return {
+    pakts: state.pakts.items,
+    user: state,
   };
 };
 
@@ -59,6 +61,7 @@ const mapDispatchToProps = (dispatch) => {
 
       dispatch(submitPicture(pictureForS3));
     },
+
 
   };
 };
