@@ -1,3 +1,11 @@
+import GetPakts from '../containers/GetPakts';
+import LoginUser from '../containers/LoginUser';
+import CreatePakt from '../containers/CreatePakt';
+import Camera from '../components/Camera';
+import GetCurrentPakt from '../containers/GetCurrentPakt';
+import { connect } from 'react-redux';
+import { Scene, Router, TabBar, Modal, Schema, Actions, Switch } from 'react-native-router-flux';
+
 import React, {
   AppRegistry,
   Component,
@@ -8,13 +16,6 @@ import React, {
   View,
   PropTypes,
 } from 'react-native';
-import LoginUser from '../containers/LoginUser';
-import CreatePakt from '../containers/CreatePakt';
-import GetPakts from '../containers/GetPakts';
-import Camera from '../components/Camera';
-import GetCurrentPakt from '../containers/GetCurrentPakt';
-import { connect } from 'react-redux';
-import { Scene, Router, TabBar, Modal, Schema, Actions, Switch } from 'react-native-router-flux';
 
 //tabs for bottom navBar
 class TabIcon extends React.Component {
