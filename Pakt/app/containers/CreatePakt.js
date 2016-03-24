@@ -1,6 +1,13 @@
 import { connect } from 'react-redux';
-import { submitPakt } from '../actions'
+import { submitPakt, fetchFriends } from '../actions'
 import CreatePaktForm from '../components/CreatePaktForm';
+
+const mapStateToProps = (state) => {
+  return {
+    friends: state.users.friends,
+    isFetchingFriends: state.users.isFetchingFriends,
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -12,11 +19,14 @@ const mapDispatchToProps = (dispatch) => {
       formInputs.frequency = parseInt(formInputs.frequency);
       dispatch(submitPakt(formInputs));
     },
+    listTheFriends: () => {
+      dispatch(fetchFriends());
+    },
   };
 };
 
 const CreatePakt = connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(CreatePaktForm);
 

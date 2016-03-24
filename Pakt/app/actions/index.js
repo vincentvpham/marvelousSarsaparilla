@@ -1,11 +1,27 @@
 import fetch from 'isomorphic-fetch';
 export const REQUEST_PAKTS = 'REQUEST_PAKTS';
 export const RECEIVE_PAKTS = 'RECEIVE_PAKTS';
+export const RECEIVE_FRIENDS = 'RECEIVE_FRIENDS';
+export const REQUEST_FRIENDS = 'REQUEST_FRIENDS';
 export const SET_CURRENT_PAKT = 'SET_CURRENT_PAKT';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const ACCEPT_PAKT = 'ACCEPT_PAKT';
 export const LOGOUT_CURRENT_USER = 'LOGOUT_CURRENT_USER';
 import { Actions } from 'react-native-router-flux';
+
+function requestFriends() {
+  return {
+    type: REQUEST_FRIENDS,
+  };
+}
+
+function receiveFriends(json) {
+  return {
+    type: RECEIVE_FRIENDS,
+    friends: json,
+    receivedAt: Date.now(),
+  };
+}
 
 function requestPakts() {
   return {
