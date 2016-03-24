@@ -20,22 +20,22 @@ import React, {
 
 //tabs for bottom navBar
 class TabIcon extends React.Component {
-    render(){
-        return (
-            <Text style={{color: this.props.selected ? 'blue' :'black'}}>{this.props.title}</Text>
-        );
-    }
+  render(){
+    return (
+      <Text style={{color: this.props.selected ? 'blue' :'black'}}>{this.props.title}</Text>
+    );
+  }
 }
 
 //function determines if user is logged in, if not, returns the 'login' id 
 const mapStateToProps = (state) => {
   return {
     selector: () => {
-      // if (!state.users.currentUser) {
-      //   return 'login';
-      // } else {
+      if (!state.users.currentUser) {
+        return 'login';
+      } else {
         return 'tabbar';
-      // }
+      }
     },
   };
 };
