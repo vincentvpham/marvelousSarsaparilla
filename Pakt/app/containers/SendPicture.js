@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { submitPicture } from '../actions';
+import { submitPicture, savePicturePath } from '../actions';
 import Camera from '../components/Camera';
 import { Actions } from 'react-native-router-flux';
 
@@ -47,7 +47,7 @@ const mapDispatchToProps = (dispatch) => {
         filetype: 'image/jpg',
       }];
 
-      const pictureForS3 = {
+      const pictureAndS3Auth = {
         url: `https://${s3Config.bucket}.s3.amazonaws.com/`,
         files: file,
         params: {
@@ -63,11 +63,16 @@ const mapDispatchToProps = (dispatch) => {
           'x-amz-meta-uuid': '14365123651274',
         },
       };
+      dispatch(submitPicture(pictureAndS3Auth));
 
-      dispatch(submitPicture(pictureForS3));
+      const fileObj = {
+        data: {
+          path: fileNameHash,
+        },
+      };
+
+      dispatch(savePicturePath(userId, paktId, fileObj));
     },
-
-
   };
 };
 

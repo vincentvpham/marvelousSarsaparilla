@@ -191,3 +191,20 @@ export function submitPicture(picture) {
     return dispatch(sendS3Picture(picture));
   };
 }
+
+export function savePicturePath(userId, paktId, path) {
+  return dispatch => {
+    return fetch(`http://127.0.0.1:3000/api/pakt/picture/${userId}/${paktId}`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(path),
+    })
+    .then(response => response.json())
+    .then(json => {
+      console.log(json);
+    });
+  };
+}
