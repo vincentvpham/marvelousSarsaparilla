@@ -36,19 +36,28 @@ var styles = StyleSheet.create({
   },
 });
 
+
 class CreatePaktForm extends React.Component {
   constructor(props) {
     super(props); 
     this.state = {formInputs: {}, isRepeating: null};
+    //load info for the user's friends
+    this.props.listTheFriends();
   }
 
   getInput = (category, event) => {
     var formInputs = {};
     if (category === 'submit') {
-      // Send the pakt info from the form to the container
+      //get repeating property from the state
+      this.state.formInputs.repeating =  this.state.isRepeating;
+
+      // add friends who were invited to formInputs
+      let users = _.filter(this.props.friends,  ['invited', true]).map(function(friend){return friend.id});
+      this.state.formInputs.users =  users;
+
       // Later we will add some validation here prior to submit
-      this.state.formInputs.isRepeating =  this.state.isRepeating;
       this.props.submitFormInputs(this.state.formInputs);
+
     } else { // If the input is a TextInput, grab the text from the change event
       if(event.nativeEvent){
         this.state.formInputs[category] = event.nativeEvent.text.trim(); 
@@ -59,6 +68,7 @@ class CreatePaktForm extends React.Component {
   }
 
   render() {
+    let { friends } = this.props;    
     return (
       <View style={styles.container}>
         <Text>Name:</Text>
@@ -77,6 +87,7 @@ class CreatePaktForm extends React.Component {
             onChange={this.getInput.bind(this, 'consequenceText')}
            />
            <Text>Friends:</Text>
+           <PaktFriendsForm friends={friends} />
            <Text>Repeating:</Text> 
            <Text onPress={()=>this.setState({isRepeating: true})}>YES</Text> 
            <Text onPress={()=>this.setState({isRepeating: false})}>NO</Text> 
