@@ -89,9 +89,7 @@ export function fetchPaktsIfNeeded(currentUserId) {
 export function submitPakt(pakt) {
   return (dispatch, getState) => {
     const state = getState();
-    if (state.users.currentUser) {
-      const userId = state.users.currentUser.id;
-    }
+    const userId = state.users.currentUser.id;
     return fetch('http://127.0.0.1:3000/api/pakt/' + userId, {
       method: 'POST',
       headers: {
@@ -158,9 +156,7 @@ export function fetchFriends() {
   return (dispatch, getState) => {
     dispatch(requestFriends());
     const state = getState();
-    if (state.users.currentUser) {
-      const userId = state.users.currentUser.id;
-    }
+    const userId = state.users.currentUser.id;
     return fetch('http://127.0.0.1:3000/api/users/friends/' + userId) 
       .then(response => response.json())
       .then(json => dispatch(receiveFriends(json)));
