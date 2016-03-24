@@ -3,7 +3,9 @@ export const REQUEST_PAKTS = 'REQUEST_PAKTS';
 export const RECEIVE_PAKTS = 'RECEIVE_PAKTS';
 export const SET_CURRENT_PAKT = 'SET_CURRENT_PAKT';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
+export const ACCEPT_PAKT = 'ACCEPT_PAKT';
 export const LOGOUT_CURRENT_USER = 'LOGOUT_CURRENT_USER';
+import { Actions } from 'react-native-router-flux';
 
 function requestPakts() {
   return {
@@ -19,10 +21,10 @@ function receivePakts(json) {
   };
 }
 
-function fetchPakts() {
+function fetchPakts(currentUserId) {
   return dispatch => {
     dispatch(requestPakts());
-    return fetch('http://127.0.0.1:3000/api/pakts/1')
+    return fetch(`http://127.0.0.1:3000/api/pakts/${currentUserId}`)
       .then(response => response.json())
       .then(json => dispatch(receivePakts(json)));
   };
@@ -62,15 +64,15 @@ function getFbInfo(userCredentials) {
   };
 }
 
-export function fetchPaktsIfNeeded() { 
+export function fetchPaktsIfNeeded(currentUserId) {
   return (dispatch, getState) => {
-    return dispatch(fetchPakts());
+    return dispatch(fetchPakts(currentUserId));
   };
 }
 
 export function submitPakt(pakt) {
   return dispatch => {
-    return fetch("http://127.0.0.1:3000/api/pakt", {
+    return fetch('http://127.0.0.1:3000/api/pakt', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -97,5 +99,37 @@ export function logoutUser() {
 export function loginNewUser(userCredentials) {
   return (dispatch, getState) => {
     return dispatch(getFbInfo(userCredentials));
+  };
+}
+
+function acceptPakt(id) {
+  return {
+    type: ACCEPT_PAKT,
+    id,
+  };
+}
+
+// /api/pakt/accept/:userId/:paktId
+export function respondToPaktInvite(accepted, currentUserId, currentPaktId) {
+  const url = `http://127.0.0.1:3000/api/pakt/accept/${currentUserId}/${currentPaktId}`;
+  return dispatch => {
+    return fetch(url, {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ accepted }),
+    })
+    .then(() => {
+      if (!accepted) {
+        // Reroute to list of Pakts
+        Actions.getPakts();
+      // Else accept invite
+      } else {
+        // Update state
+        return dispatch(acceptPakt(currentUserId));
+      }
+    });
   };
 }
