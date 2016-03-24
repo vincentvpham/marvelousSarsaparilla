@@ -12,6 +12,10 @@ import React, {
   TouchableHighlight,
 } from 'react-native';
 
+var _ = require('lodash');
+import PaktFriendsForm from './CreatePaktFriendsForm';
+import PaktDateForm from './CreatePaktDateForm';
+
 var styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -79,69 +83,6 @@ class CreatePaktForm extends React.Component {
            {(this.state.isRepeating === null) ? null :  <PaktDateForm  getInput= {this.getInput.bind(this)} isRepeating= {this.state.isRepeating}/>}
            <TouchableHighlight style={styles.button} onPress={this.getInput.bind(this, 'submit')} ><Text>Submit</Text></TouchableHighlight>
       </View>
-    );
-  }
-}
-
-// Display different options depending on if the pakt is repeating
-class PaktDateForm extends React.Component {
-     render() {
-        const {getInput, isRepeating} = this.props;
-        if(isRepeating === true){
-          var dateInfo = <RepeatingEventForm getInput={getInput}/> ;
-        } else if(isRepeating === false){
-          var dateInfo = <NonRepeatingEventForm getInput={getInput}/> ;
-        } 
-       return dateInfo;
-     }
-}
-
-class RepeatingEventForm extends React.Component {
-  constructor(props) {
-    super(props); 
-  }
-
-  render() {
-    return (
-      <View >
-          <Text>REPEATING EVENT </Text>
-          <Text>Times Per Week </Text>
-          <TextInput
-            style={styles.TextInput}
-            onChange={this.props.getInput.bind(this, 'frequency')}
-           />
-          <Text># of Weeks </Text>
-          <TextInput
-            style={styles.TextInput}
-            onChange={this.props.getInput.bind(this, 'timeFrame')}
-           />
-        </View>
-    );
-  }
-}
-
-class NonRepeatingEventForm extends React.Component {
-  constructor(props) {
-    super(props); 
-    this.state = { date: new Date() };
-    this.props.getInput('endDate', this.state.date)
-  }
-
-  onDateChange = (date) => {
-    this.setState({date: date});
-    this.props.getInput('endDate', this.state.date)
-  }
-
-  render() {
-    return (
-      <View >
-       <Text>Non-REPEATING EVENT </Text>
-       <DatePickerIOS
-           date={this.state.date}
-           mode="date"
-           onDateChange={this.onDateChange}
-         />
-        </View>
     );
   }
 }
