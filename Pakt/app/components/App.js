@@ -5,6 +5,7 @@ import Camera from '../components/Camera';
 import GetCurrentPakt from '../containers/GetCurrentPakt';
 import { connect } from 'react-redux';
 import { Scene, Router, TabBar, Modal, Schema, Actions, Switch } from 'react-native-router-flux';
+import SendPicture from '../containers/SendPicture';
 
 import React, {
   AppRegistry,
@@ -19,11 +20,11 @@ import React, {
 
 //tabs for bottom navBar
 class TabIcon extends React.Component {
-    render(){
-        return (
-            <Text style={{color: this.props.selected ? 'blue' :'black'}}>{this.props.title}</Text>
-        );
-    }
+  render(){
+    return (
+      <Text style={{color: this.props.selected ? 'blue' :'black'}}>{this.props.title}</Text>
+    );
+  }
 }
 
 //function determines if user is logged in, if not, returns the 'login' id 
@@ -54,7 +55,7 @@ const scenes = Actions.create(
         <Scene key="individualPakt" component={GetCurrentPakt} title="IndividualPakt"/>
       </Scene>
       <Scene key="createPakt" component={CreatePakt} title="Create Pakt" icon={TabIcon}/>
-      <Scene key="camera" component={Camera} title="Camera" icon={TabIcon} />
+      <Scene key="camera" component={Camera, SendPicture} title="Camera" icon={TabIcon} />
       <Scene key="logout" component={LoginUser} title="Logout" icon={TabIcon} />
     </Scene>
   </Scene>

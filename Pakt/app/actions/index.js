@@ -23,6 +23,10 @@ function receiveFriends(json) {
   };
 }
 
+// dependencies for uploading to S3
+const RNUploader = require('NativeModules').RNUploader;
+const xml2json = require('node-xml2json');
+
 function requestPakts() {
   return {
     type: REQUEST_PAKTS,
@@ -160,5 +164,47 @@ export function fetchFriends() {
     return fetch('http://127.0.0.1:3000/api/users/friends/' + userId) 
       .then(response => response.json())
       .then(json => dispatch(receiveFriends(json)));
+  };
+}
+
+export function sendS3Picture(picture) {
+  return (dispatch, getState) => {
+
+    // send picture to S3 with RNUploader
+    RNUploader.upload(picture, (err, res) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+
+      const status = res.status;
+      const jsonResponse = xml2json.parser(res.data);
+
+      console.log(`upload complete with status ${status}`);
+      console.log(jsonResponse);
+    });
+  };
+}
+
+export function submitPicture(picture) {
+  return (dispatch, getState) => {
+    return dispatch(sendS3Picture(picture));
+  };
+}
+
+export function savePicturePath(userId, paktId, path) {
+  return dispatch => {
+    return fetch(`http://127.0.0.1:3000/api/pakt/picture/${userId}/${paktId}`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(path),
+    })
+    .then(response => response.json())
+    .then(json => {
+      console.log(json);
+    });
   };
 }
