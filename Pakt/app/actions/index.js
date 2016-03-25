@@ -8,6 +8,8 @@ export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const ACCEPT_PAKT = 'ACCEPT_PAKT';
 export const LOGOUT_CURRENT_USER = 'LOGOUT_CURRENT_USER';
 import { Actions } from 'react-native-router-flux';
+const url = require('../utils/env').url;
+
 
 function requestFriends() {
   return {
@@ -44,7 +46,7 @@ function receivePakts(json) {
 function fetchPakts(currentUserId) {
   return dispatch => {
     dispatch(requestPakts());
-    return fetch(`http://127.0.0.1:3000/api/pakts/${currentUserId}`)
+    return fetch(url+`api/pakts/${currentUserId}`)
       .then(response => response.json())
       .then(json => dispatch(receivePakts(json)));
   };
@@ -68,7 +70,7 @@ function getFbInfo(userCredentials) {
     return fetch(`https://graph.facebook.com/v2.3/${userCredentials.userId}?fields=name,picture,friends,email&access_token=${userCredentials.token}`)
       .then(response => response.json())
       .then(json => {
-        return fetch('http://127.0.0.1:3000/api/users/login', {
+        return fetch(url+'api/users/login', {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
@@ -94,7 +96,7 @@ export function submitPakt(pakt) {
   return (dispatch, getState) => {
     const state = getState();
     const userId = state.users.currentUser.id;
-    return fetch('http://127.0.0.1:3000/api/pakt/' + userId, {
+    return fetch(url+'api/pakt/' + userId, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -133,7 +135,7 @@ function acceptPakt(id) {
 
 // /api/pakt/accept/:userId/:paktId
 export function respondToPaktInvite(accepted, currentUserId, currentPaktId) {
-  const url = `http://127.0.0.1:3000/api/pakt/accept/${currentUserId}/${currentPaktId}`;
+  const url = url+`api/pakt/accept/${currentUserId}/${currentPaktId}`;
   return dispatch => {
     return fetch(url, {
       method: 'PUT',
@@ -161,7 +163,7 @@ export function fetchFriends() {
     dispatch(requestFriends());
     const state = getState();
     const userId = state.users.currentUser.id;
-    return fetch('http://127.0.0.1:3000/api/users/friends/' + userId) 
+    return fetch(url+'api/users/friends/' + userId) 
       .then(response => response.json())
       .then(json => dispatch(receiveFriends(json)));
   };
@@ -194,7 +196,7 @@ export function submitPicture(picture) {
 
 export function savePicturePath(userId, paktId, path) {
   return dispatch => {
-    return fetch(`http://127.0.0.1:3000/api/pakt/picture/${userId}/${paktId}`, {
+    return fetch(url+`api/pakt/picture/${userId}/${paktId}`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
