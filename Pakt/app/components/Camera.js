@@ -41,17 +41,18 @@ class Camera extends Component {
     this.state = { visible: false, transparent: true, animated: true };
   }
 
+  setModalVisible(visible) {
+    this.setState({visible: visible});
+  }
+
   takePicture(paktId) {
     this.camera.capture()
     .then((picture) => {
       this.props.sendPictureToS3(picture, paktId, this.props.user.users.currentUser.id);
+      this.setModalVisible(false);
+      Actions.pakts();
     })
     .catch(err => console.error(err));
-  }
-
-  setModalVisible(visible) {
-    this.setState({visible: visible});
-    console.log(this.props);
   }
 
   render() {

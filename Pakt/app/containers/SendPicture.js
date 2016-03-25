@@ -27,7 +27,7 @@ const mapDispatchToProps = (dispatch) => {
         key: env.accessKeyId,
         secret: env.secretAccessKey,
         type: 'image/',
-        path: `${paktId}/${userId}`,
+        path: `${userId}/${paktId}`,
         acl: 'public-read-write',
         expires: new Date(Date.now() + 30000), // expires in 30 seconds
         length: 10485760, // 10M as maximal size
@@ -51,7 +51,7 @@ const mapDispatchToProps = (dispatch) => {
         url: `https://${s3Config.bucket}.s3.amazonaws.com/`,
         files: file,
         params: {
-          key: `${paktId}/${userId}/${file[0].filename}`,
+          key: `${userId}/${paktId}/${file[0].filename}`,
           acl: s3Config.acl,
           'X-Amz-Signature': policy.signature,
           'x-amz-credential': policy.credential,
