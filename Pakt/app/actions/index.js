@@ -103,6 +103,10 @@ export function submitPakt(pakt) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ data: { pakt: pakt } }),
+    }) 
+    .then(() => {
+      //route to the user's pakts after they submit a new pakt
+      Actions.pakts();
     });
   };
 }
@@ -135,9 +139,9 @@ function acceptPakt(id) {
 
 // /api/pakt/accept/:userId/:paktId
 export function respondToPaktInvite(accepted, currentUserId, currentPaktId) {
-  const url = url+`api/pakt/accept/${currentUserId}/${currentPaktId}`;
+  const path = url+`api/pakt/accept/${currentUserId}/${currentPaktId}`;
   return dispatch => {
-    return fetch(url, {
+    return fetch(path, {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
