@@ -10,6 +10,7 @@ const mapStateToProps = (state) => {
     accepted: _.find(state.pakts.currentPakt.Pakt_Users, function (user) {
       return user.UserId === state.users.currentUser.id;
     }).accepted,
+    paktPictures: state.pakts.currentPakt.Pictures,
   };
 };
 
