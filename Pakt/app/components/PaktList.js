@@ -22,12 +22,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F5FCFF',
   },
-  subtitle: {
-    fontSize: 30,
-    marginTop: 5,
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
 });
 
 class PaktList extends Component {
@@ -47,8 +41,7 @@ class PaktList extends Component {
     dataSource = dataSource.cloneWithRows(pakts);
 
     return (
-      <View style={styles.container}>
-        <Text style={styles.subtitle}>Your Pakts</Text>
+      <View>
         <ListView
           dataSource={dataSource}
           renderRow={(rowData) => <PaktListItem pakt={rowData} onPaktClick={onPaktClick} />}

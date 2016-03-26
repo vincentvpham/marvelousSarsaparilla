@@ -4,9 +4,6 @@ var _ = require('lodash');
 function paktUser(state, action) {
   switch (action.type) {
     case ACCEPT_PAKT:
-      if (state.UserId !== action.id) {
-        return state;
-      }
       return Object.assign({}, state, {
         accepted: true,
       });
@@ -19,9 +16,7 @@ function pakt(state, action) {
   switch (action.type) {
     case ACCEPT_PAKT:
       return Object.assign({}, state, {
-        Pakt_Users: state.Pakt_Users.map(user =>
-          paktUser(user, action)
-        ),
+        Pakt_User: paktUser(state.Pakt_User, action),
       });
     default:
       return state;
