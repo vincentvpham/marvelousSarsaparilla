@@ -21,9 +21,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
    title: {
-   	textAlign: 'center',
+    textAlign: 'center',
     marginTop: 15,
-   	marginLeft: 20,
+    marginLeft: 20,
     fontWeight: 'bold',
     color: 'white',
     fontSize: 45,
@@ -39,16 +39,16 @@ const styles = StyleSheet.create({
 });
 
 const Header = ({ title }) => (
-  <View style={styles.container} >
-    <View style={styles.headerItem} >
-		  <Text style={styles.title}>{title}</Text>
-    </View>
-    <View style={styles.headerItem} >
- 			<View style={styles.logout}>
- 		   <LoginUser/>
- 		  </View>
+<View style={styles.container} >
+  <View style={styles.headerItem} >
+    <Text style={styles.title}>{title}</Text>
+  </View>
+  <View style={styles.headerItem} >
+    <View style={styles.logout}>
+     <LoginUser/>
     </View>
   </View>
+</View>
 );
 
 module.exports = Header;
