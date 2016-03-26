@@ -7,14 +7,13 @@ const mapStateToProps = (state) => {
   return {
     pakts: state.pakts.items,
     isFetching: state.pakts.isFetching,
-    currentUserId: state.users.currentUser.id,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    listThePakts: (currentUserId) => {
-      dispatch(fetchPaktsIfNeeded(currentUserId));
+    listThePakts: () => {
+      dispatch(fetchPaktsIfNeeded());
     },
     onPaktClick: (currentPakt) => {
       dispatch(setCurrentPakt(currentPakt));

@@ -30,7 +30,7 @@ class PaktList extends Component {
     super(props);
   }
   componentDidMount() {
-    this.props.listThePakts(this.props.currentUserId);
+    this.props.listThePakts();
   }
 
   renderPaktsView() {

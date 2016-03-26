@@ -95,9 +95,9 @@ function getFbInfo(userCredentials) {
   };
 }
 
-export function fetchPaktsIfNeeded(currentUserId) {
-  return (dispatch, getState) => {
-    return dispatch(fetchPakts(currentUserId));
+export function fetchPaktsIfNeeded() {
+  return dispatch => {
+    return dispatch(fetchPakts());
   };
 }
 
