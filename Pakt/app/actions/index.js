@@ -12,7 +12,6 @@ export const LOGIN_USER = 'LOGIN_USER';
 import { Actions } from 'react-native-router-flux';
 const url = require('../utils/env').url;
 
-
 function requestFriends() {
   return {
     type: REQUEST_FRIENDS,
@@ -24,7 +23,6 @@ export function beginLoginFbUser() {
     type: LOGIN_USER,
   };
 }
-
 
 function receiveFriends(json) {
   return {

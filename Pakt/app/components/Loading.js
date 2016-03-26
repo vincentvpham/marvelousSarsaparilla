@@ -12,8 +12,9 @@ import React, {
 
 const Loading = ({ displayText }) => (
   <Text>
-    {displayText} 
+    { displayText } 
   </Text>
 );
+
 
 module.exports = Loading;

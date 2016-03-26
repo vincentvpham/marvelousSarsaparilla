@@ -23,11 +23,12 @@ class Login extends React.Component {
     const { loginFbUser, logoutFbUser, beginLoginFbUser } = this.props;
     var _this = this;
     return (
-      <View onPress={beginLoginFbUser()}>
+      <View >
         <FBLogin 
           permissions={['email', 'user_friends']}
           loginBehavior={FBLoginManager.LoginBehaviors.Native}
           onLogin={function (data) {
+            beginLoginFbUser();
             loginFbUser(data.credentials);
             console.log('Logged in!');
             console.log(data);
