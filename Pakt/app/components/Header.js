@@ -45,7 +45,7 @@ const Header = ({ title }) => (
   </View>
   <View style={styles.headerItem} >
     <View style={styles.logout}>
-     <LoginUser/>
+      <LoginUser/>
     </View>
   </View>
 </View>
