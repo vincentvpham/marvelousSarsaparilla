@@ -38,7 +38,7 @@ function requestPakts() {
 function receivePakts(json) {
   return {
     type: RECEIVE_PAKTS,
-    pakts: json,
+    pakts: json.Pakts,
     receivedAt: Date.now(),
   };
 }

@@ -7,9 +7,7 @@ const mapStateToProps = (state) => {
   return {
     currentPakt: state.pakts.currentPakt,
     currentUserId: state.users.currentUser.id,
-    accepted: _.find(state.pakts.currentPakt.Pakt_Users, function (user) {
-      return user.UserId === state.users.currentUser.id;
-    }).accepted,
+    accepted: state.pakts.currentPakt.Pakt_User.accepted,
     paktPictures: state.pakts.currentPakt.Pictures,
   };
 };
