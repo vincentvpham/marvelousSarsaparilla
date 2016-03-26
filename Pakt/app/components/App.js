@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { Scene, Router, TabBar, Modal, Schema, Actions, Switch } from 'react-native-router-flux';
 import SendPicture from '../containers/SendPicture';
 import Header from '../components/Header';
+import Loading from '../components/Loading';
 
 import React, {
   AppRegistry,
@@ -33,10 +34,12 @@ class TabIcon extends React.Component {
 const mapStateToProps = (state) => {
   return {
     selector: () => {
-      if (!state.users.currentUser) {
-        return 'landing';
-      } else {
+      if (state.users.currentUser) {
         return 'tabbar';
+      } else if (state.users.loggingIn) {
+        return 'loading';
+      } else {
+        return 'landing';
       }
     },
   };
@@ -56,6 +59,7 @@ const App = () => (
 const scenes = Actions.create(
   <Scene key="root"  component={connect(mapStateToProps, null)(Switch)} tabs={true} >
     <Scene key="landing"  title="Landing"  component={Landing}></Scene>
+    <Scene hideNavBar='true' key="loading" component={Loading} title="Camera" icon={TabIcon} />
     <Scene key="tabbar" tabs={true} default='getPakts'>
       <Scene hideNavBar='true' key="pakts" title="Pakts" icon={TabIcon} >
         <Scene key="getPakts" component={GetPakts} title="GetPakts"/>

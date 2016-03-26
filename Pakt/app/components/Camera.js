@@ -8,8 +8,6 @@ import React, {
   ListView,
 } from 'react-native';
 
-import { Actions } from 'react-native-router-flux';
-
 import RNCamera from 'react-native-camera';
 
 import PaktListItem from './PaktListItem';
@@ -50,7 +48,6 @@ class Camera extends Component {
     .then((picture) => {
       this.props.sendPictureToS3(picture, paktId, this.props.user.users.currentUser.id);
       this.setModalVisible(false);
-      Actions.pakts();
     })
     .catch(err => console.error(err));
   }

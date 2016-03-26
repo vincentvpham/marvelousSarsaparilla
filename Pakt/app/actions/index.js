@@ -7,13 +7,20 @@ export const SET_CURRENT_PAKT = 'SET_CURRENT_PAKT';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const ACCEPT_PAKT = 'ACCEPT_PAKT';
 export const LOGOUT_CURRENT_USER = 'LOGOUT_CURRENT_USER';
+export const LOGIN_USER = 'LOGIN_USER';
+
 import { Actions } from 'react-native-router-flux';
 const url = require('../utils/env').url;
-
 
 function requestFriends() {
   return {
     type: REQUEST_FRIENDS,
+  };
+}
+
+export function beginLoginFbUser() {
+  return {
+    type: LOGIN_USER,
   };
 }
 
@@ -43,10 +50,12 @@ function receivePakts(json) {
   };
 }
 
-function fetchPakts(currentUserId) {
-  return dispatch => {
+function fetchPakts() {
+  return (dispatch, getState) => {
+    const state = getState();
+    const userId = state.users.currentUser.id;
     dispatch(requestPakts());
-    return fetch(url+`api/pakts/${currentUserId}`)
+    return fetch(url+`api/pakts/${userId}`)
       .then(response => response.json())
       .then(json => dispatch(receivePakts(json)));
   };
@@ -86,9 +95,9 @@ function getFbInfo(userCredentials) {
   };
 }
 
-export function fetchPaktsIfNeeded(currentUserId) {
-  return (dispatch, getState) => {
-    return dispatch(fetchPakts(currentUserId));
+export function fetchPaktsIfNeeded() {
+  return dispatch => {
+    return dispatch(fetchPakts());
   };
 }
 
@@ -105,7 +114,9 @@ export function submitPakt(pakt) {
       body: JSON.stringify({ data: { pakt: pakt } }),
     }) 
     .then(() => {
-      //route to the user's pakts after they submit a new pakt
+      //update the pakts on the state after they submit a new pakt
+      dispatch(fetchPakts())
+      //route to the user's pakts 
       Actions.pakts();
     });
   };
@@ -152,7 +163,7 @@ export function respondToPaktInvite(accepted, currentUserId, currentPaktId) {
     .then(() => {
       if (!accepted) {
         // Reroute to list of Pakts
-        Actions.getPakts();
+        Actions.pakts();
       // Else accept invite
       } else {
         // Update state
@@ -175,6 +186,10 @@ export function fetchFriends() {
 
 export function sendS3Picture(picture) {
   return (dispatch, getState) => {
+    // update pakts on the state
+    dispatch(fetchPakts());
+    // route to the pakts page
+    Actions.pakts();
 
     // send picture to S3 with RNUploader
     RNUploader.upload(picture, (err, res) => {

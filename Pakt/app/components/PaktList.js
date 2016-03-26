@@ -10,6 +10,7 @@ import React, {
 } from 'react-native';
 
 import PaktListItem from './PaktListItem';
+import Loading from './Loading';
 
 const styles = StyleSheet.create({
   container: {
@@ -28,9 +29,8 @@ class PaktList extends Component {
   constructor(props) {
     super(props);
   }
-
   componentDidMount() {
-    this.props.listThePakts(this.props.currentUserId);
+    this.props.listThePakts();
   }
 
   renderPaktsView() {
@@ -49,20 +49,10 @@ class PaktList extends Component {
       </View>
     );
   }
-
-  renderLoadingView() {
-    return (
-      <View style={styles.container}>
-        <Text>
-          Loading Pakts...
-        </Text>
-      </View>
-    );
-  }
-
+  
   render() {
     const { isFetching } = this.props;
-    return (isFetching) ? this.renderLoadingView() : this.renderPaktsView();
+    return (isFetching) ? <Loading displayText = {'Loading Pakts...'}/> : this.renderPaktsView();
   }
 
 }

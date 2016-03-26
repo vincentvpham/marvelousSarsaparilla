@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
 
 class Login extends React.Component {
   render(){
-    const { loginFbUser, logoutFbUser } = this.props;
+    const { loginFbUser, logoutFbUser, beginLoginFbUser } = this.props;
     var _this = this;
     return (
       <View >
@@ -28,10 +28,10 @@ class Login extends React.Component {
           permissions={['email', 'user_friends']}
           loginBehavior={FBLoginManager.LoginBehaviors.Native}
           onLogin={function (data) {
+            beginLoginFbUser();
             loginFbUser(data.credentials);
             console.log('Logged in!');
             console.log(data);
-            _this.setState({ user: data.credentials });
           }}
           onLogout={function () {
             logoutFbUser();
@@ -39,9 +39,11 @@ class Login extends React.Component {
             _this.setState({ user: null });
           }}
           onLoginFound={function (data) {
+            beginLoginFbUser();
             console.log('Existing login found.');
             console.log(data);
-            _this.setState({ user: data.credentials });
+            loginFbUser(data.credentials);
+
           }}
           onLoginNotFound={function () {
             console.log('No user logged in.');

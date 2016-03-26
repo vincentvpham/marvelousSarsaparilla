@@ -11,6 +11,8 @@ import React, {
   DatePickerIOS,
   TouchableHighlight,
 } from 'react-native';
+import Loading from './Loading';
+
 
 //display a different data depending on if the user's friends are loading, not loading, or don't exist
 class PaktFriendsForm extends React.Component {
@@ -20,15 +22,9 @@ class PaktFriendsForm extends React.Component {
     if(Array.isArray(friends) && friends.length === 0){
       var displayText = 'You have no friends who use pakt!';
     } 
-    return (!friends || friends.length===0) ? <LoadingFriendsView displayText = {displayText}/> : <SelectFriendsView friends={friends}/>;
+    return (!friends || friends.length===0) ? <Loading displayText = {displayText}/> : <SelectFriendsView friends={friends}/>;
   }
 }
-
-const LoadingFriendsView = ({displayText}) => (
-    <Text>
-      {displayText} 
-    </Text>
-);
 
 class SelectFriendsView extends React.Component {
   constructor(props) {

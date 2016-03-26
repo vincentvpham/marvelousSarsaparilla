@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { loginNewUser } from '../actions';
+import { loginNewUser, beginLoginFbUser } from '../actions';
 import { logoutUser } from '../actions';
 import Login from '../components/Login';
 import {Actions} from 'react-native-router-flux';
@@ -14,7 +14,9 @@ const mapDispatchToProps = (dispatch) => {
     loginFbUser: (userCrendentials) => {
       dispatch(loginNewUser(userCrendentials));
     },
-
+    beginLoginFbUser: () => {
+      dispatch(beginLoginFbUser());
+    },
     logoutFbUser: () => {
       dispatch(logoutUser());
     },
