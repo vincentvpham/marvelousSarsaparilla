@@ -15,7 +15,6 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(loginNewUser(userCrendentials));
     },
     beginLoginFbUser: () => {
-      console.log('made it to the container!');
       dispatch(beginLoginFbUser());
     },
     logoutFbUser: () => {
