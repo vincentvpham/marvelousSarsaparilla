@@ -37,7 +37,6 @@ class RepeatingEventForm extends React.Component {
   render() {
     return (
       <View >
-          <Text>REPEATING EVENT </Text>
           <Text>Times Per Week </Text>
           <TextInput
             style={styles.TextInput}
@@ -68,9 +67,9 @@ class NonRepeatingEventForm extends React.Component {
   render() {
     return (
       <View >
-       <Text>Non-REPEATING EVENT </Text>
-       <DatePickerIOS
+       <DatePickerIOS 
            date={this.state.date}
+           style = {styles.DatePickerIOS}
            mode="date"
            onDateChange={this.onDateChange}
          />

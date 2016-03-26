@@ -19,13 +19,14 @@ import PaktDateForm from './CreatePaktDateForm';
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 95,
+    paddingRight: 60,
+    paddingLeft: 90,
   },
   TextInput: {
-    height: 20, 
+    height: 30, 
     width: 200, 
     borderColor: 'gray', 
-    borderWidth: 1
+    borderWidth: 2,
   },
   button: {
     backgroundColor: 'blue',
@@ -33,6 +34,17 @@ var styles = StyleSheet.create({
     borderRadius : 2,
     height: 20, 
     width: 50,
+  },
+  subtitle: {
+    marginTop: 20,
+    marginBottom: 4,
+    fontSize: 15,
+    justifyContent:'center',
+  },
+  heading: {
+    marginTop: 15,
+    fontSize: 22,
+    justifyContent:'center',
   },
 });
 
@@ -68,27 +80,28 @@ class CreatePaktForm extends React.Component {
     let { friends } = this.props;    
     return (
       <View style={styles.container}>
-        <Text>Name:</Text>
+        <Text style={styles.heading}>CREATE A PAKT</Text>
+        <Text style={styles.subtitle}>Name:</Text>
         <TextInput
           style={styles.TextInput}
           onChangeText={(text) => this.setState({name: text})}
           value={this.state.name||''}
         />
-         <Text>Description:</Text>
+         <Text style={styles.subtitle}>Description:</Text>
          <TextInput
             style={styles.TextInput}
             onChangeText={(text) => this.setState({description: text})}
             value={this.state.description||''}
           />
-          <Text>Conseqence:</Text>
+          <Text style={styles.subtitle}>Conseqence:</Text>
           <TextInput
             style={styles.TextInput}
             onChangeText={(text) => this.setState({consequenceText: text})}
             value={this.state.consequenceText||''}
            />
-           <Text>Friends:</Text>
+           <Text style={styles.subtitle}>Friends:</Text>
            <PaktFriendsForm friends={friends} />
-           <Text>Repeating:</Text> 
+           <Text style={styles.subtitle}>Repeating:</Text> 
            <Text onPress={()=>this.setState({repeating: true})}>YES</Text> 
            <Text onPress={()=>this.setState({repeating: false})}>NO</Text> 
            {(this.state.repeating === undefined) ? null :  <PaktDateForm  getInput= {this.getInput.bind(this)} repeating= {this.state.repeating}/>}
