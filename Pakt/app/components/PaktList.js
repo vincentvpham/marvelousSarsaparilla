@@ -50,17 +50,7 @@ class PaktList extends Component {
       </View>
     );
   }
-
-  // renderLoadingView() {
-  //   return (
-  //     <View style={styles.container}>
-  //       <Text>
-  //         Loading Pakts...
-  //       </Text>
-  //     </View>
-  //   );
-  // }
-
+  
   render() {
     const { isFetching } = this.props;
     return (isFetching) ? <Loading displayText = {'Loading Pakts...'}/> : this.renderPaktsView();
