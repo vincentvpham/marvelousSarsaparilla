@@ -24,8 +24,8 @@ var styles = StyleSheet.create({
 // Display different options depending on if the pakt is repeating
 class PaktDateForm extends React.Component {
   render(){
-    const {getInput, isRepeating} = this.props;
-    return (isRepeating) ? <RepeatingEventForm getInput={getInput}/> : <NonRepeatingEventForm getInput={getInput}/>;
+    const {getInput, repeating} = this.props;
+    return (repeating) ? <RepeatingEventForm getInput={getInput}/> : <NonRepeatingEventForm getInput={getInput}/>;
   }
 }
 
@@ -37,7 +37,6 @@ class RepeatingEventForm extends React.Component {
   render() {
     return (
       <View >
-          <Text>REPEATING EVENT </Text>
           <Text>Times Per Week </Text>
           <TextInput
             style={styles.TextInput}
@@ -68,9 +67,9 @@ class NonRepeatingEventForm extends React.Component {
   render() {
     return (
       <View >
-       <Text>Non-REPEATING EVENT </Text>
-       <DatePickerIOS
+       <DatePickerIOS 
            date={this.state.date}
+           style = {styles.DatePickerIOS}
            mode="date"
            onDateChange={this.onDateChange}
          />
