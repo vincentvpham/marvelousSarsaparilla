@@ -24,7 +24,7 @@ class Login extends React.Component {
     var _this = this;
     return (
       <View onPress={beginLoginFbUser()}>
-        <FBLogin style={{ marginTop: 200 }}
+        <FBLogin 
           permissions={['email', 'user_friends']}
           loginBehavior={FBLoginManager.LoginBehaviors.Native}
           onLogin={function (data) {
