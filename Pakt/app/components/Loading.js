@@ -10,7 +10,7 @@ import React, {
 } from 'react-native';
 
 
-const Loading = ({ displayText }) => (
+const Loading = ({ displayText = 'Loading Pakts...'}) => (
   <Text>
     { displayText } 
   </Text>

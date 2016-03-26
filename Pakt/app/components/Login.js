@@ -39,6 +39,7 @@ class Login extends React.Component {
             _this.setState({ user: null });
           }}
           onLoginFound={function (data) {
+            beginLoginFbUser();
             console.log('Existing login found.');
             console.log(data);
             loginFbUser(data.credentials);

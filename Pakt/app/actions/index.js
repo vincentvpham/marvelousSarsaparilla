@@ -50,10 +50,12 @@ function receivePakts(json) {
   };
 }
 
-function fetchPakts(currentUserId) {
-  return dispatch => {
+function fetchPakts() {
+  return (dispatch, getState) => {
+    const state = getState();
+    const userId = state.users.currentUser.id;
     dispatch(requestPakts());
-    return fetch(url+`api/pakts/${currentUserId}`)
+    return fetch(url+`api/pakts/${userId}`)
       .then(response => response.json())
       .then(json => dispatch(receivePakts(json)));
   };
@@ -112,7 +114,9 @@ export function submitPakt(pakt) {
       body: JSON.stringify({ data: { pakt: pakt } }),
     }) 
     .then(() => {
-      //route to the user's pakts after they submit a new pakt
+      //update the pakts on the state after they submit a new pakt
+      dispatch(fetchPakts())
+      //route to the user's pakts 
       Actions.pakts();
     });
   };
@@ -159,7 +163,7 @@ export function respondToPaktInvite(accepted, currentUserId, currentPaktId) {
     .then(() => {
       if (!accepted) {
         // Reroute to list of Pakts
-        Actions.getPakts();
+        Actions.pakts();
       // Else accept invite
       } else {
         // Update state
@@ -182,6 +186,10 @@ export function fetchFriends() {
 
 export function sendS3Picture(picture) {
   return (dispatch, getState) => {
+    // update pakts on the state
+    dispatch(fetchPakts());
+    // route to the pakts page
+    Actions.pakts();
 
     // send picture to S3 with RNUploader
     RNUploader.upload(picture, (err, res) => {

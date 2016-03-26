@@ -29,7 +29,6 @@ class PaktList extends Component {
   constructor(props) {
     super(props);
   }
-
   componentDidMount() {
     this.props.listThePakts(this.props.currentUserId);
   }
