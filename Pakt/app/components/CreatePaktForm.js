@@ -40,29 +40,26 @@ var styles = StyleSheet.create({
 class CreatePaktForm extends React.Component {
   constructor(props) {
     super(props); 
-    this.state = {formInputs: {}, isRepeating: null};
+    this.state = {};
     //load info for the user's friends
     this.props.listTheFriends();
   }
 
   getInput = (category, event) => {
-    var formInputs = {};
     if (category === 'submit') {
-      //get repeating property from the state
-      this.state.formInputs.repeating =  this.state.isRepeating;
-
-      // add friends who were invited to formInputs
+      // add friends who were invited to
       let users = _.filter(this.props.friends,  ['invited', true]).map(function(friend){return friend.id});
-      this.state.formInputs.users =  users;
-
-      // Later we will add some validation here prior to submit
-      this.props.submitFormInputs(this.state.formInputs);
+      this.state.users =  users;
+      // send info to the database
+      this.props.submitFormInputs(this.state);
+      //reset the form to empty
+      this.state = {};
 
     } else { // If the input is a TextInput, grab the text from the change event
       if(event.nativeEvent){
-        this.state.formInputs[category] = event.nativeEvent.text.trim(); 
+        this.state[category] = event.nativeEvent.text.trim(); 
       } else{ // If not, input the given value
-        this.state.formInputs[category] = event;
+        this.state[category] = event;
       }
     }
   }
@@ -74,24 +71,27 @@ class CreatePaktForm extends React.Component {
         <Text>Name:</Text>
         <TextInput
           style={styles.TextInput}
-          onChange={this.getInput.bind(this, 'name')}
+          onChangeText={(text) => this.setState({name: text})}
+          value={this.state.name||''}
         />
          <Text>Description:</Text>
          <TextInput
             style={styles.TextInput}
-            onChange={this.getInput.bind(this, 'description')}
+            onChangeText={(text) => this.setState({description: text})}
+            value={this.state.description||''}
           />
           <Text>Conseqence:</Text>
           <TextInput
             style={styles.TextInput}
-            onChange={this.getInput.bind(this, 'consequenceText')}
+            onChangeText={(text) => this.setState({consequenceText: text})}
+            value={this.state.consequenceText||''}
            />
            <Text>Friends:</Text>
            <PaktFriendsForm friends={friends} />
            <Text>Repeating:</Text> 
-           <Text onPress={()=>this.setState({isRepeating: true})}>YES</Text> 
-           <Text onPress={()=>this.setState({isRepeating: false})}>NO</Text> 
-           {(this.state.isRepeating === null) ? null :  <PaktDateForm  getInput= {this.getInput.bind(this)} isRepeating= {this.state.isRepeating}/>}
+           <Text onPress={()=>this.setState({repeating: true})}>YES</Text> 
+           <Text onPress={()=>this.setState({repeating: false})}>NO</Text> 
+           {(this.state.repeating === undefined) ? null :  <PaktDateForm  getInput= {this.getInput.bind(this)} repeating= {this.state.repeating}/>}
            <TouchableHighlight style={styles.button} onPress={this.getInput.bind(this, 'submit')} ><Text>Submit</Text></TouchableHighlight>
       </View>
     );

@@ -24,8 +24,8 @@ var styles = StyleSheet.create({
 // Display different options depending on if the pakt is repeating
 class PaktDateForm extends React.Component {
   render(){
-    const {getInput, isRepeating} = this.props;
-    return (isRepeating) ? <RepeatingEventForm getInput={getInput}/> : <NonRepeatingEventForm getInput={getInput}/>;
+    const {getInput, repeating} = this.props;
+    return (repeating) ? <RepeatingEventForm getInput={getInput}/> : <NonRepeatingEventForm getInput={getInput}/>;
   }
 }
 
