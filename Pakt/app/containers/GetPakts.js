@@ -10,13 +10,7 @@ const mapStateToProps = (state) => {
       isFetching: state.pakts.isFetching,
       currentUserId: state.users.currentUser.id,
     };
-  } else {
-    return {
-      pakts: null,
-      isFetching: true,
-      currentUserId: null,
-    };
-  }
+  } 
 };
 
 const mapDispatchToProps = (dispatch) => {
