@@ -32,7 +32,6 @@ class Login extends React.Component {
             loginFbUser(data.credentials);
             console.log('Logged in!');
             console.log(data);
-            _this.setState({ user: data.credentials });
           }}
           onLogout={function () {
             logoutFbUser();
@@ -42,7 +41,6 @@ class Login extends React.Component {
           onLoginFound={function (data) {
             console.log('Existing login found.');
             console.log(data);
-            _this.setState({ user: data.credentials });
             loginFbUser(data.credentials);
 
           }}
