@@ -14,14 +14,18 @@ import PaktListItem from './PaktListItem';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
   listView: {
     flex: 1,
-    paddingTop: 65,
+    backgroundColor: '#F5FCFF',
+  },
+  subtitle: {
+    fontSize: 30,
+    marginTop: 5,
+    alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
 });
@@ -43,7 +47,8 @@ class PaktList extends Component {
     dataSource = dataSource.cloneWithRows(pakts);
 
     return (
-      <View>
+      <View style={styles.container}>
+        <Text style={styles.subtitle}>Your Pakts</Text>
         <ListView
           dataSource={dataSource}
           renderRow={(rowData) => <PaktListItem pakt={rowData} onPaktClick={onPaktClick} />}
