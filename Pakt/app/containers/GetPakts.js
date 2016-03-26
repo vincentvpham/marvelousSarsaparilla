@@ -4,11 +4,19 @@ import PaktList from '../components/PaktList';
 import {Actions} from 'react-native-router-flux';
 
 const mapStateToProps = (state) => {
-  return {
-    pakts: state.pakts.items,
-    isFetching: state.pakts.isFetching,
-    currentUserId: state.users.currentUser.id,
-  };
+  if (state.users.currentUser) {
+    return {
+      pakts: state.pakts.items,
+      isFetching: state.pakts.isFetching,
+      currentUserId: state.users.currentUser.id,
+    };
+  } else {
+    return {
+      pakts: null,
+      isFetching: true,
+      currentUserId: null,
+    };
+  }
 };
 
 const mapDispatchToProps = (dispatch) => {

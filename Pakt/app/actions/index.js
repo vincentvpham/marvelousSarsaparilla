@@ -7,6 +7,8 @@ export const SET_CURRENT_PAKT = 'SET_CURRENT_PAKT';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const ACCEPT_PAKT = 'ACCEPT_PAKT';
 export const LOGOUT_CURRENT_USER = 'LOGOUT_CURRENT_USER';
+export const LOGIN_USER = 'LOGIN_USER';
+
 import { Actions } from 'react-native-router-flux';
 const url = require('../utils/env').url;
 
@@ -16,6 +18,13 @@ function requestFriends() {
     type: REQUEST_FRIENDS,
   };
 }
+
+export function beginLoginFbUser() {
+  return {
+    type: LOGIN_USER,
+  };
+}
+
 
 function receiveFriends(json) {
   return {
