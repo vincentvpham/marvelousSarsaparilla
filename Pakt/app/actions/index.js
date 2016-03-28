@@ -186,11 +186,6 @@ export function fetchFriends() {
 
 export function sendS3Picture(picture) {
   return (dispatch, getState) => {
-    // update pakts on the state
-    dispatch(fetchPakts());
-    // route to the pakts page
-    Actions.pakts();
-
     // send picture to S3 with RNUploader
     RNUploader.upload(picture, (err, res) => {
       if (err) {
@@ -207,12 +202,6 @@ export function sendS3Picture(picture) {
   };
 }
 
-export function submitPicture(picture) {
-  return (dispatch, getState) => {
-    return dispatch(sendS3Picture(picture));
-  };
-}
-
 export function savePicturePath(userId, paktId, path) {
   return dispatch => {
     return fetch(url+`api/pakt/picture/${userId}/${paktId}`, {
@@ -226,6 +215,12 @@ export function savePicturePath(userId, paktId, path) {
     .then(response => response.json())
     .then(json => {
       console.log(json);
+    })
+    .then(() => {
+      // update pakts on the state
+      dispatch(fetchPakts());
+      // route to the pakts page
+      Actions.pakts();
     });
   };
 }

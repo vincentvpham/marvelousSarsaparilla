@@ -43,10 +43,10 @@ class Camera extends Component {
     this.setState({visible: visible});
   }
 
-  takePicture(paktId) {
+  takePicture(pakt) {
     this.camera.capture()
     .then((picture) => {
-      this.props.sendPictureToS3(picture, paktId, this.props.user.users.currentUser.id);
+      this.props.sendPictureToS3(picture, pakt.id, this.props.user.users.currentUser.id);
       this.setModalVisible(false);
     })
     .catch(err => console.error(err));
@@ -54,10 +54,10 @@ class Camera extends Component {
 
   render() {
 
-    var modalBackgroundStyle = {
+    const modalBackgroundStyle = {
       backgroundColor: this.state.transparent ? 'rgba(0, 0, 0, 0.5)' : '#f5fcff',
     };
-    var innerContainerTransparentStyle = this.state.transparent
+    const innerContainerTransparentStyle = this.state.transparent
       ? {backgroundColor: '#fff', padding: 20}
       : null;
 
@@ -65,7 +65,8 @@ class Camera extends Component {
       rowHasChanged: (row1, row2) => row1 !== row2,
     });
 
-    dataSource = dataSource.cloneWithRows(this.props.pakts);
+    // filter out pakts that have a picture uploaded today already
+    dataSource = dataSource.cloneWithRows(this.props.pakts.filter((pakt) => !pakt.Pakt_User.picToday));
 
     return (
       <View style={styles.container}>
@@ -89,7 +90,7 @@ class Camera extends Component {
               </Text>
               <ListView
                 dataSource={dataSource}
-                renderRow={(rowData) => <PaktListItem pakt={rowData} onPaktClick={this.takePicture.bind(this, rowData.id)}/>}
+                renderRow={(rowData) => <PaktListItem pakt={rowData} onPaktClick={this.takePicture.bind(this, rowData)}/>}
                 style={styles.listView} />
             </View>
           </View>
