@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
 class Camera extends Component {
   constructor(props) {
     super(props);
-    this.state = { visible: false, transparent: true, animated: true };
+    this.state = { visible: false, transparent: true, animated: true, cameraType: RNCamera.constants.Type.back };
   }
 
   setModalVisible(visible) {
@@ -50,6 +50,14 @@ class Camera extends Component {
       this.setModalVisible(false);
     })
     .catch(err => console.error(err));
+  }
+
+  switchCamera() {
+    const state = this.state;
+    state.cameraType = state.cameraType === RNCamera.constants.Type.back ? RNCamera.constants.Type.front : RNCamera.constants.Type.back;
+    this.setState(state);
+
+    console.log(state);
   }
 
   render() {
@@ -77,8 +85,10 @@ class Camera extends Component {
             this.camera = cam;
           }}
           style={styles.preview}
-          aspect={RNCamera.constants.Aspect.fill}
-        >
+          aspect={RNCamera.constants.Aspect.fill}>
+
+          <Text style={styles.capture} onPress={this.switchCamera.bind(this)}>[FLIP]</Text>
+
           <Text style={styles.capture} onPress={this.setModalVisible.bind(this, true)}>[CAPTURE]</Text>
         </RNCamera>
         <Modal
