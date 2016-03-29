@@ -192,7 +192,6 @@ export function sendS3Picture(picture) {
         console.error(err);
         return;
       }
-
       const status = res.status;
       const jsonResponse = xml2json.parser(res.data);
 

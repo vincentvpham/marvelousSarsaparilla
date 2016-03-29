@@ -66,7 +66,9 @@ class Camera extends Component {
     });
 
     // filter out pakts that have a picture uploaded today already
-    dataSource = dataSource.cloneWithRows(this.props.pakts.filter((pakt) => !pakt.Pakt_User.picToday));
+    const paktsWithoutProof = this.props.pakts.filter((pakt) => !pakt.Pakt_User.picToday);
+
+    dataSource = dataSource.cloneWithRows(paktsWithoutProof);
 
     return (
       <View style={styles.container}>
@@ -92,6 +94,7 @@ class Camera extends Component {
                 dataSource={dataSource}
                 renderRow={(rowData) => <PaktListItem pakt={rowData} onPaktClick={this.takePicture.bind(this, rowData)}/>}
                 style={styles.listView} />
+                {(paktsWithoutProof.length === 0) ? <Text>None of your Pakts need proof right now...</Text> : null}
             </View>
           </View>
         </Modal>
