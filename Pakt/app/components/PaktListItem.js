@@ -37,6 +37,21 @@ const styles = StyleSheet.create({
 });
 
 const PaktListItem = ({ pakt, onPaktClick }) => {
+  const currentDay = new Date().getDay();
+  const createdAtDay = new Date(pakt.createdAt).getDay();
+  // Need to manually set daysLeft to 7 if current day is same as created day
+  const daysLeft = (currentDay === createdAtDay) ? 7 : ((7 - currentDay + createdAtDay) % 7);
+  const needsAttention = (pakt.frequency - pakt.Pakt_User.picsThisWeek) === daysLeft;
+
+  let imgSrc = require('../assets/img/star.png');
+  if (pakt.Pakt_User.win === true) {
+    imgSrc = require('../assets/img/crown.png');
+  } else if (pakt.Pakt_User.win === false) {
+    imgSrc = require('../assets/img/rain.png');
+  } else if (needsAttention) {
+    imgSrc = require('../assets/img/caution.png');
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
@@ -47,7 +62,7 @@ const PaktListItem = ({ pakt, onPaktClick }) => {
         <Text>Friendssssssssssss</Text>
       </View>
       <View style={styles.iconContainer}>
-        <Image source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
+        <Image source={ imgSrc }
           style={{width: 50, height: 50}} />
       </View>
     </View>
