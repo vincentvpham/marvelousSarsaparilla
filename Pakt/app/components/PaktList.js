@@ -7,6 +7,8 @@ import React, {
   Text,
   View,
   PropTypes,
+  RefreshControl,
+  ScrollView,
 } from 'react-native';
 
 import PaktListItem from './PaktListItem';
@@ -19,7 +21,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  listView: {
+  scrollView: {
     flex: 1,
     backgroundColor: '#F5FCFF',
   },
@@ -33,23 +35,30 @@ class PaktList extends Component {
     this.props.listThePakts();
   }
 
+
+
   renderPaktsView() {
-    const { pakts, onPaktClick } = this.props;
-    let dataSource = new ListView.DataSource({
-      rowHasChanged: (row1, row2) => row1 !== row2,
+    const { pakts, onPaktClick, isRefreshing, onRefresh } = this.props;
+    const rows = pakts.map((pakt) => {
+      return <PaktListItem pakt={pakt} onPaktClick={onPaktClick} />;
     });
-    dataSource = dataSource.cloneWithRows(pakts);
 
     return (
-      <View>
-        <ListView
-          dataSource={dataSource}
-          renderRow={(rowData) => <PaktListItem pakt={rowData} onPaktClick={onPaktClick} />}
-          style={styles.listView} />
-      </View>
+      <ScrollView style={styles.scrollView}
+        refreshControl={
+          <RefreshControl
+            refreshing={isRefreshing}
+            onRefresh={onRefresh}
+            tintColor="#ff0000"
+            title="Refreshing..."
+            colors={['#ff0000', '#00ff00', '#0000ff']}
+            progressBackgroundColor="#ffff00" />
+          }>
+        {rows}
+      </ScrollView>
     );
   }
-  
+
   render() {
     const { isFetching } = this.props;
     return (isFetching) ? <Loading displayText = {'Loading Pakts...'}/> : this.renderPaktsView();

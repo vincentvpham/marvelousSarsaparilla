@@ -1,4 +1,4 @@
-import { REQUEST_PAKTS, RECEIVE_PAKTS, SET_CURRENT_PAKT, ACCEPT_PAKT } from '../actions';
+import { REQUEST_PAKTS, REFRESH_PAKTS, RECEIVE_PAKTS, SET_CURRENT_PAKT, ACCEPT_PAKT, DECLINE_PAKT } from '../actions';
 var _ = require('lodash');
 
 function paktUser(state, action) {
@@ -25,6 +25,7 @@ function pakt(state, action) {
 
 function pakts(state = {
   isFetching: false,
+  isRefreshing: false,
   items: [],
   currentPakt: undefined,
   currentPaktIndex: undefined,
@@ -34,9 +35,14 @@ function pakts(state = {
       return Object.assign({}, state, {
         isFetching: true,
       });
+    case REFRESH_PAKTS:
+      return Object.assign({}, state, {
+        isRefreshing: true,
+      });
     case RECEIVE_PAKTS:
       return Object.assign({}, state, {
         isFetching: false,
+        isRefreshing: false,
         items: action.pakts,
         lastUpdated: action.receivedAt,
       });
@@ -55,8 +61,15 @@ function pakts(state = {
           }
           return item;
         }
-        ),
+      ),
         currentPakt: pakt(state.currentPakt, action),
+      });
+    case DECLINE_PAKT:
+      return Object.assign({}, state, {
+        items: [
+          ...state.items.slice(0, state.currentPaktIndex),
+          ...state.items.slice(state.currentPaktIndex + 1),
+        ],
       });
     default:
       return state;
