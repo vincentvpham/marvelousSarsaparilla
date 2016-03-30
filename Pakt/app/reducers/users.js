@@ -1,8 +1,9 @@
-import { SET_CURRENT_USER, LOGIN_USER, LOGOUT_CURRENT_USER, REQUEST_FRIENDS, RECEIVE_FRIENDS } from '../actions';
+import { SET_SELECTED_USER, SET_CURRENT_USER, LOGIN_USER, LOGOUT_CURRENT_USER, REQUEST_FRIENDS, RECEIVE_FRIENDS } from '../actions';
 
 function users(state = {
   currentUser: undefined,
   loggingIn: false,
+  selectedUser: null,
 }, action) {
   switch (action.type) {
     case SET_CURRENT_USER:
@@ -10,6 +11,10 @@ function users(state = {
         currentUser: action.currentUser,
         loggingIn: false,
       });
+    case SET_SELECTED_USER:
+      return Object.assign({}, state, {
+        selectedUser: action.selectedUser,
+    });
     case LOGIN_USER:
       return Object.assign({}, state, {
         loggingIn: true,
