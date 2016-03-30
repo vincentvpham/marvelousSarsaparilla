@@ -13,9 +13,33 @@ import React, {
 } from 'react-native';
 import Loading from './Loading';
 
-const styles = StyleSheet.create({
+let styles = StyleSheet.create({
   friend: {
     margin: 5,
+  },
+  image: {
+    width: 36, 
+    height: 36, 
+    borderRadius:18, 
+    borderWidth: 1, 
+  },
+  subtitle: {
+    marginTop: 20,
+    marginBottom: 4,
+    fontSize: 15,
+    justifyContent:'center',
+  },
+});
+
+const paktListFriendStyles = StyleSheet.create({
+  friend: {
+    margin: 1,
+  },
+  image: {
+    width: 40, 
+    height: 40, 
+    borderRadius:20, 
+    borderWidth: 1, 
   },
   subtitle: {
     marginTop: 20,
@@ -56,13 +80,18 @@ class FriendsRow extends React.Component {
 
   //component for displaying friends and highlighting selected friends
   _renderRow (rowData) {
-      return (
-        <View>
-          <TouchableHighlight underlayColor='white' onPress = {()=>{this.toggleFriendSelect(rowData);  this.forceUpdate()}} style={styles.friend}>
-            <Image source={{uri: rowData.picture}} style={{width: 36, height: 36, borderRadius:18, borderWidth: 1, borderColor: (rowData.selected) ? 'blue' :'black'}}  />
-          </TouchableHighlight>
-          <Text style={{color: (rowData.selected) ? 'blue' :'black'}}>{rowData.name}</Text>
-        </View>
+    //change styles if we are looking at the paktList
+    const { inPaktList } = this.props;
+    if ( inPaktList ) {
+      styles = paktListFriendStyles; 
+    }
+    return (
+      <View>
+        <TouchableHighlight underlayColor='white' onPress = {()=>{this.toggleFriendSelect(rowData);  this.forceUpdate()}} style={styles.friend}>
+          <Image source={{uri: rowData.picture}} style={styles.image}  />
+        </TouchableHighlight>
+        { inPaktList ? null : <Text style={{color: (rowData.selected) ? 'blue' :'black'}}>{rowData.name}</Text> }
+      </View>
     );
   }
 

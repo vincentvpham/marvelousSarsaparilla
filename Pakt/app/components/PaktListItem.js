@@ -9,6 +9,9 @@ import React, {
   PropTypes,
 } from 'react-native';
 
+import FriendsRow from './FriendsRow';
+var _ = require('lodash');
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -17,17 +20,17 @@ const styles = StyleSheet.create({
     height: 70,
   },
   textContainer: {
-    flex: 0.4,
+    flex: 0.5,
     alignItems: 'center',
     justifyContent: 'center',
   },
   friendsContainer: {
-    flex: 0.4,
-    alignItems: 'center',
+    flex: 0.3,
+    alignItems: 'flex-end',
     justifyContent: 'center',
   },
   iconContainer: {
-    flex: 0.2,
+    flex: 0.1,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -42,7 +45,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const PaktListItem = ({ pakt, onPaktClick }) => {
+const PaktListItem = ({ pakt, onPaktClick, currentUserId }) => {
   const currentDay = new Date().getDay();
   const createdAtDay = new Date(pakt.createdAt).getDay();
   // Need to manually set daysLeft to 7 if current day is same as created day
@@ -58,6 +61,16 @@ const PaktListItem = ({ pakt, onPaktClick }) => {
     imgSrc = require('../assets/img/caution.png');
   }
 
+  // For the friend pictures in each pakt in the list, we do not want to display the user's own photos
+  let copyUsers =  pakt.Users.slice(); 
+  copyUsers.forEach(function(elem, index){
+    if(elem.id === currentUserId){
+      copyUsers.splice(index, 1);
+    }
+  });
+  //We also only want to show three random users
+  let friends =  _.shuffle(copyUsers).slice(0,3);
+
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
@@ -65,7 +78,7 @@ const PaktListItem = ({ pakt, onPaktClick }) => {
         <Text style={styles.description}>{pakt.description}</Text>
       </View>
       <View style={styles.friendsContainer}>
-        <Text>Friendssssssssssss</Text>
+        <FriendsRow inPaktList={true} numAllowedClicks={0} friends={friends}/>
       </View>
       <View style={styles.iconContainer}>
         <Image source={ imgSrc }

@@ -8,6 +8,7 @@ const mapStateToProps = (state) => {
     pakts: state.pakts.items,
     isFetching: state.pakts.isFetching,
     isRefreshing: state.pakts.isRefreshing,
+    currentUserId: state.users.currentUser.id,
   };
 };
 
