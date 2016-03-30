@@ -18,12 +18,18 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     flex: 0.4,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   friendsContainer: {
     flex: 0.4,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   iconContainer: {
     flex: 0.2,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   name: {
     fontSize: 18,
