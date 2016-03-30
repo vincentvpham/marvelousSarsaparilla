@@ -6,6 +6,8 @@ import React, {
   View,
   Modal,
   ListView,
+  Image,
+  TouchableHighlight,
 } from 'react-native';
 
 import RNCamera from 'react-native-camera';
@@ -86,10 +88,17 @@ class Camera extends Component {
           }}
           style={styles.preview}
           aspect={RNCamera.constants.Aspect.fill}>
+   
+            <TouchableHighlight onPress={this.switchCamera.bind(this)}>
+              <Image source={ require('../assets/img/arrow_clockwise.png') }
+                style={{width: 100, height: 100}} />
+            </TouchableHighlight>
 
-          <Text style={styles.capture} onPress={this.switchCamera.bind(this)}>[FLIP]</Text>
-
-          <Text style={styles.capture} onPress={this.setModalVisible.bind(this, true)}>[CAPTURE]</Text>
+            <TouchableHighlight onPress={this.setModalVisible.bind(this, true)}>
+              <Image source={ require('../assets/img/camera.png') }
+                style={{width: 100, height: 100}} />
+            </TouchableHighlight>
+    
         </RNCamera>
         <Modal
           animated={this.state.animated}
