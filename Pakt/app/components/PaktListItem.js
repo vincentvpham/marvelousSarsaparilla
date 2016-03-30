@@ -10,6 +10,7 @@ import React, {
 } from 'react-native';
 
 import FriendsRow from './FriendsRow';
+var _ = require('lodash');
 
 const styles = StyleSheet.create({
   container: {
@@ -44,18 +45,6 @@ const styles = StyleSheet.create({
   },
 });
 
-// To randomize friends that are displayed
-const shuffleArray = (array) => {
-  for (var i = array.length - 1; i > 0; i--) {
-    var j = Math.floor(Math.random() * (i + 1));
-    var temp = array[i];
-    array[i] = array[j];
-    array[j] = temp;
-  }
-  return array;
-}
-
-
 const PaktListItem = ({ pakt, onPaktClick, currentUserId }) => {
   const currentDay = new Date().getDay();
   const createdAtDay = new Date(pakt.createdAt).getDay();
@@ -80,7 +69,7 @@ const PaktListItem = ({ pakt, onPaktClick, currentUserId }) => {
     }
   });
   //We also only want to show three random users
-  let friends = shuffleArray(copyUsers).slice(0,3);
+  let friends =  _.shuffle(copyUsers).slice(0,3);
 
 
   return (
