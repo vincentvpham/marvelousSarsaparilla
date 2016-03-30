@@ -33,6 +33,16 @@ const styles = StyleSheet.create({
     padding: 10,
     margin: 40,
   },
+  cameraIconContainer: {
+    flex: 1,
+    marginBottom: 50,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
+  cameraIcon: {
+    width: 100,
+    height: 100,
+  },
 });
 
 class Camera extends Component {
@@ -88,17 +98,19 @@ class Camera extends Component {
           }}
           style={styles.preview}
           aspect={RNCamera.constants.Aspect.fill}>
-   
+
+          <View style={styles.cameraIconContainer}>
             <TouchableHighlight onPress={this.switchCamera.bind(this)}>
               <Image source={ require('../assets/img/arrow_clockwise.png') }
-                style={{width: 100, height: 100}} />
+                style={styles.cameraIcon} />
             </TouchableHighlight>
 
             <TouchableHighlight onPress={this.setModalVisible.bind(this, true)}>
               <Image source={ require('../assets/img/camera.png') }
-                style={{width: 100, height: 100}} />
+                style={styles.cameraIcon} />
             </TouchableHighlight>
-    
+          </View>
+
         </RNCamera>
         <Modal
           animated={this.state.animated}
