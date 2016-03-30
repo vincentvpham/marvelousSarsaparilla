@@ -7,6 +7,7 @@ const mapStateToProps = (state) => {
   return {
     pakts: state.pakts.items,
     isFetching: state.pakts.isFetching,
+    isRefreshing: state.pakts.isRefreshing,
   };
 };
 
@@ -18,6 +19,9 @@ const mapDispatchToProps = (dispatch) => {
     onPaktClick: (currentPakt) => {
       dispatch(setCurrentPakt(currentPakt));
       Actions.individualPakt();
+    },
+    onRefresh: () => {
+      dispatch(fetchPaktsIfNeeded(true));
     },
   };
 };

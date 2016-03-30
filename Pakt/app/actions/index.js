@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch';
 export const REQUEST_PAKTS = 'REQUEST_PAKTS';
+export const REFRESH_PAKTS = 'REFRESH_PAKTS';
 export const RECEIVE_PAKTS = 'RECEIVE_PAKTS';
 export const RECEIVE_FRIENDS = 'RECEIVE_FRIENDS';
 export const REQUEST_FRIENDS = 'REQUEST_FRIENDS';
@@ -8,6 +9,7 @@ export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const ACCEPT_PAKT = 'ACCEPT_PAKT';
 export const LOGOUT_CURRENT_USER = 'LOGOUT_CURRENT_USER';
 export const LOGIN_USER = 'LOGIN_USER';
+export const DECLINE_PAKT = 'DECLINE_PAKT';
 
 import { Actions } from 'react-native-router-flux';
 const url = require('../utils/env').url;
@@ -42,6 +44,12 @@ function requestPakts() {
   };
 }
 
+function refreshPakts() {
+  return {
+    type: REFRESH_PAKTS,
+  };
+}
+
 function receivePakts(json) {
   return {
     type: RECEIVE_PAKTS,
@@ -50,11 +58,17 @@ function receivePakts(json) {
   };
 }
 
-function fetchPakts() {
+function fetchPakts(refresh) {
   return (dispatch, getState) => {
     const state = getState();
     const userId = state.users.currentUser.id;
-    dispatch(requestPakts());
+    if (refresh) {
+      // Refresh pakts
+      dispatch(refreshPakts());
+    } else {
+      // Initial loading of pakts
+      dispatch(requestPakts());
+    }
     return fetch(url+`api/pakts/${userId}`)
       .then(response => response.json())
       .then(json => dispatch(receivePakts(json)));
@@ -95,9 +109,9 @@ function getFbInfo(userCredentials) {
   };
 }
 
-export function fetchPaktsIfNeeded() {
+export function fetchPaktsIfNeeded(refresh) {
   return dispatch => {
-    return dispatch(fetchPakts());
+    return dispatch(fetchPakts(refresh));
   };
 }
 
@@ -148,6 +162,13 @@ function acceptPakt(id) {
   };
 }
 
+function declinePakt(id) {
+  return {
+    type: DECLINE_PAKT,
+    id,
+  };
+}
+
 // /api/pakt/accept/:userId/:paktId
 export function respondToPaktInvite(accepted, currentUserId, currentPaktId) {
   const path = url+`api/pakt/accept/${currentUserId}/${currentPaktId}`;
@@ -164,6 +185,8 @@ export function respondToPaktInvite(accepted, currentUserId, currentPaktId) {
       if (!accepted) {
         // Reroute to list of Pakts
         Actions.pakts();
+        // Update state
+        return dispatch(declinePakt(currentUserId));
       // Else accept invite
       } else {
         // Update state
