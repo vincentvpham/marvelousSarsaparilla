@@ -10,9 +10,18 @@ export const ACCEPT_PAKT = 'ACCEPT_PAKT';
 export const LOGOUT_CURRENT_USER = 'LOGOUT_CURRENT_USER';
 export const LOGIN_USER = 'LOGIN_USER';
 export const DECLINE_PAKT = 'DECLINE_PAKT';
+export const SET_SELECTED_USER = 'SET_SELECTED_USER';
+
 
 import { Actions } from 'react-native-router-flux';
 const url = require('../utils/env').url;
+
+export function setSelectedUser(userId) {
+  return {
+    type: SET_SELECTED_USER,
+    selectedUser: userId,
+  };
+}
 
 function requestFriends() {
   return {

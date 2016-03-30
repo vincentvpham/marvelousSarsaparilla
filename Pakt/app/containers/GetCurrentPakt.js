@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { respondToPaktInvite } from '../actions';
+import { respondToPaktInvite, setSelectedUser } from '../actions';
 import IndividualPakt from '../components/IndividualPakt';
 var _ = require('lodash');
 
@@ -9,6 +9,7 @@ const mapStateToProps = (state) => {
     currentUserId: state.users.currentUser.id,
     accepted: state.pakts.currentPakt.Pakt_User.accepted,
     paktPictures: state.pakts.currentPakt.Pictures,
+    selectedUser: state.users.selectedUser,
   };
 };
 
@@ -16,6 +17,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     respondtoInvite: (accepted, currentUserId, currentPaktId) => {
       dispatch(respondToPaktInvite(accepted, currentUserId, currentPaktId));
+    },
+    setSelectedUser: (userId) => {
+      dispatch(setSelectedUser(userId));
     },
   };
 };

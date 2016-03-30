@@ -60,12 +60,14 @@ class CreatePaktForm extends React.Component {
   getInput = (category, event) => {
     if (category === 'submit') {
       // add friends who were invited to
-      let users = _.filter(this.props.friends,  ['invited', true]).map(function(friend){return friend.id});
+      let users = _.filter(this.props.friends,  ['selected', true]).map(function(friend){return friend.id});      
       this.state.users =  users;
       // send info to the database
       this.props.submitFormInputs(this.state);
       //reset the form to empty
       this.state = {};
+      //clear selected users
+      this.props.friends.forEach(function(x){x.selected = false});
 
     } else { // If the input is a TextInput, grab the text from the change event
       if(event.nativeEvent){
