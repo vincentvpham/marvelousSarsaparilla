@@ -71,7 +71,6 @@ const PaktListItem = ({ pakt, onPaktClick, currentUserId }) => {
   //We also only want to show three random users
   let friends =  _.shuffle(copyUsers).slice(0,3);
 
-
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
