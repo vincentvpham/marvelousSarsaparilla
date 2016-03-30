@@ -6,6 +6,8 @@ import React, {
   View,
   Modal,
   ListView,
+  Image,
+  TouchableHighlight,
 } from 'react-native';
 
 import RNCamera from 'react-native-camera';
@@ -31,12 +33,22 @@ const styles = StyleSheet.create({
     padding: 10,
     margin: 40,
   },
+  cameraIconContainer: {
+    flex: 1,
+    marginBottom: 50,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
+  cameraIcon: {
+    width: 100,
+    height: 100,
+  },
 });
 
 class Camera extends Component {
   constructor(props) {
     super(props);
-    this.state = { visible: false, transparent: true, animated: true };
+    this.state = { visible: false, transparent: true, animated: true, cameraType: RNCamera.constants.Type.back };
   }
 
   setModalVisible(visible) {
@@ -50,6 +62,14 @@ class Camera extends Component {
       this.setModalVisible(false);
     })
     .catch(err => console.error(err));
+  }
+
+  switchCamera() {
+    const state = this.state;
+    state.cameraType = state.cameraType === RNCamera.constants.Type.back ? RNCamera.constants.Type.front : RNCamera.constants.Type.back;
+    this.setState(state);
+
+    console.log(state);
   }
 
   render() {
@@ -66,7 +86,7 @@ class Camera extends Component {
     });
 
     // filter out pakts that have a picture uploaded today already
-    const paktsWithoutProof = this.props.pakts.filter((pakt) => !pakt.Pakt_User.picToday);
+    const paktsWithoutProof = this.props.pakts.filter((pakt) => !pakt.Pakt_User.picToday && pakt.Pakt_User.accepted);
 
     dataSource = dataSource.cloneWithRows(paktsWithoutProof);
 
@@ -77,9 +97,20 @@ class Camera extends Component {
             this.camera = cam;
           }}
           style={styles.preview}
-          aspect={RNCamera.constants.Aspect.fill}
-        >
-          <Text style={styles.capture} onPress={this.setModalVisible.bind(this, true)}>[CAPTURE]</Text>
+          aspect={RNCamera.constants.Aspect.fill}>
+
+          <View style={styles.cameraIconContainer}>
+            <TouchableHighlight onPress={this.switchCamera.bind(this)}>
+              <Image source={ require('../assets/img/arrow_clockwise.png') }
+                style={styles.cameraIcon} />
+            </TouchableHighlight>
+
+            <TouchableHighlight onPress={this.setModalVisible.bind(this, true)}>
+              <Image source={ require('../assets/img/camera.png') }
+                style={styles.cameraIcon} />
+            </TouchableHighlight>
+          </View>
+
         </RNCamera>
         <Modal
           animated={this.state.animated}
