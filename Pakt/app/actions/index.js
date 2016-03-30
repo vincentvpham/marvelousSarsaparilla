@@ -12,7 +12,6 @@ export const LOGIN_USER = 'LOGIN_USER';
 export const DECLINE_PAKT = 'DECLINE_PAKT';
 export const SET_SELECTED_USER = 'SET_SELECTED_USER';
 
-
 import { Actions } from 'react-native-router-flux';
 const url = require('../utils/env').url;
 

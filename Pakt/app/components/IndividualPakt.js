@@ -42,7 +42,6 @@ const styles = StyleSheet.create({
 
 import FriendsRow from './FriendsRow';
 
-
 class PaktPics extends Component {
   constructor(props) {
     super(props);
@@ -76,13 +75,7 @@ class PaktPics extends Component {
 
 const IndividualPakt = ({ currentPakt, respondtoInvite, accepted, currentUserId, paktPictures, selectedUser, setSelectedUser }) => (
   <View style={styles.container}>
-    <ScrollView
-    // as boggs what this is here for !!!!!!!!!!!!!!!!!!!
-      // ref={(scrollView) => { _scrollView = scrollView; }}
-      automaticallyAdjustContentInsets={false}
-      onScroll={() => { console.log('onScroll!'); }}
-      scrollEventThrottle={200}
-    >
+    <ScrollView>
         <Header open={currentPakt.open}  win={currentPakt.Pakt_User.win} paktName={currentPakt.name}/>
         <Text style={styles.subheading}>{currentPakt.description}</Text>
       <View>
