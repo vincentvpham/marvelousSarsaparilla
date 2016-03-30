@@ -38,9 +38,9 @@ class PaktList extends Component {
 
 
   renderPaktsView() {
-    const { pakts, onPaktClick, isRefreshing, onRefresh } = this.props;
+    const { pakts, onPaktClick, isRefreshing, onRefresh, currentUserId } = this.props;
     const rows = pakts.map((pakt) => {
-      return <PaktListItem pakt={pakt} onPaktClick={onPaktClick} />;
+      return <PaktListItem pakt={pakt} onPaktClick={onPaktClick} currentUserId={currentUserId} />;
     });
 
     return (
