@@ -12,6 +12,8 @@ import React, {
   Alert,
 } from 'react-native';
 var _ = require('lodash');
+var moment = require('moment');
+import FriendsRow from './FriendsRow';
 
 const styles = StyleSheet.create({
   container: {
@@ -33,14 +35,24 @@ const styles = StyleSheet.create({
     justifyContent:'center',
   },
   subheading: {
-    marginTop: 20,
     marginBottom: 4,
     fontSize: 15,
     justifyContent:'center',
   },
+  subtitle: {
+    marginTop: 4,
+    marginBottom: 4,
+    fontSize: 15,
+    fontWeight: 'bold',
+    justifyContent:'center',
+  },
+  info: {
+    fontSize: 15,
+    margin: 1,
+    justifyContent:'center',
+    textAlign:'justify',
+  },
 });
-
-import FriendsRow from './FriendsRow';
 
 class PaktPics extends Component {
   constructor(props) {
@@ -66,11 +78,9 @@ class PaktPics extends Component {
       </View>
     );
   }
-
   render() {
     return this.renderPicsView();
   }
-
 }
 
 const IndividualPakt = ({ currentPakt, respondtoInvite, accepted, currentUserId, paktPictures, selectedUser, setSelectedUser }) => (
@@ -78,6 +88,13 @@ const IndividualPakt = ({ currentPakt, respondtoInvite, accepted, currentUserId,
     <ScrollView>
         <Header open={currentPakt.open}  win={currentPakt.Pakt_User.win} paktName={currentPakt.name}/>
         <Text style={styles.subheading}>{currentPakt.description}</Text>
+        <Text style={styles.subtitle}>{'Consequence:'}</Text>
+        <Text style={styles.info}>{currentPakt.consequenceText}</Text>
+        { currentPakt.repeating? <DisplayFrequency frequency={currentPakt.frequency}/> : null }
+        <Text style={styles.subtitle}>{'Pakt Length:'}</Text>
+        <Text style={styles.info}>{ formatDate(currentPakt.createdAt) + ' - ' + formatDate(currentPakt.endDate) }</Text>
+        <Text style={styles.subtitle}>{'Time Left:'}</Text>
+        <Text style={styles.info}>{countWeeks(currentPakt.endDate)}</Text>
       <View>
       <ShowFriends setSelectedUser={setSelectedUser} open={currentPakt.open} friends={currentPakt.Users}/>
         {accepted ? <PaktPics selectedUser={selectedUser} paktPictures={paktPictures} /> :
@@ -110,13 +127,11 @@ class WinnersLosersView extends React.Component {
   constructor(props) {
     super(props);
     const {friends} =  this.props;
-
     //make winners and losers array from the friends array
     this.state = {};
     this.state.losers = friends.filter(function(x){return x.Pakt_User.win === false});
     this.state.winners = friends.filter(function(x){return x.Pakt_User.win === true});
   }
-
   render(){
     return (
       <View>
@@ -134,15 +149,39 @@ class Header extends React.Component {
       win ? 'You won '+ paktName + '!' : 'You lost ' + paktName
     );
   }
-
   render(){
     const {open, paktName} = this.props;
-      return (
-        <View>
-          <Text style={styles.heading}>{ open ? paktName : this.renderWinLossHeading() }</Text> 
-       </View>
-      );
+    return (
+      <View>
+        <Text style={styles.heading}>{ open ? paktName : this.renderWinLossHeading() }</Text> 
+     </View>
+    );
   }
 }
+
+const DisplayFrequency = ({ frequency }) => (
+  <View>
+    <Text style={styles.subtitle}>{'Times Per Week'}</Text> 
+    <Text style={styles.info}>{frequency}</Text>
+  </View>
+);
+
+// Moment js date display formating helpers
+const countWeeks = (endDate) =>   {
+  var end = moment(endDate);
+  var start = moment(new Date());
+  var weeksLeft = end.diff(start, 'weeks', true);
+  var numWeeksLeft = Math.ceil(parseFloat(weeksLeft));
+  if (numWeeksLeft <= 1){
+     daysLeft = end.diff(start, 'days', true);
+     var numDaysLeft = Math.ceil(parseFloat(daysLeft));
+     return numDaysLeft + ' days';
+  } 
+  return numWeeksLeft + ' weeks';
+};
+
+const formatDate = (date) =>   {
+  return moment(date).format("dddd, MMMM Do");
+};
 
 export default IndividualPakt;
