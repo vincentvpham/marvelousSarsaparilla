@@ -12,9 +12,18 @@ import React, {
   TouchableHighlight,
 } from 'react-native';
 
+import {
+  MKColor,
+  MKSlider,
+  MKRangeSlider,
+  MKTextField,
+  setTheme,
+} from 'react-native-material-kit';
+
 var _ = require('lodash');
 import PaktFriendsForm from './CreatePaktFriendsForm';
 import PaktDateForm from './CreatePaktDateForm';
+
 
 var styles = StyleSheet.create({
   container: {
@@ -23,15 +32,15 @@ var styles = StyleSheet.create({
     paddingLeft: 90,
   },
   TextInput: {
-    height: 30, 
-    width: 200, 
-    borderColor: 'gray', 
+    height: 30,
+    width: 200,
+    borderColor: 'gray',
     borderWidth: 2,
   },
   button: {
     backgroundColor: 'blue',
     marginBottom: 7,
-    borderRadius : 2,
+    borderRadius: 2,
     height: 20, 
     width: 50,
   },
@@ -57,25 +66,27 @@ class CreatePaktForm extends React.Component {
     this.props.listTheFriends();
   }
 
-  getInput = (category, event) => {
-    if (category === 'submit') {
+  getInput() {
+    console.log('--------------> inside get Input', this.state);
       // add friends who were invited to
-      let users = _.filter(this.props.friends,  ['selected', true]).map(function(friend){return friend.id}); 
-      this.state.users =  users;
+      let users = _.filter(this.props.friends,
+        ['selected', true]).map(function(friend){return friend.id}); 
+      this.state.users = users;
       // send info to the database
       this.props.submitFormInputs(this.state);
       //reset the form to empty
       this.state = {};
       //clear selected users
       this.props.friends.forEach(function(x){x.selected = false});
+  }
 
-    } else { // If the input is a TextInput, grab the text from the change event
-      if(event.nativeEvent){
-        this.state[category] = event.nativeEvent.text.trim(); 
-      } else{ // If not, input the given value
-        this.state[category] = event;
-      }
-    }
+  validate() {
+    // console.log("%$%$%$%$%@@##@@", this.state)
+    // if(!this.state.name || !this.state.description) {
+    //   console.log("&&&&&&&&&&&&&&&&&&&&&& SUBMIT AGAIN!");
+    // } else {
+      this.getInput.bind(this)
+    // }
   }
 
   render() {
@@ -83,31 +94,43 @@ class CreatePaktForm extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.heading}>CREATE A PAKT</Text>
-        <Text style={styles.subtitle}>Name:</Text>
-        <TextInput
-          style={styles.TextInput}
+        {/* <Text style={styles.subtitle}>Name:</Text> 
+        <TextInput 
+        //   style={styles.TextInput}
+        //   onChangeText={(text) => this.setState({name: text})}
+        //   value={this.state.name||''}
+        // /> */}
+        <MKTextField
+          tintColor={MKColor.Lime}
+          textInputStyle={{color: MKColor.Orange}}
+          placeholder="Name..."
+          style={styles.textfield}
           onChangeText={(text) => this.setState({name: text})}
           value={this.state.name||''}
         />
-         <Text style={styles.subtitle}>Description:</Text>
-         <TextInput
-            style={styles.TextInput}
-            onChangeText={(text) => this.setState({description: text})}
-            value={this.state.description||''}
-          />
-          <Text style={styles.subtitle}>Conseqence:</Text>
-          <TextInput
-            style={styles.TextInput}
-            onChangeText={(text) => this.setState({consequenceText: text})}
-            value={this.state.consequenceText||''}
-           />
+        <MKTextField
+          tintColor={MKColor.Lime}
+          textInputStyle={{color: MKColor.Orange}}
+          placeholder="Description..."
+          style={styles.textfield}
+          onChangeText={(text) => this.setState({description: text})}
+          value={this.state.description||''}
+        />
+        <MKTextField
+          tintColor={MKColor.Lime}
+          textInputStyle={{color: MKColor.Orange}}
+          placeholder="Consequence..."
+          style={styles.textfield}
+          onChangeText={(text) => this.setState({consequenceText: text})}
+          value={this.state.consequenceText||''}
+        />
            <Text style={styles.subtitle}>Friends:</Text>
            <PaktFriendsForm friends={friends} />
            <Text style={styles.subtitle}>Repeating:</Text> 
            <Text onPress={()=>this.setState({repeating: true})}>YES</Text> 
            <Text onPress={()=>this.setState({repeating: false})}>NO</Text> 
            {(this.state.repeating === undefined) ? null :  <PaktDateForm  getInput= {this.getInput.bind(this)} repeating= {this.state.repeating}/>}
-           <TouchableHighlight style={styles.button} onPress={this.getInput.bind(this, 'submit')} ><Text>Submit</Text></TouchableHighlight>
+           <TouchableHighlight style={styles.button} onPress={this.getInput.bind(this)} ><Text>Submit</Text></TouchableHighlight>
       </View>
     );
   }
