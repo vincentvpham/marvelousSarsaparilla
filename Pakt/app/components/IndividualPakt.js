@@ -56,23 +56,6 @@ const styles = StyleSheet.create({
   },
 });
 
-const countWeeks = (endDate) =>   {
-  var end = moment(endDate);
-  var start = moment(new Date());
-  var weeksLeft = end.diff(start, 'weeks');
-  if (parseInt(weeksLeft) <= 1){
-     daysLeft = end.diff(start, 'days');
-     return daysLeft + ' days';
-  } else {
-    return weeksLeft + ' weeks';
-  }
-};
-
-const formatDate = (date) =>   {
-  return moment(date).format("dddd, MMMM Do");
-};
-
-
 class PaktPics extends Component {
   constructor(props) {
     super(props);
@@ -183,9 +166,6 @@ class Header extends React.Component {
   }
 }
 
-
-
-
 const DisplayFrequency = ({ frequency }) => (
   <View>
     <Text style={styles.subtitle}>{'Times Per Week'}</Text> 
@@ -193,5 +173,21 @@ const DisplayFrequency = ({ frequency }) => (
   </View>
 );
 
+// Moment js date display formating helpers
+const countWeeks = (endDate) =>   {
+  var end = moment(endDate);
+  var start = moment(new Date());
+  var weeksLeft = end.diff(start, 'weeks');
+  if (parseInt(weeksLeft) <= 1){
+     daysLeft = end.diff(start, 'days');
+     return daysLeft + ' days';
+  } else {
+    return weeksLeft + ' weeks';
+  }
+};
+
+const formatDate = (date) =>   {
+  return moment(date).format("dddd, MMMM Do");
+};
 
 export default IndividualPakt;
