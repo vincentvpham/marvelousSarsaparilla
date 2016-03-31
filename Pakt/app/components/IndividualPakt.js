@@ -78,11 +78,9 @@ class PaktPics extends Component {
       </View>
     );
   }
-
   render() {
     return this.renderPicsView();
   }
-
 }
 
 const IndividualPakt = ({ currentPakt, respondtoInvite, accepted, currentUserId, paktPictures, selectedUser, setSelectedUser }) => (
@@ -129,13 +127,11 @@ class WinnersLosersView extends React.Component {
   constructor(props) {
     super(props);
     const {friends} =  this.props;
-
     //make winners and losers array from the friends array
     this.state = {};
     this.state.losers = friends.filter(function(x){return x.Pakt_User.win === false});
     this.state.winners = friends.filter(function(x){return x.Pakt_User.win === true});
   }
-
   render(){
     return (
       <View>
@@ -153,14 +149,13 @@ class Header extends React.Component {
       win ? 'You won '+ paktName + '!' : 'You lost ' + paktName
     );
   }
-
   render(){
     const {open, paktName} = this.props;
-      return (
-        <View>
-          <Text style={styles.heading}>{ open ? paktName : this.renderWinLossHeading() }</Text> 
-       </View>
-      );
+    return (
+      <View>
+        <Text style={styles.heading}>{ open ? paktName : this.renderWinLossHeading() }</Text> 
+     </View>
+    );
   }
 }
 
