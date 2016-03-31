@@ -76,7 +76,6 @@ class FriendsRow extends React.Component {
         const {setSelectedUser} = this.props;
         setSelectedUser(rowData.id);
       }
-
       rowData.selected = !(rowData.selected);
       this.setState({dataSource: ds.cloneWithRows(friends)
       });
