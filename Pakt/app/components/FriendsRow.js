@@ -41,12 +41,6 @@ const paktListFriendStyles = StyleSheet.create({
     borderRadius:20, 
     borderWidth: 1, 
   },
-  subtitle: {
-    marginTop: 20,
-    marginBottom: 4,
-    fontSize: 15,
-    justifyContent:'center',
-  },
 });
 
 class FriendsRow extends React.Component {

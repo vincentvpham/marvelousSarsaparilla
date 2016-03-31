@@ -12,17 +12,15 @@ import React, {
   Alert,
 } from 'react-native';
 var _ = require('lodash');
-
-import FriendsRow from './FriendsRow';
 var moment = require('moment');
-
-moment([2007, 0, 29]).fromNow(); 
+import FriendsRow from './FriendsRow';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 65,
     backgroundColor: '#F5FCFF',
+    alignItems: 'center',
   },
   pictureContainer: {
     flex: 1,
@@ -177,13 +175,14 @@ const DisplayFrequency = ({ frequency }) => (
 const countWeeks = (endDate) =>   {
   var end = moment(endDate);
   var start = moment(new Date());
-  var weeksLeft = end.diff(start, 'weeks');
-  if (parseInt(weeksLeft) <= 1){
-     daysLeft = end.diff(start, 'days');
-     return daysLeft + ' days';
-  } else {
-    return weeksLeft + ' weeks';
-  }
+  var weeksLeft = end.diff(start, 'weeks', true);
+  var numWeeksLeft = Math.ceil(parseFloat(weeksLeft));
+  if (numWeeksLeft <= 1){
+     daysLeft = end.diff(start, 'days', true);
+     var numDaysLeft = Math.ceil(parseFloat(daysLeft));
+     return numDaysLeft + ' days';
+  } 
+  return numWeeksLeft + ' weeks';
 };
 
 const formatDate = (date) =>   {
