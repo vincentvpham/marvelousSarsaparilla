@@ -80,13 +80,9 @@ class FriendsRow extends React.Component {
     // change styles if we are looking at the paktList
     const { inPaktList } = this.props;
     let styles = defaultStyles; 
-
     if ( inPaktList === true ) {
       styles  = paktListFriendStyles; 
-    } else {
-      styles = defaultStyles; 
-
-    }
+    } 
     return (
       <View>
         <TouchableHighlight underlayColor='white' onPress = {()=>{this.toggleFriendSelect(rowData);  this.forceUpdate()}} style={styles.friend}>
