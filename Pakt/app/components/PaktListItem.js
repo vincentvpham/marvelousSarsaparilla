@@ -100,5 +100,4 @@ const formatName = (str) =>   {
   return str;
 };
 
-
 export default PaktListItem;
