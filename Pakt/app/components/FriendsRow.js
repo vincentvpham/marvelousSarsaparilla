@@ -21,7 +21,8 @@ const defaultStyles = StyleSheet.create({
     width: 40, 
     height: 40, 
     borderRadius:20, 
-    borderWidth: 1, 
+    borderWidth: 2,
+    borderColor: '#879191',
   },
   subtitle: {
     marginTop: 20,
@@ -39,7 +40,8 @@ const paktListFriendStyles = StyleSheet.create({
     width: 40, 
     height: 40, 
     borderRadius:20, 
-    borderWidth: 1, 
+    borderWidth: 2,
+    borderColor: '#879191',
   },
 });
 

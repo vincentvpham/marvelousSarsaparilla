@@ -19,11 +19,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+
   },
   scrollView: {
     flex: 1,
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#D0D6D6',
+    marginBottom: 48,
   },
 });
 
@@ -49,10 +50,9 @@ class PaktList extends Component {
           <RefreshControl
             refreshing={isRefreshing}
             onRefresh={onRefresh}
-            tintColor="#ff0000"
-            title="Refreshing..."
-            colors={['#ff0000', '#00ff00', '#0000ff']}
-            progressBackgroundColor="#ffff00" />
+            tintColor="#00A79D"
+            colors={['#D0D6D6', '#D0D6D6', '#D0D6D6']}
+            progressBackgroundColor="#D0D6D6" />
           }>
         {rows}
       </ScrollView>
