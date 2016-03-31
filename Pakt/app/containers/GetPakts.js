@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { setCurrentPakt, fetchPaktsIfNeeded } from '../actions';
+import { setCurrentPakt, fetchPaktsIfNeeded, selectCurrentUser } from '../actions';
 import PaktList from '../components/PaktList';
 import {Actions} from 'react-native-router-flux';
 
@@ -19,6 +19,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     onPaktClick: (currentPakt) => {
       dispatch(setCurrentPakt(currentPakt));
+      dispatch(selectCurrentUser());
       Actions.individualPakt();
     },
     onRefresh: () => {

@@ -69,7 +69,7 @@ const IndividualPakt = ({ currentPakt, respondtoInvite, accepted, currentUserId,
         <Text style={styles.info}>{countWeeks(currentPakt.endDate)}</Text>
       <View>
       <ShowFriends setSelectedUser={setSelectedUser} open={currentPakt.open} friends={currentPakt.Users}/>
-        {accepted ? <ProgressPics selectedUser={selectedUser} paktPictures={paktPictures} /> :
+        {accepted ? <ProgressPics selectedUser={selectedUser} paktPictures={paktPictures} currentPakt={currentPakt}/> :
           <View>
             <TouchableHighlight onPress={() => respondtoInvite(true, currentUserId, currentPakt.id)}><Text>Accept</Text></TouchableHighlight>
             <TouchableHighlight onPress={() => Alert.alert(
