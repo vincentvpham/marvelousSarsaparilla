@@ -50,7 +50,7 @@ class PaktList extends Component {
           <RefreshControl
             refreshing={isRefreshing}
             onRefresh={onRefresh}
-            tintColor="#D0D6D6"
+            tintColor="#00A79D"
             colors={['#D0D6D6', '#D0D6D6', '#D0D6D6']}
             progressBackgroundColor="#D0D6D6" />
           }>
