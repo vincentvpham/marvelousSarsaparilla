@@ -14,6 +14,7 @@ import React, {
 var _ = require('lodash');
 var moment = require('moment');
 import FriendsRow from './FriendsRow';
+import ProgressPics from './ProgressPics';
 
 const styles = StyleSheet.create({
   container: {
@@ -54,35 +55,6 @@ const styles = StyleSheet.create({
   },
 });
 
-class PaktPics extends Component {
-  constructor(props) {
-    super(props);
-  }
-  renderPicsView() {
-    const { paktPictures, selectedUser } = this.props;
-    //want to only display pics from selected user
-    let selectedUserPics = paktPictures.filter(function(x){return x.UserId === selectedUser});
-    let dataSource = new ListView.DataSource({
-      rowHasChanged: (row1, row2) => row1 !== row2,
-    });
-    dataSource = dataSource.cloneWithRows(selectedUserPics);
-
-    return (
-      <View>
-        {paktPictures.length > 0 ? <Text style={styles.subheading}>Pictures:</Text> : null}
-        <ListView
-          dataSource={dataSource}
-          renderRow={(rowData) => <Image source={{uri: 'https://s3-us-west-1.amazonaws.com/pakt-test/' + rowData.path}}
-                                     style={{width: 50, height: 50}} /> }
-        />
-      </View>
-    );
-  }
-  render() {
-    return this.renderPicsView();
-  }
-}
-
 const IndividualPakt = ({ currentPakt, respondtoInvite, accepted, currentUserId, paktPictures, selectedUser, setSelectedUser }) => (
   <View style={styles.container}>
     <ScrollView>
@@ -97,7 +69,7 @@ const IndividualPakt = ({ currentPakt, respondtoInvite, accepted, currentUserId,
         <Text style={styles.info}>{countWeeks(currentPakt.endDate)}</Text>
       <View>
       <ShowFriends setSelectedUser={setSelectedUser} open={currentPakt.open} friends={currentPakt.Users}/>
-        {accepted ? <PaktPics selectedUser={selectedUser} paktPictures={paktPictures} /> :
+        {accepted ? <ProgressPics selectedUser={selectedUser} paktPictures={paktPictures} /> :
           <View>
             <TouchableHighlight onPress={() => respondtoInvite(true, currentUserId, currentPakt.id)}><Text>Accept</Text></TouchableHighlight>
             <TouchableHighlight onPress={() => Alert.alert(
