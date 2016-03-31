@@ -16,12 +16,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: 'white',
     height: 70,
+    borderColor: '#D5E0E0',
+    borderWidth: StyleSheet.hairlineWidth,
+    margin: 3,
+    borderRadius: 10,
   },
   textContainer: {
-    flex: 0.5,
-    alignItems: 'center',
+    flex: 0.48,
+    alignItems: 'flex-start',
+    margin: 2,
     justifyContent: 'center',
   },
   friendsContainer: {
@@ -30,7 +35,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   iconContainer: {
-    flex: 0.1,
+    flex: 0.12,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -73,19 +78,27 @@ const PaktListItem = ({ pakt, onPaktClick, currentUserId }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.textContainer}>
-        <Text onPress={() => onPaktClick(pakt)} style={styles.name}>{pakt.name}</Text>
-        <Text style={styles.description}>{pakt.description}</Text>
-      </View>
-      <View style={styles.friendsContainer}>
-        <FriendsRow inPaktList={true} numAllowedClicks={0} friends={friends}/>
-      </View>
       <View style={styles.iconContainer}>
         <Image source={ imgSrc }
           style={{width: 50, height: 50}} />
       </View>
+      <View style={styles.textContainer}>
+        <Text onPress={() => onPaktClick(pakt)} style={styles.name}>{formatName(pakt.name)}</Text>
+        <Text style={styles.description}>{formatName(pakt.description)}</Text>
+      </View>
+      <View style={styles.friendsContainer}>
+        <FriendsRow inPaktList={true} numAllowedClicks={0} friends={friends}/>
+      </View>
     </View>
   );
 };
+
+const formatName = (str) =>   {
+  if(str.length >= 20){
+    return str.slice(0, 20) + '...';    
+  }
+  return str;
+};
+
 
 export default PaktListItem;
