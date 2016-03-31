@@ -22,6 +22,14 @@ export function setSelectedUser(userId) {
   };
 }
 
+export function selectCurrentUser() {
+  return (dispatch, getState) => {
+    const state = getState();
+    const userId = state.users.currentUser.id;
+    dispatch(setSelectedUser(userId));
+  };
+}
+
 function requestFriends() {
   return {
     type: REQUEST_FRIENDS,
