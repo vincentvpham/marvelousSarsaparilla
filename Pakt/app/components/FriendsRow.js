@@ -13,14 +13,14 @@ import React, {
 } from 'react-native';
 import Loading from './Loading';
 
-let styles = StyleSheet.create({
+const defaultStyles = StyleSheet.create({
   friend: {
-    margin: 5,
+    margin: 10,
   },
   image: {
-    width: 36, 
-    height: 36, 
-    borderRadius:18, 
+    width: 40, 
+    height: 40, 
+    borderRadius:20, 
     borderWidth: 1, 
   },
   subtitle: {
@@ -53,6 +53,11 @@ class FriendsRow extends React.Component {
   constructor(props) {
     super(props); 
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    // Copy the friends, and display just their first name
+    let friendsList = this.props.friends.slice();
+    friendsList.forEach(function(x){
+      x.name = x.name.split(' ')[0];
+    });
     this.state = {};
     this.state.dataSource =  ds.cloneWithRows(this.props.friends);
   }
@@ -80,15 +85,20 @@ class FriendsRow extends React.Component {
 
   //component for displaying friends and highlighting selected friends
   _renderRow (rowData) {
-    //change styles if we are looking at the paktList
+    // change styles if we are looking at the paktList
     const { inPaktList } = this.props;
-    if ( inPaktList ) {
-      styles = paktListFriendStyles; 
+    let styles = defaultStyles; 
+
+    if ( inPaktList === true ) {
+      styles  = paktListFriendStyles; 
+    } else {
+      styles = defaultStyles; 
+
     }
     return (
       <View>
-        <TouchableHighlight underlayColor='white' onPress = {()=>{this.toggleFriendSelect(rowData);  this.forceUpdate()}} style={styles.friend}>
-          <Image source={{uri: rowData.picture}} style={styles.image}  />
+        <TouchableHighlight underlayColor='white' onPress = {()=>{this.toggleFriendSelect(rowData);  this.forceUpdate()}} style={ styles.friend }>
+          <Image source={{uri: rowData.picture}} style={styles.image}/>
         </TouchableHighlight>
         { inPaktList ? null : <Text style={{color: (rowData.selected) ? 'blue' :'black'}}>{rowData.name}</Text> }
       </View>
@@ -98,7 +108,7 @@ class FriendsRow extends React.Component {
   render() {
     return (
       <View>
-        {this.props.title ? <Text style={styles.subtitle}>{this.props.title }</Text> : null}
+        {this.props.title ? <Text style={defaultStyles.subtitle}>{this.props.title }</Text> : null}
         <ListView
           horizontal ='true'
           dataSource={this.state.dataSource}

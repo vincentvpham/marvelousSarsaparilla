@@ -13,12 +13,16 @@ import React, {
 } from 'react-native';
 var _ = require('lodash');
 
+import FriendsRow from './FriendsRow';
+var moment = require('moment');
+
+moment([2007, 0, 29]).fromNow(); 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 65,
     backgroundColor: '#F5FCFF',
-    alignItems: 'center',
   },
   pictureContainer: {
     flex: 1,
@@ -33,14 +37,41 @@ const styles = StyleSheet.create({
     justifyContent:'center',
   },
   subheading: {
-    marginTop: 20,
     marginBottom: 4,
     fontSize: 15,
     justifyContent:'center',
   },
+  subtitle: {
+    marginTop: 4,
+    marginBottom: 4,
+    fontSize: 15,
+    fontWeight: 'bold',
+    justifyContent:'center',
+  },
+  info: {
+    fontSize: 15,
+    margin: 1,
+    justifyContent:'center',
+    textAlign:'justify',
+  },
 });
 
-import FriendsRow from './FriendsRow';
+const countWeeks = (endDate) =>   {
+  var end = moment(endDate);
+  var start = moment(new Date());
+  var weeksLeft = end.diff(start, 'weeks');
+  if (parseInt(weeksLeft) <= 1){
+     daysLeft = end.diff(start, 'days');
+     return daysLeft + ' days';
+  } else {
+    return weeksLeft + ' weeks';
+  }
+};
+
+const formatDate = (date) =>   {
+  return moment(date).format("dddd, MMMM Do");
+};
+
 
 class PaktPics extends Component {
   constructor(props) {
@@ -78,6 +109,13 @@ const IndividualPakt = ({ currentPakt, respondtoInvite, accepted, currentUserId,
     <ScrollView>
         <Header open={currentPakt.open}  win={currentPakt.Pakt_User.win} paktName={currentPakt.name}/>
         <Text style={styles.subheading}>{currentPakt.description}</Text>
+        <Text style={styles.subtitle}>{'Consequence:'}</Text>
+        <Text style={styles.info}>{currentPakt.consequenceText}</Text>
+        { currentPakt.repeating? <DisplayFrequency frequency={currentPakt.frequency}/> : null }
+        <Text style={styles.subtitle}>{'Pakt Length:'}</Text>
+        <Text style={styles.info}>{ formatDate(currentPakt.createdAt) + ' - ' + formatDate(currentPakt.endDate) }</Text>
+        <Text style={styles.subtitle}>{'Time Left:'}</Text>
+        <Text style={styles.info}>{countWeeks(currentPakt.endDate)}</Text>
       <View>
       <ShowFriends setSelectedUser={setSelectedUser} open={currentPakt.open} friends={currentPakt.Users}/>
         {accepted ? <PaktPics selectedUser={selectedUser} paktPictures={paktPictures} /> :
@@ -144,5 +182,16 @@ class Header extends React.Component {
       );
   }
 }
+
+
+
+
+const DisplayFrequency = ({ frequency }) => (
+  <View>
+    <Text style={styles.subtitle}>{'Times Per Week'}</Text> 
+    <Text style={styles.info}>{frequency}</Text>
+  </View>
+);
+
 
 export default IndividualPakt;
