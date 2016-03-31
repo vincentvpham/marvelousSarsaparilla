@@ -63,15 +63,17 @@ const mapDispatchToProps = (dispatch) => {
           'x-amz-meta-uuid': '14365123651274',
         },
       };
-      dispatch(sendS3Picture(pictureAndS3Auth));
-
-      const fileObj = {
+      const fileInfo = {
         data: {
           path: fileNameHash,
+          userId,
+          paktId,
         },
       };
+      dispatch(sendS3Picture(pictureAndS3Auth, fileInfo));
 
-      dispatch(savePicturePath(userId, paktId, fileObj));
+
+      // dispatch(savePicturePath(userId, paktId, fileInfo));
     },
   };
 };

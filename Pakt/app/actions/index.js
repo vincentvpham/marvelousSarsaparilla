@@ -215,7 +215,24 @@ export function fetchFriends() {
   };
 }
 
-export function sendS3Picture(picture) {
+function savePicturePath(fileInfo) {
+  var userId = fileInfo.data.userId;
+  var paktId = fileInfo.data.paktId;
+  return fetch(`${url}api/pakt/picture/${userId}/${paktId}`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(fileInfo),
+  })
+  .then(response => response.json())
+  .then(json => {
+    console.log(json);
+  });
+}
+
+export function sendS3Picture(picture, fileInfo) {
   return (dispatch) => {
     // send picture to S3 with RNUploader
     RNUploader.upload(picture, (err, res) => {
@@ -233,28 +250,15 @@ export function sendS3Picture(picture) {
       if (status !== 201) {
         console.log('error posting picture to S3');
       } else {
-        // update pakts on the state
-        dispatch(fetchPakts());
-        // route to the pakts page
-        Actions.pakts();
+        // save file path to database
+        savePicturePath(fileInfo)
+        .then(() => {
+          // update pakts on the state
+          dispatch(fetchPakts());
+          // route to the pakts page
+          Actions.pakts();
+        });
       }
-    });
-  };
-}
-
-export function savePicturePath(userId, paktId, path) {
-  return dispatch => {
-    return fetch(`${url}api/pakt/picture/${userId}/${paktId}`, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(path),
-    })
-    .then(response => response.json())
-    .then(json => {
-      console.log(json);
     });
   };
 }

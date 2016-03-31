@@ -58,7 +58,8 @@ class Camera extends Component {
   takePicture(pakt) {
     this.camera.capture()
     .then((picture) => {
-      this.props.sendPictureToS3(picture, pakt.id, this.props.user.users.currentUser.id);
+      const userId = this.props.user.users.currentUser.id;
+      this.props.sendPictureToS3(picture, pakt.id, userId);
       this.setModalVisible(false);
     })
     .catch(err => console.error(err));
