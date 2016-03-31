@@ -21,16 +21,26 @@ import React, {
   PropTypes,
 } from 'react-native';
 
-//tabs for bottom navBar
+const styles = StyleSheet.create({
+  tabBar: {
+    backgroundColor: '#00A79D',
+  },
+  icon: {
+    width: 75,
+    height: 75,
+  },
+});
+
+// tabs for bottom navBar
 class TabIcon extends React.Component {
-  render(){
+  render() {
     return (
-      <Text style={{color: this.props.selected ? 'blue' :'black'}}>{this.props.title}</Text>
+      <Image source={ this.props.menuIcon } style={styles.icon} />
     );
   }
 }
 
-//function determines if user is logged in, if not, returns the 'login' id 
+// function determines if user is logged in, if not, returns the 'login' id
 const mapStateToProps = (state) => {
   return {
     selector: () => {
@@ -47,26 +57,33 @@ const mapStateToProps = (state) => {
 
 const App = () => (
   <View style={{ flex: 1, backgroundColor: '#F5FCFF' }}>
-    <View style={{ flex: .12 }}>
-      <Header title={'PAKT'}/>
+    <View style={{ flex: 0.12 }}>
+      <Header title={'PAKT'} />
     </View>
-    <View style={{ flex: .88 }}>
-      <Router scenes={scenes}/>
+    <View style={{ flex: 0.88 }}>
+      <Router scenes={scenes} />
     </View>
   </View>
 );
 
 const scenes = Actions.create(
-  <Scene key="root"  component={connect(mapStateToProps, null)(Switch)} tabs={true} >
-    <Scene key="landing"  title="Landing"  component={Landing}></Scene>
-    <Scene hideNavBar='true' key="loading" component={Loading} title="Camera" icon={TabIcon} />
-    <Scene key="tabbar" tabs={true} default='getPakts'>
-      <Scene hideNavBar='true' key="pakts" title="Pakts" icon={TabIcon} >
-        <Scene key="getPakts" component={GetPakts} title="GetPakts"/>
-        <Scene key="individualPakt" component={GetCurrentPakt} title="IndividualPakt"/>
+  <Scene key="root" component={connect(mapStateToProps, null)(Switch)} tabs={true}>
+    <Scene key="landing" title="Landing" component={Landing} />
+    <Scene hideNavBar="true" key="loading" component={Loading} title="Camera" icon={TabIcon} />
+
+    <Scene key="tabbar" tabs={true} default="getPakts" style={styles.tabBar}>
+      <Scene hideNavBar="true" key="pakts" title="Pakts"
+        icon={TabIcon} menuIcon={require('../assets/img/list.png')}
+      >
+        <Scene key="getPakts" component={GetPakts} title="GetPakts" />
+        <Scene key="individualPakt" component={GetCurrentPakt} title="IndividualPakt" />
       </Scene>
-      <Scene hideNavBar='true' key="createPakt" component={CreatePakt} title="Create Pakt" icon={TabIcon}/>
-      <Scene hideNavBar='true' key="camera" component={Camera, SendPicture} title="Camera" icon={TabIcon} />
+      <Scene hideNavBar="true" key="camera" component={SendPicture}
+        icon={TabIcon} menuIcon={require('../assets/img/camera.png')}
+      />
+      <Scene hideNavBar="true" key="createPakt" component={CreatePakt} title="Create Pakt"
+        icon={TabIcon} menuIcon={require('../assets/img/edit.png')}
+      />
     </Scene>
   </Scene>
 );
