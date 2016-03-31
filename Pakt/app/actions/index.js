@@ -85,7 +85,7 @@ function fetchPakts(refresh) {
       // Initial loading of pakts
       dispatch(requestPakts());
     }
-    return fetch(url+`api/pakts/${userId}`)
+    return fetch(`${url}api/pakts/${userId}`)
       .then(response => response.json())
       .then(json => dispatch(receivePakts(json)));
   };
@@ -109,10 +109,10 @@ function getFbInfo(userCredentials) {
     return fetch(`https://graph.facebook.com/v2.3/${userCredentials.userId}?fields=name,picture,friends,email&access_token=${userCredentials.token}`)
       .then(response => response.json())
       .then(json => {
-        return fetch(url+'api/users/login', {
+        return fetch(`${url}api/users/login`, {
           method: 'POST',
           headers: {
-            'Accept': 'application/json',
+            Accept: 'application/json',
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(json),
@@ -135,18 +135,18 @@ export function submitPakt(pakt) {
   return (dispatch, getState) => {
     const state = getState();
     const userId = state.users.currentUser.id;
-    return fetch(url+'api/pakt/' + userId, {
+    return fetch(`${url}api/pakt/${userId}`, {
       method: 'POST',
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ data: { pakt: pakt } }),
-    }) 
+    })
     .then(() => {
-      //update the pakts on the state after they submit a new pakt
-      dispatch(fetchPakts())
-      //route to the user's pakts 
+      // update the pakts on the state after they submit a new pakt
+      dispatch(fetchPakts());
+      // route to the user's pakts
       Actions.pakts();
     });
   };
@@ -166,7 +166,7 @@ export function logoutUser() {
 }
 
 export function loginNewUser(userCredentials) {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     return dispatch(getFbInfo(userCredentials));
   };
 }
@@ -187,12 +187,12 @@ function declinePakt(id) {
 
 // /api/pakt/accept/:userId/:paktId
 export function respondToPaktInvite(accepted, currentUserId, currentPaktId) {
-  const path = url+`api/pakt/accept/${currentUserId}/${currentPaktId}`;
+  const path = `${url}api/pakt/accept/${currentUserId}/${currentPaktId}`;
   return dispatch => {
     return fetch(path, {
       method: 'PUT',
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ accepted }),
@@ -209,7 +209,7 @@ export function respondToPaktInvite(accepted, currentUserId, currentPaktId) {
         return dispatch(acceptPakt(currentUserId));
       }
     });
-  }
+  };
 }
 
 export function fetchFriends() {
@@ -217,14 +217,31 @@ export function fetchFriends() {
     dispatch(requestFriends());
     const state = getState();
     const userId = state.users.currentUser.id;
-    return fetch(url+'api/users/friends/' + userId) 
+    return fetch(`${url}api/users/friends/${userId}`)
       .then(response => response.json())
       .then(json => dispatch(receiveFriends(json)));
   };
 }
 
-export function sendS3Picture(picture) {
-  return (dispatch, getState) => {
+function savePicturePath(fileInfo) {
+  var userId = fileInfo.data.userId;
+  var paktId = fileInfo.data.paktId;
+  return fetch(`${url}api/pakt/picture/${userId}/${paktId}`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(fileInfo),
+  })
+  .then(response => response.json())
+  .then(json => {
+    console.log(json);
+  });
+}
+
+export function sendS3Picture(picture, fileInfo) {
+  return (dispatch) => {
     // send picture to S3 with RNUploader
     RNUploader.upload(picture, (err, res) => {
       if (err) {
@@ -236,29 +253,20 @@ export function sendS3Picture(picture) {
 
       console.log(`upload complete with status ${status}`);
       console.log(jsonResponse);
-    });
-  };
-}
 
-export function savePicturePath(userId, paktId, path) {
-  return dispatch => {
-    return fetch(url+`api/pakt/picture/${userId}/${paktId}`, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(path),
-    })
-    .then(response => response.json())
-    .then(json => {
-      console.log(json);
-    })
-    .then(() => {
-      // update pakts on the state
-      dispatch(fetchPakts());
-      // route to the pakts page
-      Actions.pakts();
+      // make sure we are posting to S3 before reroute
+      if (status !== 201) {
+        console.log('error posting picture to S3');
+      } else {
+        // save file path to database
+        savePicturePath(fileInfo)
+        .then(() => {
+          // update pakts on the state
+          dispatch(fetchPakts());
+          // route to the pakts page
+          Actions.pakts();
+        });
+      }
     });
   };
 }
