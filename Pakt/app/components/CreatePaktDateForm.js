@@ -29,6 +29,10 @@ var styles = StyleSheet.create({
     borderColor: 'gray', 
     borderWidth: 1
   },
+  datePicker: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 // Display different options depending on if the pakt is repeating
@@ -48,19 +52,19 @@ class RepeatingEventForm extends React.Component {
     return (
       <View >
           <MKTextField
-            tintColor={MKColor.Lime}
-            textInputStyle={{ color: MKColor.Orange }}
+            tintColor={'#A9A9A9'}
+            textInputStyle={{ color: '#000' }}
             placeholder="Times Per Week"
             style={styles.textfield}
-            onChange={this.props.getInput.bind(this, 'frequency')}
-          />
+            highlightColor={'#00A79D'}
+            onChange={this.props.getInput.bind(this, 'frequency')} />
           <MKTextField
-            tintColor={MKColor.Lime}
-            textInputStyle={{ color: MKColor.Orange }}
+            tintColor={'#A9A9A9'}
+            textInputStyle={{ color: '#000' }}
             placeholder="# of Weeks"
             style={styles.textfield}
-            onChange={this.props.getInput.bind(this, 'timeFrame')}
-          />
+            highlightColor={'#00A79D'}
+            onChange={this.props.getInput.bind(this, 'timeFrame')} />
         </View>
     );
   }
@@ -80,14 +84,14 @@ class NonRepeatingEventForm extends React.Component {
 
   render() {
     return (
-      <View >
+      <View style={styles.datePicker}>
        <DatePickerIOS 
            date={this.state.date}
            style = {styles.DatePickerIOS}
            mode="date"
            onDateChange={this.onDateChange}
          />
-        </View>
+      </View>
     );
   }
 }
