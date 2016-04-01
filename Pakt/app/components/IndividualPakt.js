@@ -13,6 +13,7 @@ import React, {
 } from 'react-native';
 var _ = require('lodash');
 var moment = require('moment');
+var Button = require('react-native-button');
 import FriendsRow from './FriendsRow';
 import ProgressPics from './ProgressPics';
 
@@ -57,6 +58,21 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     textAlign:'justify',
   },
+  buttonContainerAccept: {
+    backgroundColor: '#00a79d',
+    color: 'white',
+    padding: 10,
+    margin: 5,
+  },
+  buttonContainerDecline: {
+    backgroundColor: 'red',
+    color: 'white',
+    padding: 10,
+    margin: 5,
+  },
+  sameLine: {
+    flexDirection: 'row',
+  },
 });
 
 const IndividualPakt = ({ currentPakt, respondtoInvite, accepted, currentUserId, paktPictures, selectedUser, setSelectedUser }) => (
@@ -76,17 +92,27 @@ const IndividualPakt = ({ currentPakt, respondtoInvite, accepted, currentUserId,
       <View>
         <ShowFriends setSelectedUser={setSelectedUser} open={currentPakt.open} friends={currentPakt.Users}/>
         {accepted ? <ProgressPics selectedUser={selectedUser} paktPictures={paktPictures} currentPakt={currentPakt}/> :
-          <View>
-            <TouchableHighlight onPress={() => respondtoInvite(true, currentUserId, currentPakt.id)}><Text>Accept</Text></TouchableHighlight>
-            <TouchableHighlight onPress={() => Alert.alert(
+          <View style = {styles.sameLine}>
+            <Button
+              style = { styles.buttonContainerAccept }
+              onPress={() => respondtoInvite(true, currentUserId, currentPakt.id)}
+            >
+              Accept
+            </Button>
+            <Button 
+              style = { styles.buttonContainerDecline}
+              onPress={() => Alert.alert(
               'Are you sure you want to decline this Pakt',
               null,
               [
                 { text: 'Cancel' },
                 { text: 'OK', onPress: () => respondtoInvite(false, currentUserId, currentPakt.id) },
               ]
-            )
-            }><Text>Decline</Text></TouchableHighlight>
+            )}
+            >
+              Decline
+            </Button>
+
           </View>
           }
       </View>

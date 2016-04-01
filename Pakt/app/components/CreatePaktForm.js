@@ -59,7 +59,7 @@ var styles = StyleSheet.create({
     justifyContent:'center',
   },
   buttonContainer: {
-    backgroundColor: '#66BB6A',
+    backgroundColor: '#00a79d',
     color: 'white',
     padding: 10,
     margin: 5,
