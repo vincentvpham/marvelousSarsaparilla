@@ -13,8 +13,8 @@ import LoginUser from '../containers/LoginUser';
 
 const styles = StyleSheet.create({
   loading: {
-    justifyContent: 'center',
     position: 'absolute',
+    justifyContent: 'center',
     left: 57,
   },
   loadingContainer: {
@@ -36,18 +36,23 @@ class Landing extends Component {
       this.state.fadeAnim,    
       {
         toValue: 1,
-        duration:3000
+        duration:5000
       },
     ).start();                
   }
   renderLanding() {
     return (
+
+
       <View style={styles.loadingContainer} >
+        <Image source={ require('../assets/img/scales.png') }
+          style={{position: 'absolute', top: 0, left: 0}}
+        />
         <Image source={ require('../assets/img/pakt_logo_blank.png') }
-          style={styles.loading}
+          style={{position: 'absolute', justifyContent: 'center', left: 58, top: 165}}
         />
         <Animated.Image source={ require('../assets/img/pakt_logo.png') }
-          style={{opacity:this.state.fadeAnim, position: 'relative', justifyContent: 'center'}}
+          style={{opacity:this.state.fadeAnim, position: 'absolute', justifyContent: 'center', left: 58, top: 165}}
         />
       </View>
     )

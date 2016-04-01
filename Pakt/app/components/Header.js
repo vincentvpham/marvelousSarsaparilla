@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
   logo: {
     width:120,
     height: 40,
+    top: 3,
   },
 
   logout: {
@@ -35,17 +36,18 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 10,
     alignItems: 'flex-end',
+    top: 3,
   },
 });
 
 const Header = ({ title }) => (
 <View style={styles.container} >
   <View style={styles.title}>
-    <Image  style={styles.logo} source={require('../assets/img/pakt_logo_full.png')} />
+    <Image style={styles.logo} source={require('../assets/img/pakt_logo_full.png')} />
   </View>
 
     <View style={styles.logout}>
-      <LoginUser/>
+      <LoginUser />
     </View>
 </View>
 );
