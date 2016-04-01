@@ -249,11 +249,7 @@ export function sendS3Picture(picture, fileInfo) {
         return;
       }
       const status = res.status;
-      const jsonResponse = xml2json.parser(res.data);
-
       console.log(`upload complete with status ${status}`);
-      console.log(jsonResponse);
-
       // make sure we are posting to S3 before reroute
       if (status !== 201) {
         console.log('error posting picture to S3');

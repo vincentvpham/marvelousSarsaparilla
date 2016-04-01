@@ -12,6 +12,16 @@ import React, {
   TouchableHighlight,
 } from 'react-native';
 
+import {
+  MKColor,
+  MKSlider,
+  MKRangeSlider,
+  MKTextField,
+  MKIconToggle,
+  mdl,
+  setTheme,
+} from 'react-native-material-kit';
+
 var styles = StyleSheet.create({
   TextInput: {
     height: 20, 
@@ -37,16 +47,20 @@ class RepeatingEventForm extends React.Component {
   render() {
     return (
       <View >
-          <Text>Times Per Week </Text>
-          <TextInput
-            style={styles.TextInput}
+          <MKTextField
+            tintColor={MKColor.Lime}
+            textInputStyle={{ color: MKColor.Orange }}
+            placeholder="Times Per Week"
+            style={styles.textfield}
             onChange={this.props.getInput.bind(this, 'frequency')}
-           />
-          <Text># of Weeks </Text>
-          <TextInput
-            style={styles.TextInput}
+          />
+          <MKTextField
+            tintColor={MKColor.Lime}
+            textInputStyle={{ color: MKColor.Orange }}
+            placeholder="# of Weeks"
+            style={styles.textfield}
             onChange={this.props.getInput.bind(this, 'timeFrame')}
-           />
+          />
         </View>
     );
   }
