@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#D0D6D6',
   },
   loading: {
     width: 150,

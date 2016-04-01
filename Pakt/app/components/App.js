@@ -68,7 +68,7 @@ const App = () => (
 
 const scenes = Actions.create(
   <Scene key="root" component={connect(mapStateToProps, null)(Switch)} tabs={true}>
-    <Scene key="landing" title="Landing" component={Landing} />
+    <Scene hideNavBar="true" key="landing" title="Landing" component={Landing} />
     <Scene hideNavBar="true" key="loading" component={Loading} title="Camera" icon={TabIcon} />
 
     <Scene key="tabbar" tabs={true} default="getPakts" style={styles.tabBar}>
