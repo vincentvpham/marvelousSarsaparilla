@@ -70,17 +70,20 @@ class CreatePaktForm extends React.Component {
   constructor(props) {
     super(props); 
     this.state = {};
-    //load info for the user's friends
+    // load info for the user's friends
     this.props.listTheFriends();
   }
 
   getInput(category, event) {
     if (category === 'submit') {
       // add friends who were invited to
-      let users = _.filter(this.props.friends,  ['selected', true]).map(function(friend){return friend.id}); 
+      let users = _.filter(this.props.friends, ['selected', true]).map(function(friend){return friend.id}); 
       this.state.users = users;
       // checks every field in the form 
-      if(this.state.name === undefined || this.state.description === undefined || this.state.consequenceText  === undefined || this.state.users === 0 || this.state.repeating === undefined || ((!(this.state.frequency > 0) || !(this.state.timeFrame > 0)) && this.state.endDate === undefined)) {
+      if(this.state.name === undefined || this.state.description === undefined ||
+        this.state.consequenceText  === undefined || this.state.users === 0 ||
+        this.state.repeating === undefined || ((!(this.state.frequency > 0) ||
+        !(this.state.timeFrame > 0)) && this.state.endDate === undefined)) {
           Alert.alert('Submit Again', 'Please fill every field on the form')
       } else {
         // send info to the database
@@ -99,26 +102,11 @@ class CreatePaktForm extends React.Component {
     }
   }
 
-  validate() {
-    // console.log("%$%$%$%$%@@##@@", this.state)
-    // if(!this.state.name || !this.state.description) {
-    //   console.log("&&&&&&&&&&&&&&&&&&&&&& SUBMIT AGAIN!");
-    // } else {
-      this.getInput.bind(this)
-    // }
-  }
-
   render() {
     let { friends } = this.props; 
     return (
       <View style={styles.container}>
         <Text style={styles.heading}>CREATE A PAKT</Text>
-        {/* <Text style={styles.subtitle}>Name:</Text> 
-        <TextInput 
-        //   style={styles.TextInput}
-        //   onChangeText={(text) => this.setState({name: text})}
-        //   value={this.state.name||''}
-        // /> */}
         <MKTextField
           tintColor={MKColor.Lime}
           textInputStyle={{ color: MKColor.Orange }}
@@ -146,14 +134,13 @@ class CreatePaktForm extends React.Component {
         <Text style={styles.subtitle}>Friends:</Text>
         <PaktFriendsForm friends={friends} />
         <Text style={styles.subtitle}>Repeating:</Text> 
-           
-       <Text onPress={()=>this.setState({repeating: true})}>YES</Text> 
-       <Text onPress={()=>this.setState({repeating: false})}>NO</Text> 
-       {(this.state.repeating === undefined) ? null :  <PaktDateForm  getInput= {this.getInput.bind(this)} repeating= {this.state.repeating}/>}
-       <Button
-         style={styles.buttonContainer}
-         styleDisabled={{color: 'red'}}
-         onPress={this.getInput.bind(this, 'submit')}
+        <Text onPress={()=>this.setState({repeating: true})}>YES</Text> 
+        <Text onPress={()=>this.setState({repeating: false})}>NO</Text> 
+        {(this.state.repeating === undefined) ? null :  <PaktDateForm  getInput= {this.getInput.bind(this)} repeating= {this.state.repeating}/>}
+        <Button
+          style={styles.buttonContainer}
+          styleDisabled={{color: 'red'}}
+          onPress={this.getInput.bind(this, 'submit')}
         >
           Submit
         </Button>
