@@ -10,6 +10,7 @@ import React, {
   PropTypes,
   TextInput,
   DatePickerIOS,
+  ScrollView,
   TouchableHighlight,
 } from 'react-native';
 
@@ -31,8 +32,13 @@ import PaktDateForm from './CreatePaktDateForm';
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingRight: 60,
-    paddingLeft: 90,
+    paddingRight: 30,
+    paddingLeft: 30,
+    backgroundColor: '#fff',
+    marginBottom: 48,
+  },
+  buttonHolder: {
+    flexDirection: 'row',
   },
   TextInput: {
     height: 30,
@@ -41,10 +47,10 @@ var styles = StyleSheet.create({
     borderWidth: 2,
   },
   button: {
-    backgroundColor: 'blue',
+    backgroundColor: '#00A79D',
     marginBottom: 7,
     borderRadius: 2,
-    height: 20, 
+    height: 20,
     width: 50,
   },
   subtitle: {
@@ -60,6 +66,18 @@ var styles = StyleSheet.create({
   },
   buttonContainer: {
     backgroundColor: '#00a79d',
+    color: 'white',
+    padding: 10,
+    margin: 5,
+  },
+  highlightButton: {
+    backgroundColor: '#00A79D',
+    color: 'white',
+    padding: 10,
+    margin: 5,
+  },
+  noHighlightButton: {
+    backgroundColor: '#A9A9A9',
     color: 'white',
     padding: 10,
     margin: 5,
@@ -105,46 +123,60 @@ class CreatePaktForm extends React.Component {
   render() {
     let { friends } = this.props; 
     return (
-      <View style={styles.container}>
-        <Text style={styles.heading}>CREATE A PAKT</Text>
-        <MKTextField
-          tintColor={MKColor.Lime}
-          textInputStyle={{ color: MKColor.Orange }}
-          placeholder="Name..."
-          style={styles.textfield}
-          onChangeText={(text) => this.setState({ name: text })}
-          value={this.state.name || ''}
-        />
-        <MKTextField
-          tintColor={MKColor.Lime}
-          textInputStyle={{ color: MKColor.Orange }}
-          placeholder="Description..."
-          style={styles.textfield}
-          onChangeText={(text) => this.setState({ description: text} )}
-          value={this.state.description || ''}
-        />
-        <MKTextField
-          tintColor={MKColor.Lime}
-          textInputStyle={{ color: MKColor.Orange }}
-          placeholder="Consequence..."
-          style={styles.textfield}
-          onChangeText={(text) => this.setState({ consequenceText: text })}
-          value={this.state.consequenceText || ''}
-        />
-        <Text style={styles.subtitle}>Friends:</Text>
-        <PaktFriendsForm friends={friends} />
-        <Text style={styles.subtitle}>Repeating:</Text> 
-        <Text onPress={()=>this.setState({repeating: true})}>YES</Text> 
-        <Text onPress={()=>this.setState({repeating: false})}>NO</Text> 
-        {(this.state.repeating === undefined) ? null :  <PaktDateForm  getInput= {this.getInput.bind(this)} repeating= {this.state.repeating}/>}
-        <Button
-          style={styles.buttonContainer}
-          styleDisabled={{color: 'red'}}
-          onPress={this.getInput.bind(this, 'submit')}
-        >
-          Submit
-        </Button>
-      </View>
+      <ScrollView style={styles.container}>
+        <View style={styles.container}>
+          <Text style={styles.heading}>CREATE A PAKT</Text>
+          <MKTextField
+            tintColor={'#A9A9A9'}
+            textInputStyle={{ color: '#000' }}
+            placeholder="Name..."
+            style={styles.textfield}
+            highlightColor={'#00A79D'}
+            onChangeText={(text) => this.setState({ name: text })}
+            value={this.state.name || ''} />
+          <MKTextField
+            tintColor={'#A9A9A9'}
+            textInputStyle={{ color: '#000' }}
+            placeholder="Description..."
+            style={styles.textfield}
+            highlightColor={'#00A79D'}
+            onChangeText={(text) => this.setState({ description: text} )}
+            value={this.state.description || ''} />
+          <MKTextField
+            tintColor={'#A9A9A9'}
+            textInputStyle={{ color: '#000' }}
+            placeholder="Consequence..."
+            style={styles.textfield}
+            highlightColor={'#00A79D'}
+            onChangeText={(text) => this.setState({ consequenceText: text })}
+            value={this.state.consequenceText || ''} />
+          <Text style={styles.subtitle}>Friends:</Text>
+          <PaktFriendsForm friends={friends} />
+          <Text style={styles.subtitle}>Repeating:</Text>
+          <View style={styles.buttonHolder}>
+            <Button
+              style={(this.state.repeating) ? styles.highlightButton : styles.noHighlightButton }
+              onPress={()=>this.setState({repeating: true})}
+            >
+              YES
+            </Button>
+            <Button
+              style={(this.state.repeating === undefined || this.state.repeating === true) ? styles.noHighlightButton : styles.highlightButton }
+              onPress={()=>this.setState({repeating: false})}
+            >
+              NO
+            </Button>
+          </View>
+          {(this.state.repeating === undefined) ? null :  <PaktDateForm  getInput= {this.getInput.bind(this)} repeating= {this.state.repeating}/>}
+          <Button
+            style={styles.buttonContainer}
+            styleDisabled={{color: 'red'}}
+            onPress={this.getInput.bind(this, 'submit')}
+          >
+            Submit
+          </Button>
+        </View>
+      </ScrollView>
     );
   }
 }
