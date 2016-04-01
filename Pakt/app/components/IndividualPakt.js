@@ -24,6 +24,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
   },
+  friendsRow: {
+    marginBottom: 10,
+  },
+  ScrollView: {
+    backgroundColor: 'white',
+    marginBottom: 70,
+  }, 
   subContainer: {
     flex: 1,
     backgroundColor: 'white',
@@ -34,17 +41,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: 'white',
   },
   heading: {
     marginTop: 15,
-    marginBottom: 10,
+    marginBottom: 6,
     fontSize: 22,
     justifyContent:'center',
+    textAlign: 'center',
   },
   subheading: {
-    marginBottom: 4,
-    fontSize: 15,
+    marginBottom: 15,
+    fontSize: 18,
     justifyContent:'center',
   },
   subtitle: {
@@ -69,7 +77,7 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   buttonContainerDecline: {
-    backgroundColor: 'red',
+    backgroundColor: '#A9A9A9',
     color: 'white',
     padding: 10,
     margin: 5,
@@ -82,20 +90,24 @@ const styles = StyleSheet.create({
 
 const IndividualPakt = ({ currentPakt, respondtoInvite, accepted, currentUserId, paktPictures, selectedUser, setSelectedUser }) => (
   <View style={styles.container}>
-    <ScrollView>
+    <ScrollView style= {styles.ScrollView}>
       <Header style={styles.heading} open={currentPakt.open}  win={currentPakt.Pakt_User.win} paktName={currentPakt.name.toUpperCase()}/>
       <Text style={styles.subheading} >{currentPakt.description}</Text>
-      <Text style={styles.subtitle}>{'Consequence:'.toUpperCase()}</Text>
-      <Text style={styles.info}>{currentPakt.consequenceText}</Text>
+      <View style={styles.subContainer}>
+        <Text style={styles.subtitle}>{'Consequence:'.toUpperCase()}</Text>
+        <Text style={styles.info}>{currentPakt.consequenceText}</Text>
+      </View>
       { currentPakt.repeating? <DisplayFrequency frequency={currentPakt.frequency}/> : null }
+      <View style={styles.subContainer}>
         <Text style={styles.subtitle}>{'Pakt Length:'.toUpperCase()}</Text>
         <Text style={styles.info}>{ formatDate(currentPakt.createdAt) + ' - ' + formatDate(currentPakt.endDate) }</Text>
+      </View>
       <View style={styles.subContainer}>
         <Text style={styles.subtitle}>{'Time Left:'.toUpperCase()}</Text>
         <Text style={styles.info}>{countWeeks(currentPakt.endDate)}</Text>
       </View>
       <View>
-        <ShowFriends setSelectedUser={setSelectedUser} open={currentPakt.open} friends={currentPakt.Users}/>
+        <ShowFriends style = {styles.friendsRow} setSelectedUser={setSelectedUser} open={currentPakt.open} friends={currentPakt.Users}/>
         {accepted ? <ProgressPics selectedUser={selectedUser} paktPictures={paktPictures} currentPakt={currentPakt}/> :
           <View style = {styles.sameLine}>
             <Button
@@ -126,9 +138,18 @@ const IndividualPakt = ({ currentPakt, respondtoInvite, accepted, currentUserId,
 );
 
 class ShowFriends extends React.Component {
+  FriendsView () {
+    const {open, friends, currentPakt, setSelectedUser} = this.props;
+    return (
+      <View>
+        <Text style={styles.subtitle}>{'Friends:'.toUpperCase()}</Text>
+        <FriendsRow setSelectedUser={setSelectedUser} numAllowedClicks={1} friends={friends}/> 
+      </View>
+    );
+  }
   render(){
     const {open, friends, currentPakt, setSelectedUser} = this.props;
-    return open ? <FriendsRow title={'Friends:'} setSelectedUser={setSelectedUser} numAllowedClicks={1} friends={friends}/> : <WinnersLosersView friends={friends}/>;
+    return open ? this.FriendsView() : <WinnersLosersView friends={friends}/>;
   }
 }
 
@@ -144,8 +165,10 @@ class WinnersLosersView extends React.Component {
   render(){
     return (
       <View>
-        <FriendsRow setSelectedUser={setSelectedUser} numAllowedClicks={1} friends={this.state.winners} title={'Winners:'}/>
-        <FriendsRow setSelectedUser={setSelectedUser} numAllowedClicks={1} friends={this.state.losers} title={'Losers:'}/>
+        <Text style={styles.subtitle}>{'Winners:'.toUpperCase()}</Text>
+        <FriendsRow setSelectedUser={setSelectedUser} numAllowedClicks={1} friends={this.state.winners}/>
+        <Text style={styles.subtitle}>{'Losers:'.toUpperCase()}</Text>
+        <FriendsRow setSelectedUser={setSelectedUser} numAllowedClicks={1} friends={this.state.losers}/>
       </View>
     );  
   };

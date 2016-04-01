@@ -21,6 +21,14 @@ const styles = StyleSheet.create({
     fontSize: 15,
     justifyContent: 'center',
   },
+  subtitle: {
+    margin: 4,
+    marginBottom: 6,
+    fontSize: 15,
+    fontWeight: 'bold',
+    justifyContent:'center',
+    color: '#00a79d',
+  },
   pic: {
     width: 40,
     height: 40,
@@ -38,6 +46,11 @@ const styles = StyleSheet.create({
   mainPic: {
     width: 200,
     height: 200,
+    borderRadius: 100,
+    borderWidth: 2,
+    borderColor: '#879191',
+    marginLeft: 39,
+    marginTop: 5,
   },
   dropDown: {
     flex: 1,
@@ -108,6 +121,14 @@ class ProgressPics extends Component {
 
   renderPicsView() {
     const { paktPictures, selectedUser, showImage, currentPakt } = this.props;
+    //get selected user name
+    let selectedUserName = '';
+    currentPakt.Users.forEach(function(user){
+      if(user.id === selectedUser){
+        console.log('here', user, selectedUser);
+       selectedUserName =  user.name.split(' ')[0];
+      }
+    });
     const totalWeeks = parseInt(currentPakt.timeFrame);
     const numWeeks  = this.state.numWeeks;
     const startDate = this.state.startDate;
@@ -142,7 +163,7 @@ class ProgressPics extends Component {
     return (
       <View>
         <View style={styles.subContainer}>
-          <Text>Selected week:</Text>
+          <Text style={styles.subtitle}>Selected week:</Text>
           <View style={styles.dropDown}>
             <Select
               width={50}
@@ -156,12 +177,14 @@ class ProgressPics extends Component {
             <OptionList ref="OPTIONLIST"/>
           </View>
         </View>
-        <Text style={styles.subheading}>Progess:</Text>
+        <Text style={styles.subtitle}>{ selectedUserName+"'s "}Progess:</Text>
         <View style={styles.picContainer}>
           {pictures}
           {bubbles}
         </View>
-        {(this.state.showImage) ? <Image source={{ uri: this.state.url }} style={styles.mainPic} /> : null}
+        <View style = {styles.mainPicContainer}>
+          {(this.state.showImage) ? <Image source={{ uri: this.state.url }} style={styles.mainPic} /> : null}
+        </View>
       </View>
     );
   }
