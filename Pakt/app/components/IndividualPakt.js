@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   },
   ScrollView: {
     backgroundColor: 'white',
-    marginBottom: 70,
+    marginBottom: 50,
   }, 
   subContainer: {
     flex: 1,
