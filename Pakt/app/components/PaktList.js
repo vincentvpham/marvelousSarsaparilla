@@ -44,19 +44,23 @@ class PaktList extends Component {
       return <PaktListItem pakt={pakt} onPaktClick={onPaktClick} currentUserId={currentUserId} />;
     });
 
-    return (
-      <ScrollView style={styles.scrollView}
-        refreshControl={
-          <RefreshControl
-            refreshing={isRefreshing}
-            onRefresh={onRefresh}
-            tintColor="#00A79D"
-            colors={['#D0D6D6', '#D0D6D6', '#D0D6D6']}
-            progressBackgroundColor="#D0D6D6" />
-          }>
-        {rows}
-      </ScrollView>
-    );
+    if (rows.length > 0) {
+      return (
+        <ScrollView style={styles.scrollView}
+          refreshControl={
+            <RefreshControl
+              refreshing={isRefreshing}
+              onRefresh={onRefresh}
+              tintColor="#00A79D"
+              colors={['#D0D6D6', '#D0D6D6', '#D0D6D6']}
+              progressBackgroundColor="#D0D6D6" />
+            }>
+          {rows}
+        </ScrollView>
+      );
+    } else {
+      return null;
+    }
   }
 
   render() {
