@@ -1,17 +1,18 @@
-# Marvelous Sarsaparilla
-
-Building some cool stuff (NBAS)
-
 ## Table of Contents
 
+1. [Pakt Server](#pakt-server)
 1. [Team](#team)
-2. [Development](#development)
-3. [Requirements](#requirements)
+1. [Development](#development)
+1. [Requirements](#requirements)
     1. [Installing Dependencies](#installing-dependencies)
-    2. [File Hierarchy](#hierarchy)
-4. [Contributing](#contributing)
-5. [Documentation](#documentation)
-6. [Running React Native Emulator](#running-react-native-emulator)
+    1. [File Hierarchy](#file-hierarchy)
+1. [Contributing](#contributing)
+1. [Documentation](#documentation)
+1. [Running React Native Emulator](#running-react-native-emulator)
+
+## Pakt Server
+
+You can find the corresponding Server [here](https://github.com/marvelousSarsaparilla/paktServer.git).
 
 ## Team
 
@@ -36,7 +37,7 @@ npm install
 
 ```js
 ROOT
- |__(Pakt)CLIENT__
+ |__PAKT__
      |
      |__ANDROID__
      |   |- ... etc ...
@@ -45,33 +46,46 @@ ROOT
      |   |__ACTIONS__
      |   |   |- index.js
      |   |
+     |   |__ASSETS__
+     |   |   |__IMG__
+     |   |       |- ... etc ...
+     |   |
      |   |__COMPONENTS__
      |   |   |- App.js
      |   |   |- Camera.js
+     |   |   |- CreatePaktDateForm.js
+     |   |   |- CreatePaktForm.js
+     |   |   |- CreatePaktFriendsForm.js
+     |   |   |- FriendsRow.js
+     |   |   |- Header.js
      |   |   |- IndividualPakt.js
-     |   |   |- Link.js
+     |   |   |- Landing.js
+     |   |   |- Loading.js
      |   |   |- Login.js
-     |   |   |- NavBar.js
      |   |   |- PaktList.js
      |   |   |- PaktListItem.js
+     |   |   |- ProgressPics.js
      |   |
      |   |__CONTAINERS__
-     |   |   |- FilterLink.js
+     |   |   |- CreatePakt.js
      |   |   |- GetCurrentPakt.js
      |   |   |- GetPakts.js
-     |   |   |- SwitchRoute.js
+     |   |   |- LoginUser.js
+     |   |   |- SendPicture.js
      |   |   
      |   |__REDUCERS__
      |   |   |- index.js
      |   |   |- pakts.js
-     |   |   |- visibilityFilter.js
+     |   |   |- users.js
      |   |   
      |   |__TEST__
      |   |   |- ... etc ...
      |   |
      |   |__UTILS__
-     |       |- env.example.js
-     |       |- s3_policy.js
+     |   |   |- env.example.js
+     |   |   |- s3_policy.js
+     |   |
+     |   |- index.js
      |
      |__IOS__
          |- ... etc ...
@@ -83,9 +97,6 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 ##Documentation
 [Google Doc](https://docs.google.com/document/d/1dVcplVjLmCKfeFGQ8nND-BS1UNxMItkWBqRBZwvbvWs/edit?usp=sharing)
 
-##Tests
-  > Some_testing_instructions
-
 ##Running React Native Emulator
 To run your app on iOS:
   ```sh
@@ -95,11 +106,4 @@ To run your app on iOS:
   OR
   * Open /paktClient/Pakt/ios/Pakt.xcodeproj in Xcode
   * Hit the Run button
-
-To run your app on Android:
-  * Have an Android emulator running (quickest way to get started), or a device connected
   
-  ```sh
-  cd /paktClient/Pakt
-  react-native run-android
-  ```
