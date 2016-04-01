@@ -20,11 +20,19 @@ import ProgressPics from './ProgressPics';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5FCFF',
+    backgroundColor: 'white',
     alignItems: 'center',
   },
+  friendsRow: {
+    marginBottom: 10,
+  },
+  ScrollView: {
+    backgroundColor: 'white',
+    marginBottom: 70,
+  }, 
   subContainer: {
     flex: 1,
+    backgroundColor: 'white',
     flexDirection: 'row',
   },
   pictureContainer: {
@@ -32,29 +40,32 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: 'white',
   },
   heading: {
     marginTop: 15,
+    marginBottom: 6,
     fontSize: 22,
     justifyContent:'center',
-    fontWeight: 'bold',
+    textAlign: 'center',
   },
   subheading: {
-    marginBottom: 4,
-    fontSize: 15,
+    marginBottom: 15,
+    fontSize: 18,
     justifyContent:'center',
   },
   subtitle: {
-    marginTop: 4,
-    marginBottom: 4,
+    margin: 4,
+    marginBottom: 6,
     fontSize: 15,
     fontWeight: 'bold',
     justifyContent:'center',
+    color: '#00a79d',
   },
   info: {
     fontSize: 15,
     margin: 1,
+    paddingVertical: 3,
     justifyContent:'center',
     textAlign:'justify',
   },
@@ -65,32 +76,37 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   buttonContainerDecline: {
-    backgroundColor: 'red',
+    backgroundColor: '#A9A9A9',
     color: 'white',
     padding: 10,
     margin: 5,
   },
   sameLine: {
     flexDirection: 'row',
+    justifyContent: 'center',
   },
 });
 
 const IndividualPakt = ({ currentPakt, respondtoInvite, accepted, currentUserId, paktPictures, selectedUser, setSelectedUser }) => (
   <View style={styles.container}>
-    <ScrollView>
-      <Header style={styles.heading} open={currentPakt.open}  win={currentPakt.Pakt_User.win} paktName={currentPakt.name}/>
+    <ScrollView style= {styles.ScrollView}>
+      <Header style={styles.heading} open={currentPakt.open}  win={currentPakt.Pakt_User.win} paktName={currentPakt.name.toUpperCase()}/>
       <Text style={styles.subheading} >{currentPakt.description}</Text>
-      <Text style={styles.subtitle}>{'Consequence:'}</Text>
-      <Text style={styles.info}>{currentPakt.consequenceText}</Text>
-      { currentPakt.repeating? <DisplayFrequency frequency={currentPakt.frequency}/> : null }
-        <Text style={styles.subtitle}>{'Pakt Length:'}</Text>
-        <Text style={styles.info}>{ formatDate(currentPakt.createdAt) + ' - ' + formatDate(currentPakt.endDate) }</Text>
       <View style={styles.subContainer}>
-        <Text style={styles.subtitle}>{'Time Left:'}</Text>
+        <Text style={styles.subtitle}>{'Consequence:'.toUpperCase()}</Text>
+        <Text style={styles.info}>{currentPakt.consequenceText}</Text>
+      </View>
+      { currentPakt.repeating? <DisplayFrequency frequency={currentPakt.frequency}/> : null }
+      <View style={styles.subContainer}>
+        <Text style={styles.subtitle}>{'Pakt Length:'.toUpperCase()}</Text>
+        <Text style={styles.info}>{ formatDate(currentPakt.createdAt) + ' - ' + formatDate(currentPakt.endDate) }</Text>
+      </View>
+      <View style={styles.subContainer}>
+        <Text style={styles.subtitle}>{'Time Left:'.toUpperCase()}</Text>
         <Text style={styles.info}>{countWeeks(currentPakt.endDate)}</Text>
       </View>
       <View>
-        <ShowFriends setSelectedUser={setSelectedUser} open={currentPakt.open} friends={currentPakt.Users}/>
+        <ShowFriends style = {styles.friendsRow} setSelectedUser={setSelectedUser} open={currentPakt.open} friends={currentPakt.Users}/>
         {accepted ? <ProgressPics selectedUser={selectedUser} paktPictures={paktPictures} currentPakt={currentPakt}/> :
           <View style = {styles.sameLine}>
             <Button
@@ -121,9 +137,18 @@ const IndividualPakt = ({ currentPakt, respondtoInvite, accepted, currentUserId,
 );
 
 class ShowFriends extends React.Component {
+  FriendsView () {
+    const {open, friends, currentPakt, setSelectedUser} = this.props;
+    return (
+      <View>
+        <Text style={styles.subtitle}>{'Friends:'.toUpperCase()}</Text>
+        <FriendsRow setSelectedUser={setSelectedUser} numAllowedClicks={1} friends={friends}/> 
+      </View>
+    );
+  }
   render(){
     const {open, friends, currentPakt, setSelectedUser} = this.props;
-    return open ? <FriendsRow title={'Friends:'} setSelectedUser={setSelectedUser} numAllowedClicks={1} friends={friends}/> : <WinnersLosersView friends={friends}/>;
+    return open ? this.FriendsView() : <WinnersLosersView friends={friends}/>;
   }
 }
 
@@ -139,8 +164,10 @@ class WinnersLosersView extends React.Component {
   render(){
     return (
       <View>
-        <FriendsRow setSelectedUser={setSelectedUser} numAllowedClicks={1} friends={this.state.winners} title={'Winners:'}/>
-        <FriendsRow setSelectedUser={setSelectedUser} numAllowedClicks={1} friends={this.state.losers} title={'Losers:'}/>
+        <Text style={styles.subtitle}>{'Winners:'.toUpperCase()}</Text>
+        <FriendsRow setSelectedUser={setSelectedUser} numAllowedClicks={1} friends={this.state.winners}/>
+        <Text style={styles.subtitle}>{'Losers:'.toUpperCase()}</Text>
+        <FriendsRow setSelectedUser={setSelectedUser} numAllowedClicks={1} friends={this.state.losers}/>
       </View>
     );  
   };
@@ -165,7 +192,7 @@ class Header extends React.Component {
 
 const DisplayFrequency = ({ frequency }) => (
   <View style={styles.subContainer}>
-    <Text style={styles.subtitle}>{'Times Per Week: '}</Text>
+    <Text style={styles.subtitle}>{'Times Per Week: '.toUpperCase()}</Text>
     <Text style={styles.info}>{frequency}</Text>
   </View>
 );
@@ -185,7 +212,7 @@ const countWeeks = (endDate) =>   {
 };
 
 const formatDate = (date) =>   {
-  return moment(date).format("dddd, MMMM Do");
+  return moment(date).format("MMMM Do");
 };
 
 export default IndividualPakt;

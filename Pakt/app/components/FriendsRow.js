@@ -88,9 +88,9 @@ class FriendsRow extends React.Component {
     return (
       <View>
         <TouchableHighlight underlayColor='white' onPress = {()=>{this.toggleFriendSelect(rowData);  this.forceUpdate()}} style={styles.friend}>
-          <Image source={{uri: rowData.picture}} style={styles.image}/>
+          <Image source={{uri: rowData.picture}} style={[styles.image,{borderColor: (rowData.selected) ? '#00A79D' :'#879191'}]}/>
         </TouchableHighlight>
-        { inPaktList ? null : <Text style={{color: (rowData.selected) ? 'blue' :'black'}}>{rowData.name}</Text> }
+        { inPaktList ? null : <Text style={{color: (rowData.selected) ? '#00A79D' :'black'}}>{' '+rowData.name}</Text> }
       </View>
     );
   }
