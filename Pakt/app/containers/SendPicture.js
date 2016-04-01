@@ -71,9 +71,6 @@ const mapDispatchToProps = (dispatch) => {
         },
       };
       dispatch(sendS3Picture(pictureAndS3Auth, fileInfo));
-
-
-      // dispatch(savePicturePath(userId, paktId, fileInfo));
     },
   };
 };
