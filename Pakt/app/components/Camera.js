@@ -48,29 +48,33 @@ const styles = StyleSheet.create({
 class Camera extends Component {
   constructor(props) {
     super(props);
-    this.state = { visible: false, transparent: true, animated: true, cameraType: RNCamera.constants.Type.back };
+    this.state = { visible: false, transparent: true,
+      animated: true, cameraType: RNCamera.constants.Type.back };
   }
 
   setModalVisible(visible) {
-    this.setState({visible: visible});
+    this.setState({ visible: visible });
   }
 
-  takePicture(pakt) {
+  takePicture() {
     this.camera.capture()
     .then((picture) => {
-      const userId = this.props.user.users.currentUser.id;
-      this.props.sendPictureToS3(picture, pakt.id, userId);
-      this.setModalVisible(false);
+      this.setState({ picture });
+      this.setModalVisible(true);
     })
     .catch(err => console.error(err));
+  }
+
+  sendPicture(paktId) {
+    const userId = this.props.user.users.currentUser.id;
+    this.props.sendPictureToS3(this.state.picture, paktId, userId);
+    this.setModalVisible(false);
   }
 
   switchCamera() {
     const state = this.state;
     state.cameraType = state.cameraType === RNCamera.constants.Type.back ? RNCamera.constants.Type.front : RNCamera.constants.Type.back;
     this.setState(state);
-
-    console.log(state);
   }
 
   render() {
@@ -79,7 +83,7 @@ class Camera extends Component {
       backgroundColor: this.state.transparent ? 'rgba(0, 0, 0, 0.5)' : '#f5fcff',
     };
     const innerContainerTransparentStyle = this.state.transparent
-      ? {backgroundColor: '#fff', padding: 20}
+      ? { backgroundColor: '#fff', padding: 20 }
       : null;
 
     let dataSource = new ListView.DataSource({
@@ -101,15 +105,17 @@ class Camera extends Component {
             this.camera = cam;
           }}
           style={styles.preview}
-          aspect={RNCamera.constants.Aspect.fill}>
-
+          aspect={RNCamera.constants.Aspect.fill}
+          captureQuality={RNCamera.constants.CaptureQuality.medium}
+          type={this.state.cameraType}
+        >
           <View style={styles.cameraIconContainer}>
             <TouchableHighlight onPress={this.switchCamera.bind(this)}>
               <Image source={ require('../assets/img/arrow_clockwise.png') }
                 style={styles.cameraIcon} />
             </TouchableHighlight>
 
-            <TouchableHighlight onPress={this.setModalVisible.bind(this, true)}>
+            <TouchableHighlight onPress={this.takePicture.bind(this)}>
               <Image source={ require('../assets/img/camera.png') }
                 style={styles.cameraIcon} />
             </TouchableHighlight>
@@ -127,9 +133,10 @@ class Camera extends Component {
               </Text>
               <ListView
                 dataSource={dataSource}
-                renderRow={(rowData) => <PaktListItem pakt={rowData} onPaktClick={this.takePicture.bind(this, rowData)}/>}
-                style={styles.listView} />
-                {(paktsWithoutProof.length === 0) ? <Text>None of your Pakts need proof right now...</Text> : null}
+                renderRow={(rowData) => <PaktListItem pakt={rowData} onPaktClick={this.sendPicture.bind(this, rowData.id)} />}
+                style={styles.listView}
+              />
+              {(paktsWithoutProof.length === 0) ? <Text>{"\n"}None of your Pakts need proof right now...</Text> : null}
             </View>
           </View>
         </Modal>
