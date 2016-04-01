@@ -19,9 +19,12 @@ import ProgressPics from './ProgressPics';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 65,
     backgroundColor: '#F5FCFF',
     alignItems: 'center',
+  },
+  subContainer: {
+    flex: 1,
+    flexDirection: 'row',
   },
   pictureContainer: {
     flex: 1,
@@ -34,6 +37,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     fontSize: 22,
     justifyContent:'center',
+    fontWeight: 'bold',
   },
   subheading: {
     marginBottom: 4,
@@ -58,17 +62,19 @@ const styles = StyleSheet.create({
 const IndividualPakt = ({ currentPakt, respondtoInvite, accepted, currentUserId, paktPictures, selectedUser, setSelectedUser }) => (
   <View style={styles.container}>
     <ScrollView>
-        <Header open={currentPakt.open}  win={currentPakt.Pakt_User.win} paktName={currentPakt.name}/>
-        <Text style={styles.subheading}>{currentPakt.description}</Text>
-        <Text style={styles.subtitle}>{'Consequence:'}</Text>
-        <Text style={styles.info}>{currentPakt.consequenceText}</Text>
-        { currentPakt.repeating? <DisplayFrequency frequency={currentPakt.frequency}/> : null }
+      <Header style={styles.heading} open={currentPakt.open}  win={currentPakt.Pakt_User.win} paktName={currentPakt.name}/>
+      <Text style={styles.subheading} >{currentPakt.description}</Text>
+      <Text style={styles.subtitle}>{'Consequence:'}</Text>
+      <Text style={styles.info}>{currentPakt.consequenceText}</Text>
+      { currentPakt.repeating? <DisplayFrequency frequency={currentPakt.frequency}/> : null }
         <Text style={styles.subtitle}>{'Pakt Length:'}</Text>
         <Text style={styles.info}>{ formatDate(currentPakt.createdAt) + ' - ' + formatDate(currentPakt.endDate) }</Text>
+      <View style={styles.subContainer}>
         <Text style={styles.subtitle}>{'Time Left:'}</Text>
         <Text style={styles.info}>{countWeeks(currentPakt.endDate)}</Text>
+      </View>
       <View>
-      <ShowFriends setSelectedUser={setSelectedUser} open={currentPakt.open} friends={currentPakt.Users}/>
+        <ShowFriends setSelectedUser={setSelectedUser} open={currentPakt.open} friends={currentPakt.Users}/>
         {accepted ? <ProgressPics selectedUser={selectedUser} paktPictures={paktPictures} currentPakt={currentPakt}/> :
           <View>
             <TouchableHighlight onPress={() => respondtoInvite(true, currentUserId, currentPakt.id)}><Text>Accept</Text></TouchableHighlight>
@@ -125,15 +131,15 @@ class Header extends React.Component {
     const {open, paktName} = this.props;
     return (
       <View>
-        <Text style={styles.heading}>{ open ? paktName : this.renderWinLossHeading() }</Text> 
+        <Text style={styles.heading}>{ open ? paktName : this.renderWinLossHeading() }</Text>
      </View>
     );
   }
 }
 
 const DisplayFrequency = ({ frequency }) => (
-  <View>
-    <Text style={styles.subtitle}>{'Times Per Week'}</Text> 
+  <View style={styles.subContainer}>
+    <Text style={styles.subtitle}>{'Times Per Week: '}</Text>
     <Text style={styles.info}>{frequency}</Text>
   </View>
 );

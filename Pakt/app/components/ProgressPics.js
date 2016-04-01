@@ -22,17 +22,38 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   pic: {
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
+    borderRadius:20,
+    borderWidth: 2,
+    borderColor: '#879191',
   },
   bubble: {
-    width: 50,
-    height: 50,
-    backgroundColor: 'blue',
+    width: 40,
+    height: 40,
+    borderRadius:20,
+    borderWidth: 2,
+    borderColor: '#879191',
   },
   mainPic: {
     width: 200,
     height: 200,
+  },
+  dropDown: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 5,
+    marginTop: 5,
+  },
+  subContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  option: {
+    backgroundColor: '#F5FCFF',
   },
 });
 
@@ -116,21 +137,24 @@ class ProgressPics extends Component {
       );
     });
     const bubbles = Array.from(new Array(emptyBubbleCount), () => <Image style={styles.bubble} /> );
-    const weekChoices = Array.from(new Array(numWeeks), (v, k) => <Option>{(k + 1)}</Option> );
+    const weekChoices = Array.from(new Array(numWeeks), (v, k) => <Option style={styles.option}>{(k + 1)}</Option> );
 
     return (
       <View>
-        <Text>Selected week: {this.state.numWeeks}</Text>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Select
-            width={125}
-            ref="SELECT1"
-            optionListRef={this._getOptionList.bind(this)}
-            defaultValue="Select a week"
-            onSelect={this._numWeeks.bind(this)}>
-            {weekChoices}
-          </Select>
-          <OptionList ref="OPTIONLIST"/>
+        <View style={styles.subContainer}>
+          <Text>Selected week:</Text>
+          <View style={styles.dropDown}>
+            <Select
+              width={50}
+              ref="SELECT1"
+              optionListRef={this._getOptionList.bind(this)}
+              defaultValue={this.state.numWeeks}
+              onSelect={this._numWeeks.bind(this)}>
+              {weekChoices}
+            </Select>
+            <View style={{ height: 20 }}></View>
+            <OptionList ref="OPTIONLIST"/>
+          </View>
         </View>
         <Text style={styles.subheading}>Progess:</Text>
         <View style={styles.picContainer}>
