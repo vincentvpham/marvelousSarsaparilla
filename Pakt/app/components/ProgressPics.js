@@ -37,25 +37,71 @@ const styles = StyleSheet.create({
 });
 
 var _ = require('lodash');
+var moment = require('moment');
+const DropDown = require('react-native-dropdown');
+const {
+  Select,
+  Option,
+  OptionList,
+  updatePosition
+} = DropDown;
 
 class ProgressPics extends Component {
   constructor(props) {
     super(props);
-    this.state = { url: undefined, showImage: false };
+    const { currentPakt } = this.props;
+    const current = moment(new Date());
+    const start = moment(new Date(currentPakt.createdAt));
+    const weeks = current.diff(start, 'weeks', true);
+    const numWeeks = Math.ceil(parseFloat(weeks));
+    this.state = { url: undefined, showImage: false, numWeeks: numWeeks, startDate: start.toDate() };
   }
 
   setMainPic(url) {
     this.setState({ showImage: true, url });
   }
 
+  componentDidMount() {
+    updatePosition(this.refs['SELECT1']);
+    updatePosition(this.refs['OPTIONLIST']);
+  }
+
+  _getOptionList() {
+    return this.refs['OPTIONLIST'];
+  }
+
+  _numWeeks(number) {
+    this.setState({
+      ...this.state,
+      numWeeks: number
+    });
+  }
+
   componentWillReceiveProps() {
-    this.setState({ url: undefined, showImage: false });
+    this.setState({ url: undefined, showImage: false, });
+  }
+
+  fixDate(date) {
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate())
   }
 
   renderPicsView() {
     const { paktPictures, selectedUser, showImage, currentPakt } = this.props;
-    const selectedUserPics = paktPictures.filter(function (x) {
-      return x.UserId === selectedUser;
+    const totalWeeks = parseInt(currentPakt.timeFrame);
+    const numWeeks  = this.state.numWeeks;
+    const startDate = this.state.startDate;
+    let begWeek = new Date (startDate);
+    begWeek.setDate(begWeek.getDate() + (numWeeks - 1) * 7);
+    let endWeek = new Date (startDate);
+    endWeek.setDate(endWeek.getDate() + (numWeeks) * 7);
+    var fixDate = function(date) {
+      return new Date(date.getFullYear(), date.getMonth(), date.getDate())
+    };
+    const selectedUserPics = paktPictures.filter(function (picture) {
+      const createDate = new Date(picture.createdAt);
+      return picture.UserId === selectedUser &&
+      fixDate(createDate) >= fixDate(begWeek) &&
+      fixDate(createDate) < fixDate(endWeek);
     });
     const frequency = currentPakt.frequency;
     const picsUploaded = (selectedUser === null) ? 0 : _.find(currentPakt.Users, (user) =>
@@ -70,9 +116,22 @@ class ProgressPics extends Component {
       );
     });
     const bubbles = Array.from(new Array(emptyBubbleCount), () => <Image style={styles.bubble} /> );
+    const weekChoices = Array.from(new Array(numWeeks), (v, k) => <Option>{(k + 1)}</Option> );
 
     return (
       <View>
+        <Text>Selected week: {this.state.numWeeks}</Text>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <Select
+            width={125}
+            ref="SELECT1"
+            optionListRef={this._getOptionList.bind(this)}
+            defaultValue="Select a week"
+            onSelect={this._numWeeks.bind(this)}>
+            {weekChoices}
+          </Select>
+          <OptionList ref="OPTIONLIST"/>
+        </View>
         <Text style={styles.subheading}>Progess:</Text>
         <View style={styles.picContainer}>
           {pictures}
