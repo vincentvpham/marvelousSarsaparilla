@@ -106,7 +106,7 @@ class Camera extends Component {
           }}
           style={styles.preview}
           aspect={RNCamera.constants.Aspect.fill}
-          captureQuality={RNCamera.constants.CaptureQuality.medium}
+          captureQuality={'medium'}
           type={this.state.cameraType}
         >
           <View style={styles.cameraIconContainer}>
