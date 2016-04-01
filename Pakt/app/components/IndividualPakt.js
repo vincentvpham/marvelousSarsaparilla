@@ -16,7 +16,6 @@ var moment = require('moment');
 var Button = require('react-native-button');
 import FriendsRow from './FriendsRow';
 import ProgressPics from './ProgressPics';
-// import globalStyles from '../utils/globalStyles';
 
 const styles = StyleSheet.create({
   container: {
