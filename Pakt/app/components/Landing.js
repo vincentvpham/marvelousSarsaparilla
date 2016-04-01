@@ -24,13 +24,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#D0D6D6',
   },
 });
-
 class Landing extends Component {
   constructor(props) {
     super(props);
     this.state = {fadeAnim: new Animated.Value(0)};
   }
-
   componentDidMount() {
     Animated.timing(          
       this.state.fadeAnim,    
@@ -42,8 +40,6 @@ class Landing extends Component {
   }
   renderLanding() {
     return (
-
-
       <View style={styles.loadingContainer} >
         <Image source={ require('../assets/img/scales.png') }
           style={{position: 'absolute', top: 0, left: 0}}
@@ -60,11 +56,5 @@ class Landing extends Component {
   render() {
     return this.renderLanding();
   }
-
-
-
 }
-
-
-
 export default Landing;
