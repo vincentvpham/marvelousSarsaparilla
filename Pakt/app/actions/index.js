@@ -255,9 +255,7 @@ export function sendS3Picture(picture, fileInfo) {
 
       console.log(jsonResponse);
 
-    });
-  };
-}
+  
 
 
       // make sure we are posting to S3 before reroute
