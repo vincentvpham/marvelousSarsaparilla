@@ -16,15 +16,17 @@ var moment = require('moment');
 var Button = require('react-native-button');
 import FriendsRow from './FriendsRow';
 import ProgressPics from './ProgressPics';
+// import globalStyles from '../utils/globalStyles';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5FCFF',
+    backgroundColor: 'white',
     alignItems: 'center',
   },
   subContainer: {
     flex: 1,
+    backgroundColor: 'white',
     flexDirection: 'row',
   },
   pictureContainer: {
@@ -36,9 +38,9 @@ const styles = StyleSheet.create({
   },
   heading: {
     marginTop: 15,
+    marginBottom: 10,
     fontSize: 22,
     justifyContent:'center',
-    fontWeight: 'bold',
   },
   subheading: {
     marginBottom: 4,
@@ -46,15 +48,17 @@ const styles = StyleSheet.create({
     justifyContent:'center',
   },
   subtitle: {
-    marginTop: 4,
-    marginBottom: 4,
+    margin: 4,
+    marginBottom: 6,
     fontSize: 15,
     fontWeight: 'bold',
     justifyContent:'center',
+    color: '#00a79d',
   },
   info: {
     fontSize: 15,
     margin: 1,
+    paddingVertical: 3,
     justifyContent:'center',
     textAlign:'justify',
   },
@@ -72,21 +76,22 @@ const styles = StyleSheet.create({
   },
   sameLine: {
     flexDirection: 'row',
+    justifyContent: 'center',
   },
 });
 
 const IndividualPakt = ({ currentPakt, respondtoInvite, accepted, currentUserId, paktPictures, selectedUser, setSelectedUser }) => (
   <View style={styles.container}>
     <ScrollView>
-      <Header style={styles.heading} open={currentPakt.open}  win={currentPakt.Pakt_User.win} paktName={currentPakt.name}/>
+      <Header style={styles.heading} open={currentPakt.open}  win={currentPakt.Pakt_User.win} paktName={currentPakt.name.toUpperCase()}/>
       <Text style={styles.subheading} >{currentPakt.description}</Text>
-      <Text style={styles.subtitle}>{'Consequence:'}</Text>
+      <Text style={styles.subtitle}>{'Consequence:'.toUpperCase()}</Text>
       <Text style={styles.info}>{currentPakt.consequenceText}</Text>
       { currentPakt.repeating? <DisplayFrequency frequency={currentPakt.frequency}/> : null }
-        <Text style={styles.subtitle}>{'Pakt Length:'}</Text>
+        <Text style={styles.subtitle}>{'Pakt Length:'.toUpperCase()}</Text>
         <Text style={styles.info}>{ formatDate(currentPakt.createdAt) + ' - ' + formatDate(currentPakt.endDate) }</Text>
       <View style={styles.subContainer}>
-        <Text style={styles.subtitle}>{'Time Left:'}</Text>
+        <Text style={styles.subtitle}>{'Time Left:'.toUpperCase()}</Text>
         <Text style={styles.info}>{countWeeks(currentPakt.endDate)}</Text>
       </View>
       <View>
@@ -165,7 +170,7 @@ class Header extends React.Component {
 
 const DisplayFrequency = ({ frequency }) => (
   <View style={styles.subContainer}>
-    <Text style={styles.subtitle}>{'Times Per Week: '}</Text>
+    <Text style={styles.subtitle}>{'Times Per Week: '.toUpperCase()}</Text>
     <Text style={styles.info}>{frequency}</Text>
   </View>
 );
@@ -185,7 +190,7 @@ const countWeeks = (endDate) =>   {
 };
 
 const formatDate = (date) =>   {
-  return moment(date).format("dddd, MMMM Do");
+  return moment(date).format("MMMM Do");
 };
 
 export default IndividualPakt;
