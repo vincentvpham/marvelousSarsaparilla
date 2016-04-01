@@ -33,6 +33,10 @@ var styles = StyleSheet.create({
     flex: 1,
     paddingRight: 60,
     paddingLeft: 90,
+    backgroundColor: '#fff',
+  },
+  buttonHolder: {
+    flexDirection: 'row',
   },
   TextInput: {
     height: 30,
@@ -44,7 +48,7 @@ var styles = StyleSheet.create({
     backgroundColor: 'blue',
     marginBottom: 7,
     borderRadius: 2,
-    height: 20, 
+    height: 20,
     width: 50,
   },
   subtitle: {
@@ -60,6 +64,18 @@ var styles = StyleSheet.create({
   },
   buttonContainer: {
     backgroundColor: '#00a79d',
+    color: 'white',
+    padding: 10,
+    margin: 5,
+  },
+  highlightButton: {
+    backgroundColor: '#00A79D',
+    color: 'white',
+    padding: 10,
+    margin: 5,
+  },
+  noHighlightButton: {
+    backgroundColor: '#A9A9A9',
     color: 'white',
     padding: 10,
     margin: 5,
@@ -133,9 +149,23 @@ class CreatePaktForm extends React.Component {
         />
         <Text style={styles.subtitle}>Friends:</Text>
         <PaktFriendsForm friends={friends} />
-        <Text style={styles.subtitle}>Repeating:</Text> 
-        <Text onPress={()=>this.setState({repeating: true})}>YES</Text> 
-        <Text onPress={()=>this.setState({repeating: false})}>NO</Text> 
+        <Text style={styles.subtitle}>Repeating:</Text>
+        <View style={styles.buttonHolder}>
+          <Button
+            style={(this.state.repeating) ? styles.highlightButton : styles.noHighlightButton }
+            onPress={()=>this.setState({repeating: true})}
+          >
+            YES
+          </Button>
+          <Button
+            style={(this.state.repeating === undefined || this.state.repeating === true) ? styles.noHighlightButton : styles.highlightButton }
+            onPress={()=>this.setState({repeating: false})}
+          >
+            NO
+          </Button>
+        </View>
+
+
         {(this.state.repeating === undefined) ? null :  <PaktDateForm  getInput= {this.getInput.bind(this)} repeating= {this.state.repeating}/>}
         <Button
           style={styles.buttonContainer}
