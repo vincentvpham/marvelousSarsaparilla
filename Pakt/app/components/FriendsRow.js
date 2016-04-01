@@ -25,7 +25,7 @@ const defaultStyles = StyleSheet.create({
     borderColor: '#879191',
   },
   subtitle: {
-    marginTop: 20,
+    marginTop: 10,
     marginBottom: 4,
     fontSize: 15,
     justifyContent:'center',
